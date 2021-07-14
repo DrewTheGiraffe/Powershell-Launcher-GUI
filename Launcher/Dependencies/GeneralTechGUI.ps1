@@ -1,5 +1,5 @@
-﻿# General Technician Script!
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 03/17/2021
+# General Technician Script!
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/13/2021
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -10,7 +10,7 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
 
-            Contact DSN: 915-741-0470
+            Contact DSN: 915-741-4627
 #####################################################
 #>
 Function GeneralTool{
@@ -18,13 +18,13 @@ Function GeneralTool{
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 #[system.windows.forms]::jitDebugging("false") 
+#[System.Windows.Forms.Application]::EnableVisualStyles()
 
 try { . ("C:\temp\Launcher\Dependencies\Get-InputBox.ps1") }
 catch { Write-Host -f Yellow "Unable to Located File" }
 
 
 
-#[System.Windows.Forms.Application]::EnableVisualStyles()
 
 # Globals 
 $exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" 
@@ -34,7 +34,7 @@ $LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName; # returns : Th
 
 #creates window
 $GForm = New-Object System.Windows.Forms.Form
-$GForm.Text = '[SA/WA] General Tech v2.0'
+$GForm.Text = '[SA/WA] General Tech v3.0'
 $GForm.Width = 800
 $GForm.Height = 420
 $GForm.BackColor = "White"
@@ -984,7 +984,7 @@ $PSEXECButton = New-Object System.Windows.Forms.Button
 $PSEXECButton.Location = New-Object System.Drawing.Size(460,130)
 $PSEXECButton.Size = New-Object System.Drawing.Size(185,23)
 $PSEXECButton.BackColor = "LightGray"
-$PSEXECButton.Text = "Install PSEXEC"
+$PSEXECButton.Text = "Install PSEXEC (Local Host)"
 $PSEXECButton.Add_Click(
 {
 Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
@@ -1103,7 +1103,7 @@ $QAppsButton.Add_Click({
                     sleep 1   
                     Write-Host "`nQuerying Installed Applications" -ForegroundColor Cyan
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
-                    C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s cmd /c wmic product get name > C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log
+                    C:\Windows\System32\Psinfo.exe -accepteula \\$theinfo -S > C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log
                     Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
@@ -1114,7 +1114,7 @@ $QAppsButton.Add_Click({
     })
 $GForm.Controls.Add($QAppsButton)
 
-#This Creates Button Query installed apps
+#This Creates Button Clear Output
 $ClearScreenButton = New-Object System.Windows.Forms.Button
 $ClearScreenButton.Location = New-Object System.Drawing.Size(480,220)
 $ClearScreenButton.Size = New-Object System.Drawing.Size(150,23)
@@ -1122,6 +1122,60 @@ $ClearScreenButton.BackColor = "LightGray"
 $ClearScreenButton.Text = "Clear Console Output"
 $ClearScreenButton.Add_Click({cls})
 $GForm.Controls.Add($ClearScreenButton)
+
+#This Creates Button Enable PS Remoting Remotely or Locally
+$EnablePSRemotingButton = New-Object System.Windows.Forms.Button
+$EnablePSRemotingButton.Location = New-Object System.Drawing.Size(480,250)
+$EnablePSRemotingButton.Size = New-Object System.Drawing.Size(150,23)
+$EnablePSRemotingButton.BackColor = "LightGray"
+$EnablePSRemotingButton.Text = "Enable PS Remoting"
+$EnablePSRemotingButton.Add_Click({
+    # Write Hostname to File then read it in.. 
+    # Create Dir
+    Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
+    Sleep 2
+    New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
+    Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
+    Sleep 2
+    New-Item -Path "C:\temp\Launcher\Logs" -Name "ENABLE-PSREMOTING.log" -ItemType "file" -Force
+    Sleep 1
+    Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
+    Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
+    Sleep 2
+        $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
+        Foreach ($filename in $filenames) 
+        {
+            If ($objTextBox1.Text -cne $null) 
+            {
+                cls
+                try { . ("C:\temp\Launcher\Dependencies\Enable-PSRemotingRemotely.ps1") }
+                catch { Write-Host -ForegroundColor Yellow "Unable to Locate PSRemoting Script" }
+                sleep 1   
+                Write-Host "`nAttempting to Enable PS Remoting Remotely" -ForegroundColor Cyan
+                $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
+                Enable-PSRemotingRemotely -ComputerNames $theinfo > C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log
+                Sleep 5
+                Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log"
+                Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
+                break;
+            }
+            else 
+            {   # Local Host if Hostname is Null
+                cls
+                try { . ("C:\temp\Launcher\Dependencies\Enable-PSRemotingRemotely.ps1") }
+                catch { Write-Host -ForegroundColor Yellow "Unable to Locate PSRemoting Script" }
+                sleep 1   
+                Write-Host "`nAttempting to Enable PS Remoting Locally" -ForegroundColor Cyan
+                Enable-PSRemotingRemotely -ComputerNames $env:COMPUTERNAME > C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log
+                Sleep 5
+                Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log"
+                Write-Host "`nFinished Process on remote host : $env:COMPUTERNAME" -ForegroundColor Green
+                break;
+            }
+        }
+
+})
+$GForm.Controls.Add($EnablePSRemotingButton)
 
 #This creates a label for the Credits
 $objLabel4 = New-Object System.Windows.Forms.Label
