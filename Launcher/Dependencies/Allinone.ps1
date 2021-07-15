@@ -1,3 +1,18 @@
+# All in One Script!
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/15/2021
+# MOS: 25B & 25U
+<#
+#####################################################
+    Big thanks to Reddit Friends / Sources
+ for making this script possible. The goal here
+ is to make things easier for IMO's. If you get
+ a moment feel free to check out this code. If 
+ I am still in the Army apon you reading this,
+ feel free to reach out with any feedback. 
+
+            Contact DSN: 915-741-4627
+#####################################################
+#>
 function CreateForm {
 #[reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
 #[reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
@@ -30,6 +45,12 @@ $Tab1Page = New-Object System.Windows.Forms.TabPage
 $Tab2Page = New-Object System.Windows.Forms.TabPage
 $Tab3Page = New-Object System.Windows.Forms.TabPage
 $Tab4Page = New-Object System.Windows.Forms.TabPage
+
+$DefaultThemeButton = New-Object System.Windows.Forms.Button
+$DarkThemeButton = New-Object System.Windows.Forms.Button
+$LightThemeButton = New-Object System.Windows.Forms.Button
+
+$objTextBox = New-Object System.Windows.Forms.TextBox
 $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
 #endregion
 
@@ -39,7 +60,7 @@ $form1.Text = "General Tech"
 $form1.Name = "form1"
 $form1.DataBindings.DefaultDataSourceUpdateMode = 0
 $System_Drawing_Size = New-Object System.Drawing.Size
-$form1.BackColor = "White"
+$form1.BackColor = "LightGray"
 $System_Drawing_Size.Width = 900
 $System_Drawing_Size.Height = 700
 $form1.FormBorderStyle = 'Fixed3D'
@@ -54,16 +75,17 @@ $iconBytes            = [Convert]::FromBase64String($iconBase64)
 $stream               = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Length)
 $stream.Write($iconBytes, 0, $iconBytes.Length);
 $iconImage            = [System.Drawing.Image]::FromStream($stream, $true)
-$form1.Icon    = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $stream).GetHIcon())
+$form1.Icon           = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $stream).GetHIcon())
 # ico converter : https://cloudconvert.com/png-to-ico
 
 # Draws Logo
-$img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\NewPanda.png')
+$img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png')
 $form1.BackgroundImage = $img
 $form1.BackgroundImageLayout = "Center"
 #endregion
 
 #region Tab_frontend
+
 #Tab Control 
 $tabControl.DataBindings.DefaultDataSourceUpdateMode = 0
 $System_Drawing_Point = New-Object System.Drawing.Point
@@ -76,59 +98,6 @@ $System_Drawing_Size.Height = 315
 $System_Drawing_Size.Width = 275
 $tabControl.Size = $System_Drawing_Size
 $form1.Controls.Add($tabControl)
-
-#Tab Control 2
-$tabControl2.DataBindings.DefaultDataSourceUpdateMode = 0
-$System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 550
-$System_Drawing_Point.Y = 85
-$tabControl2.Location = $System_Drawing_Point
-$tabControl2.Name = "tabControl2"
-$System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Height = 315
-$System_Drawing_Size.Width = 275
-$tabControl2.Size = $System_Drawing_Size
-$form1.Controls.Add($tabControl2)
-
-# TabControl2 | Tab 1
-$Tab1Page.DataBindings.DefaultDataSourceUpdateMode = 0
-$Tab1Page.UseVisualStyleBackColor = $True
-$Tab1Page.BackColor = "White"
-$Tab1Page.Name = "Tab1Page"
-$Tab1Page.Text = "Tab1”
-$tabControl2.Controls.Add($Tab1Page)
-
-# TabControl2 | Tab 2
-$Tab2Page.DataBindings.DefaultDataSourceUpdateMode = 0
-$Tab2Page.UseVisualStyleBackColor = $True
-$Tab2Page.BackColor = "LightGray"
-$Tab2Page.Name = "Tab2Page"
-$Tab2Page.Text = "Tab2”
-$tabControl2.Controls.Add($Tab2Page)
-
-# TabControl2 | Tab 3
-$Tab3Page.DataBindings.DefaultDataSourceUpdateMode = 0
-$Tab3Page.UseVisualStyleBackColor = $True
-$Tab3Page.BackColor = "Gray"
-$Tab3Page.Name = "Tab3Page"
-$Tab3Page.Text = "Tab3”
-$tabControl2.Controls.Add($Tab3Page)
-
-# TabControl2 | Tab 4
-$Tab4Page.DataBindings.DefaultDataSourceUpdateMode = 0
-$Tab4Page.UseVisualStyleBackColor = $True
-$Tab4Page.BackColor = "Black"
-$Tab4Page.Name = "Tab4Page"
-$Tab4Page.Text = "Tab4”
-$tabControl2.Controls.Add($Tab4Page)
-
-#Verbose Output box
-$outputBox = New-Object System.Windows.Forms.TextBox 
-$outputBox.Location = New-Object System.Drawing.Size(10,500) 
-$outputBox.Size = New-Object System.Drawing.Size(880,175) 
-$outputBox.MultiLine = $True 
-$outputBox.ScrollBars = "Vertical"
-$form1.Controls.Add($outputBox)
 
 #Troubleshooting Page
 $TroubleshootingPage.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -158,20 +127,230 @@ $MemoryPage.Name = "MemoryPage"
 $MemoryPage.Text = "Users”
 $tabControl.Controls.Add($MemoryPage)
 
+#Tab Control 2
+$tabControl2.DataBindings.DefaultDataSourceUpdateMode = 0
+$System_Drawing_Point2 = New-Object System.Drawing.Point
+$System_Drawing_Point2.X = 550
+$System_Drawing_Point2.Y = 85
+$tabControl2.Location = $System_Drawing_Point2
+$tabControl2.Name = "tabControl2"
+$System_Drawing_Size2 = New-Object System.Drawing.Size
+$System_Drawing_Size2.Height = 315
+$System_Drawing_Size2.Width = 275
+$tabControl2.Size = $System_Drawing_Size2
+$form1.Controls.Add($tabControl2)
+
+# TabControl2 | Tab 1
+$Tab1Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab1Page.UseVisualStyleBackColor = $True
+$Tab1Page.Name = "Tab1Page"
+$Tab1Page.Text = "Theme”
+$tabControl2.Controls.Add($Tab1Page)
+
+# TabControl2 | Tab 2
+$Tab2Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab2Page.UseVisualStyleBackColor = $True
+$Tab2Page.Name = "Tab2Page"
+$Tab2Page.Text = "Tab2”
+$tabControl2.Controls.Add($Tab2Page)
+
+# TabControl2 | Tab 3
+$Tab3Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab3Page.UseVisualStyleBackColor = $True
+$Tab3Page.Name = "Tab3Page"
+$Tab3Page.Text = "Tab3”
+$tabControl2.Controls.Add($Tab3Page)
+
+# TabControl2 | Tab 4
+$Tab4Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab4Page.UseVisualStyleBackColor = $True
+$Tab4Page.Name = "Tab4Page"
+$Tab4Page.Text = "Tab4”
+$tabControl2.Controls.Add($Tab4Page)
+
+#Verbose Output box
+$outputBox = New-Object System.Windows.Forms.TextBox 
+$outputBox.Location = New-Object System.Drawing.Size(10,500) 
+$outputBox.Size = New-Object System.Drawing.Size(880,175) 
+$outputBox.MultiLine = $True 
+$outputBox.ScrollBars = "Vertical"
+$form1.Controls.Add($outputBox)
+
 #endregion
 
+#region Hostname_Box
 #Add Label and TextBox
 $objLabel = New-Object System.Windows.Forms.Label
 $objLabel.Location = New-Object System.Drawing.Size(175,20)  
 $objLabel.Size = New-Object System.Drawing.Size(110,20)  
 $objLabel.Text = "Enter Hostname"
-$form1.Controls.Add($objLabel)
-$objTextBox = New-Object System.Windows.Forms.TextBox 
+$form1.Controls.Add($objLabel) 
 $objTextBox.Location = New-Object System.Drawing.Size(120,45) 
 $objTextBox.Size = New-Object System.Drawing.Size(200,20)  
 $form1.Controls.Add($objTextBox) 
+#endregion
 
-#region Buttons_Backend
+#region Buttons_ControlTabs2
+
+#region Theme Tab
+# Set Default Theme Button
+$DefaultThemeButton.TabIndex = 0
+$DefaultThemeButton.Name = "DefaultThemeButton"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 25
+$DefaultThemeButton.Size = $System_Drawing_Size
+$DefaultThemeButton.UseVisualStyleBackColor = $True
+$DefaultThemeButton.BackColor = "LightGray"
+$DefaultThemeButton.Text = "DEFAULT"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 100
+$System_Drawing_Point.Y = 100
+$DefaultThemeButton.Location = $System_Drawing_Point
+$DefaultThemeButton.DataBindings.DefaultDataSourceUpdateMode = 0
+$DefaultThemeButton.add_Click({
+
+    $form1.BackColor = "LightGray"
+    $outputBox.BackColor = "White"
+    $button1.BackColor = "LightGray"
+    $button2.BackColor = "LightGray"
+    $button3.BackColor = "LightGray"
+    $button4.BackColor = "LightGray"
+    $button5.BackColor = "LightGray"
+    $button6.BackColor = "LightGray"
+    $button7.BackColor = "LightGray"
+    $button8.BackColor = "LightGray"
+    $remotebutton1.BackColor = "LightGray"
+
+    $TabControl.BackColor = "White"
+    $TroubleshootingPage.BackColor = "LightGray"
+    $CPUPage.BackColor = "LightGray"
+    $DiskPage.BackColor = "LightGray"
+    $MemoryPage.BackColor = "LightGray"
+
+    $tabControl2.BackColor = "White"
+    $Tab1Page.BackColor = "LightGray"
+    $Tab2Page.BackColor = "LightGray"
+    $Tab3Page.BackColor = "LightGray"
+    $Tab4Page.BackColor = "LightGray"
+    $objTextBox.BackColor = "White"
+    $DefaultThemeButton.BackColor = "LightGray"
+    $LightThemeButton.BackColor = "LightGray"
+    $DarkThemeButton.BackColor = "LightGray"
+})
+$Tab1Page.Controls.Add($DefaultThemeButton)
+
+# Set Dark Theme Button
+$DarkThemeButton = New-Object System.Windows.Forms.Button
+$DarkThemeButton.Location = New-Object System.Drawing.Point(100,150)
+$DarkThemeButton.Size = New-Object System.Drawing.Size(75, 25)
+$DarkThemeButton.BackColor = "LightGray"
+$DarkThemeButton.Text = "DARK"
+$DarkThemeButton.Add_Click({
+
+    $form1.BackColor = "Gray"
+    $outputBox.BackColor = "LightGray"
+    $button1.BackColor = "LightGray"
+    $button2.BackColor = "LightGray"
+    $button3.BackColor = "LightGray"
+    $button4.BackColor = "LightGray"
+    $button5.BackColor = "LightGray"
+    $button6.BackColor = "LightGray"
+    $button7.BackColor = "LightGray"
+    $button8.BackColor = "LightGray"
+    $remotebutton1.BackColor = "LightGray"
+
+    $TabControl.BackColor = "Gray"
+    $TroubleshootingPage.BackColor = "Gray"
+    $CPUPage.BackColor = "Gray"
+    $DiskPage.BackColor = "Gray"
+    $MemoryPage.BackColor = "Gray"
+
+    $tabControl2.BackColor = "Gray"
+    $Tab1Page.BackColor = "Gray"
+    $Tab2Page.BackColor = "Gray"
+    $Tab3Page.BackColor = "Gray"
+    $Tab4Page.BackColor = "Gray"
+    $objTextBox.BackColor = "LightGray"
+    $DefaultThemeButton.BackColor = "LightGray"
+    $LightThemeButton.BackColor = "LightGray"
+    $DarkThemeButton.BackColor = "LightGray"
+})
+$Tab1Page.Controls.Add($DarkThemeButton)
+
+# Set LIGHT Theme Button
+$LightThemeButton = New-Object System.Windows.Forms.Button
+$LightThemeButton.Location = New-Object System.Drawing.Point(100,125)
+$LightThemeButton.Size = New-Object System.Drawing.Size(75, 25)
+$LightThemeButton.BackColor = "LightGray"
+$LightThemeButton.Text = "LIGHT"
+$LightThemeButton.Add_Click({
+
+    $form1.BackColor = "White"
+    $outputBox.BackColor = "White"
+    $button1.BackColor = "LightGray"
+    $button2.BackColor = "LightGray"
+    $button3.BackColor = "LightGray"
+    $button4.BackColor = "LightGray"
+    $button5.BackColor = "LightGray"
+    $button6.BackColor = "LightGray"
+    $button7.BackColor = "LightGray"
+    $button8.BackColor = "LightGray"
+    $remotebutton1.BackColor = "LightGray"
+
+    $TabControl.BackColor = "White"
+    $TroubleshootingPage.BackColor = "White"
+    $CPUPage.BackColor = "White"
+    $DiskPage.BackColor = "White"
+    $MemoryPage.BackColor = "White"
+
+    $tabControl2.BackColor = "White"
+    $Tab1Page.BackColor = "White"
+    $Tab2Page.BackColor = "White"
+    $Tab3Page.BackColor = "White"
+    $Tab4Page.BackColor = "White"
+    $objTextBox.BackColor = "White"
+    $DefaultThemeButton.BackColor = "White"
+    $LightThemeButton.BackColor = "White"
+    $DarkThemeButton.BackColor = "White"
+})
+$Tab1Page.Controls.Add($LightThemeButton)
+#endregion
+
+#region Logo Tab
+# Custom Logo 1 Theme Button
+$NewPandaPngButton = New-Object System.Windows.Forms.Button
+$NewPandaPngButton.Location = New-Object System.Drawing.Point(100,150)
+$NewPandaPngButton.Size = New-Object System.Drawing.Size(75, 25)
+$NewPandaPngButton.BackColor = "LightGray"
+$NewPandaPngButton.Text = "RiceBowl"
+$NewPandaPngButton.Add_Click({
+    # Draws Logo
+    $img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png')
+    $form1.BackgroundImage = $img
+    $form1.BackgroundImageLayout = "Center"
+})
+$Tab2Page.Controls.Add($NewPandaPngButton)
+
+# Custom Logo 1 Theme Button
+$AltPandaPngButton = New-Object System.Windows.Forms.Button
+$AltPandaPngButton.Location = New-Object System.Drawing.Point(100,125)
+$AltPandaPngButton.Size = New-Object System.Drawing.Size(75, 25)
+$AltPandaPngButton.BackColor = "LightGray"
+$AltPandaPngButton.Text = "Matrix"
+$AltPandaPngButton.Add_Click({
+    # Draws Logo
+    $img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png')
+    $form1.BackgroundImage = $img
+    $form1.BackgroundImageLayout = "Center"
+})
+$Tab2Page.Controls.Add($AltPandaPngButton)
+
+#endregion
+
+#endregion
+
+#region Buttons_ControlTabs1
 
 #Button 1 Ping
 $button1.TabIndex = 0
@@ -330,6 +509,7 @@ $CPUPage.Controls.Add($remotebutton1)
 
 #endregion
 
+
 #Save the initial state of the form
 $InitialFormWindowState = $form1.WindowState
 #Init the OnLoad event to correct the initial state of the form
@@ -338,6 +518,7 @@ $form1.add_Load($OnLoadForm_StateCorrection)
 $form1.ShowDialog()| Out-Null
 } #End function CreateForm
  
+ #region Random_funcs
  function Invoke-Sqlcmd3
 
 {
@@ -371,7 +552,7 @@ Invoke-Sqlcmd3 -ServerInstance $Server -Database Master -Query $SQLVersion | Out
 
 Function LastReboot
 {
-$Server = $objTextBox.text
+$Server = $env:COMPUTERNAME
 $wmi = Get-WmiObject -Class Win32_OperatingSystem -Computer $server
 $wmi.ConvertToDatetime($wmi.LastBootUpTime) | Select DateTime | Out-GridView -Title "$Server Last Reboot"
 }
@@ -396,6 +577,7 @@ WHERE r.status NOT IN ('background','sleeping')
  $Server = $objTextBox.text
 Invoke-Sqlcmd3 -ServerInstance $Server -Database Master -Query $Requests | Out-GridView -Title "$server Requests"
 }
+#endregion
 
 
 
