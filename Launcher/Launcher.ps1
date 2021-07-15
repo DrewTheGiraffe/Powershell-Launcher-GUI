@@ -100,13 +100,15 @@ If ($Setupbackend -eq $true){
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png
         If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container) -cne ($true)) {
+            $AltPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/28c960232d486caeaf1e80687e9a33906de158cd/Launcher/Dependencies/icon/AltPanda/AltPanda.png"
             Invoke-WebRequest -Uri $AltPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" 
-            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Cyan 
+            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Green 
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png
         If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container) -cne ($true)) {
+            $NewPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/17954326b052c83d4db5bcf17e97e48e5f938975/Launcher/Dependencies/icon/Panda/NewPanda.png"
             Invoke-WebRequest -Uri $NewPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" 
-            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Cyan 
+            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Green 
         }
         
         <#
@@ -124,8 +126,6 @@ If ($Setupbackend -eq $true){
         $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
         $ZipScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ZipExtractorGUI.ps1"
         $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/f66d6b22ecea2150a0953bd686081cd5f9c5abd7/Launcher/Dependencies/Allinone.ps1"
-        $NewPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/17954326b052c83d4db5bcf17e97e48e5f938975/Launcher/Dependencies/icon/Panda/NewPanda.png"
-        $AltPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/28c960232d486caeaf1e80687e9a33906de158cd/Launcher/Dependencies/icon/AltPanda/AltPanda.png"
         
         # **DONT EDIT BELOW THIS LINE**
         $location = "C:\temp\Extra"
