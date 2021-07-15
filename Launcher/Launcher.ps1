@@ -1,5 +1,5 @@
 # Launcher Script v2.0
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 Fort Bliss TX 07/13/2021
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 Fort Bliss TX 07/15/2021
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -9,7 +9,6 @@
  a moment feel free to check out this code. If 
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
-
             Contact DSN: 915-741-4627
 #####################################################
 #>
@@ -52,6 +51,160 @@ $LaunchButton.Text = "Launch"
 $LaunchButton.add_Click({$Script:CANCELED=$False;$info=$comboBox1.SelectedItem;$LauncherForm.Close()})
 $LauncherForm.Controls.Add($LaunchButton)
 
+# Mirror Github
+$SetupButton = New-Object System.Windows.Forms.Button
+$SetupButton.Location = New-Object System.Drawing.Point(143, 40)
+$SetupButton.Size = New-Object System.Drawing.Size(120, 23)
+$SetupButton.BackColor = "LightGray"
+$SetupButton.ForeColor = "Black"
+If((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)){$SetupButton.Text = "Install Collection"}
+else {$SetupButton.Text = "Re-Install Collection"}
+$SetupButton.Add_Click({
+    $Setupbackend=$true
+    $theoption=$comboBox1.SelectedItem
+    If ($Setupbackend -eq $true){
+        #region temp_folder_fix
+        # If path does exist C:\Temp
+        If ((Test-Path -Path "C:\Temp" -PathType Container) -eq ($true)){
+            Remove-Item -Path "C:\Temp" -Force
+            write-host "`nRepairing Script Collection Installation Directories" -ForegroundColor Yellow
+        }
+        # If path doesnt exist. C:\temp
+        If ((Test-Path -Path "C:\temp" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\" -Name "temp" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp directory" -ForegroundColor Green 
+        }
+        # If path doesnt exist exists. C:\temp\Launcher
+        If ((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp" -Name "Launcher" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher directory" -ForegroundColor Green 
+        }
+        #endregion
+        #region Changelogs
+        # If path doesnt exist exists. C:\temp\Launcher\Changelogs
+        If ((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher" -Name "Changelogs" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Changelogs directory" -ForegroundColor Green 
+        }
+        #endregion
+        #region Dependencies
+        # If path doesnt exist exists. C:\temp\Launcher\Dependencies
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher" -Name "Dependencies" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies directory" -ForegroundColor Green 
+        }
+        #endregion
+        #region Logs
+        $logsDir = "C:\temp\Launcher\Logs"
+        # If path doesnt exist exists. C:\temp\Launcher\Logs
+        If ((Test-Path -Path "C:\temp\Launcher\Logs" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher" -Name "Logs" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Logs directory" -ForegroundColor Green
+        }
+        # If File Doesnt Exist C:\temp\Launcher\Logs\ACCOUNT_PROFILES_QUERY_OUTPUT.log
+        If ((Test-Path -Path "C:\temp\Launcher\Logs\ACCOUNT_PROFILES_QUERY_OUTPUT.log" -PathType Leaf) -cne ($true)) {
+            $Account_profile_query_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/ACCOUNT_PROFILES_QUERY_OUTPUT.log"
+            Invoke-WebRequest -Uri $Account_profile_query_URL -OutFile $logsDir
+            Write-Host "`nPulled File C:\temp\Launcher\Logs\ACCOUNT_PROFILES_QUERY_OUTPUT.log From Repo!" -ForegroundColor Green
+        }
+        # If File Doesnt Exist C:\temp\Launcher\Logs\ACTIVE_USER_QUERY_OUTPUT.log
+        If ((Test-Path -Path "C:\temp\Launcher\Logs\ACTIVE_USER_QUERY_OUTPUT.log" -PathType Leaf) -cne ($true)) {
+            $Active_Users_Query_log_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/ACTIVE_USER_QUERY_OUTPUT.log"
+            Invoke-WebRequest -Uri $Active_Users_Query_log_URL -OutFile $logsDir
+            Write-Host "`nPulled File C:\temp\Launcher\Logs\ACTIVE_USER_QUERY_OUTPUT.log From Repo!" -ForegroundColor Green
+        }
+        # If File Doesnt Exist C:\temp\Launcher\Logs\BITLOCKER_KEY.log
+        If ((Test-Path -Path "C:\temp\Launcher\Logs\BITLOCKER_KEY.log" -PathType Leaf) -cne ($true)) {
+            $Bitlocker_Key_log_URL     = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/BITLOCKER_KEY.log"
+            Invoke-WebRequest -Uri $Bitlocker_Key_log_URL -OutFile $logsDir
+            Write-Host "`nPulled File C:\temp\Launcher\Logs\BITLOCKER_KEY.log From Repo!" -ForegroundColor Green
+        }
+        # If File Doesnt Exist C:\temp\Launcher\Logs\DebugLog.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Logs\DebugLog.txt" -PathType Leaf) -cne ($true)) {
+            $Application_Debug_Log_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/DebugLog.txt"
+            Invoke-WebRequest -Uri $Application_Debug_Log_URL -OutFile $logsDir
+            Write-Host "`nPulled File C:\temp\Launcher\Logs\DebugLog.txt From Repo!" -ForegroundColor Green
+        }
+        #endregion
+        #region Directories
+        $DirectoriesDir = "C:\temp\Launcher\Dependencies\Directories"
+        # If path doesnt exist exists. C:\temp\Launcher\Dependencies\Directories
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher\Dependencies" -Name "Directories" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\Directories directory" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\Citrix.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\Citrix.txt" -PathType Container) -cne ($true)) {
+            $Citrix_path_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/Citrix.txt"
+            Invoke-WebRequest -Uri $Citrix_path_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\Citrix.txt From Github Repo!" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\DCAM.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\DCAM.txt" -PathType Container) -cne ($true)) {
+            $DCAM_path_URL   = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/DCAM.txt"
+            Invoke-WebRequest -Uri $DCAM_path_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\DCAM.txt From Github Repo!" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt" -PathType Container) -cne ($true)) {
+            $Acrobat_path_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/acrobatDCPro.txt"
+            Invoke-WebRequest -Uri $Acrobat_path_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt From Github Repo!" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\firefox.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\firefox.txt" -PathType Container) -cne ($true)) {
+            $FireFox_path_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/firefox.txt"
+            Invoke-WebRequest -Uri $FireFox_path_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\firefox.txt From Github Repo!" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\google_chrome.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\google_chrome.txt" -PathType Container) -cne ($true)) {
+            $google_chrome_URL="https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/google_chrome.txt"
+            Invoke-WebRequest -Uri $google_chrome_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\google_chrome.txt From Github Repo!" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\sharepoint_editor.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\sharepoint_editor.txt" -PathType Container) -cne ($true)) {
+            $share_point_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/sharepoint_editor.txt"
+            Invoke-WebRequest -Uri $share_point_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\sharepoint_editor.txt From Github Repo!" -ForegroundColor Green
+        }
+        # If File doesnt exist exists. C:\temp\Launcher\Dependencies\Directories\Teams_Micro_URL.txt
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\Directories\Teams_Micro_URL.txt" -PathType Container) -cne ($true)) {
+            $Teams_Micro_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/teams.txt"
+            Invoke-WebRequest -Uri $Teams_Micro_URL -OutFile $DirectoriesDir
+            Write-Host "`nPulled File C:\temp\Launcher\Dependencies\Directories\Teams_Micro_URL.txt From Github Repo!" -ForegroundColor Green
+        }
+        #endregion
+        #region Backrounds
+        # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "Panda" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\Panda" -ForegroundColor Green 
+        }
+        # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "AltPanda" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Green
+        }
+        # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container) -cne ($true)) {
+            $AltPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/28c960232d486caeaf1e80687e9a33906de158cd/Launcher/Dependencies/icon/AltPanda/AltPanda.png"
+            Invoke-WebRequest -Uri $AltPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" 
+            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Green 
+        }
+        # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container) -cne ($true)) {
+            $NewPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/17954326b052c83d4db5bcf17e97e48e5f938975/Launcher/Dependencies/icon/Panda/NewPanda.png"
+            Invoke-WebRequest -Uri $NewPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" 
+            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Green 
+        }
+        #endregion
+        return;
+    }
+})
+$LauncherForm.Controls.Add($SetupButton)
+
 $SetupButton = New-Object System.Windows.Forms.Button
 $SetupButton.Location = New-Object System.Drawing.Point(30, 40)
 $SetupButton.Size = New-Object System.Drawing.Size(98, 23)
@@ -66,37 +219,37 @@ If ($Setupbackend -eq $true){
      # If path doesnt exist exists. C:\temp
         If ((Test-Path -Path "C:\temp" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\" -Name "temp" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp directory" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher
         If ((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp" -Name "Launcher" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp\Launcher directory" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp\Launcher directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Changelogs
         If ((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Changelogs" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp\Launcher\Changelogs directory" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp\Launcher\Changelogs directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Dependencies
         If ((Test-Path -Path "C:\temp\Launcher\Dependencies" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Dependencies" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp\Launcher\Dependencies directory" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Logs
         If ((Test-Path -Path "C:\temp\Launcher\Logs" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Logs" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp\Launcher\Logs directory" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp\Launcher\Logs directory" -ForegroundColor Green
         }
         # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda
         If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "Panda" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\Panda" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\Panda" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda
         If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "AltPanda" -ItemType "directory" -Force 
-            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Cyan 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Green
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png
         If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container) -cne ($true)) {
@@ -113,7 +266,6 @@ If ($Setupbackend -eq $true){
         
         <#
         Repo Link: https://github.com/DrewTheGiraffe/Powershell-Launcher-GUI/tree/main/Launcher/Dependencies
-
             What a pain in the ass this was to get working in powershell.... 
             https://raw.githack.com/
             Thank god for this website lol.. its safe and gives you raw code files from GitHub Repo's...
@@ -125,23 +277,10 @@ If ($Setupbackend -eq $true){
         $ADUSERPS1URL = ""
         $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
         $ZipScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ZipExtractorGUI.ps1"
-        $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/6315903ea790e8456f2a6adf5265d114b2f57099/Launcher/Dependencies/Allinone.ps1"
+        $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/f66d6b22ecea2150a0953bd686081cd5f9c5abd7/Launcher/Dependencies/Allinone.ps1"
         
-        # Log Links
-        $Account_profile_query_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/ACCOUNT_PROFILES_QUERY_OUTPUT.log"
-        $Active_Users_Query_log_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/ACTIVE_USER_QUERY_OUTPUT.log"
-        $Bitlocker_Key_log_URL     = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/BITLOCKER_KEY.log"
-        $Application_Debug_Log_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/DebugLog.txt"
-        
-        # Directories Links
-        $Citrix_path_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/Citrix.txt"
-        $DCAM_path_URL   = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/DCAM.txt"
-        $Acrobat_path_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/acrobatDCPro.txt"
-        $FireFox_path_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/firefox.txt"
-        $google_chrome_URL="https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/google_chrome.txt"
-        $share_point_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/sharepoint_editor.txt"
-        $Teams_Micro_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/teams.txt"
-        
+
+
         # **DONT EDIT BELOW THIS LINE**
         $location = "C:\temp\Extra"
         # Applications Script
@@ -208,16 +347,14 @@ If ($Setupbackend -eq $true){
             Invoke-WebRequest -Uri $AllInOneURL -OutFile "$location\Allinone.ps1"
             Write-Host "`nDownload finished" -ForegroundColor Green
             Sleep 1
-            Write-Host "`nZip Script Updated!" -ForegroundColor Green
+            Write-Host "`nMaster Tool Updated!" -ForegroundColor Green
             return;
         }
      else { 
         Write-Host "No Option selected" -ForegroundColor Yellow 
      }
    return;
-}
-
-$LauncherForm.Close()})
+}})
 $LauncherForm.Controls.Add($SetupButton)
 
 #region Credits
