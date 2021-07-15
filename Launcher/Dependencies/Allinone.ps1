@@ -1,7 +1,8 @@
-﻿function CreateForm {
+function CreateForm {
 #[reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
 #[reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
 
+#region Definitions
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.drawing
 
@@ -16,14 +17,23 @@ $button5 = New-Object System.Windows.Forms.Button
 $button6 = New-Object System.Windows.Forms.Button
 $button7 = New-Object System.Windows.Forms.Button
 $button8 = New-Object System.Windows.Forms.Button
+$remotebutton1 = New-Object System.Windows.Forms.Button
+
 $TabControl = New-object System.Windows.Forms.TabControl
 $TroubleshootingPage = New-Object System.Windows.Forms.TabPage
 $CPUPage = New-Object System.Windows.Forms.TabPage
 $DiskPage = New-Object System.Windows.Forms.TabPage
 $MemoryPage = New-Object System.Windows.Forms.TabPage
 
+$tabControl2 = New-object System.Windows.Forms.TabControl
+$Tab1Page = New-Object System.Windows.Forms.TabPage
+$Tab2Page = New-Object System.Windows.Forms.TabPage
+$Tab3Page = New-Object System.Windows.Forms.TabPage
+$Tab4Page = New-Object System.Windows.Forms.TabPage
 $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
+#endregion
 
+#region Form1
 #Form Parameter
 $form1.Text = "General Tech"
 $form1.Name = "form1"
@@ -31,15 +41,29 @@ $form1.DataBindings.DefaultDataSourceUpdateMode = 0
 $System_Drawing_Size = New-Object System.Drawing.Size
 $form1.BackColor = "White"
 $System_Drawing_Size.Width = 900
-$System_Drawing_Size.Height = 450
+$System_Drawing_Size.Height = 700
 $form1.FormBorderStyle = 'Fixed3D'
+$form1.MaximizeBox = $false
+$form1.MinimizeBox = $false
 $form1.ClientSize = $System_Drawing_Size
+
+# Draws Icon
+$iconConverted2Base64 = [Convert]::ToBase64String((Get-Content "C:\temp\Launcher\Dependencies\icon\NewPanda.ico" -Encoding Byte))
+$iconBase64           = $iconConverted2Base64
+$iconBytes            = [Convert]::FromBase64String($iconBase64)
+$stream               = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Length)
+$stream.Write($iconBytes, 0, $iconBytes.Length);
+$iconImage            = [System.Drawing.Image]::FromStream($stream, $true)
+$form1.Icon    = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $stream).GetHIcon())
+# ico converter : https://cloudconvert.com/png-to-ico
 
 # Draws Logo
 $img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\NewPanda.png')
 $form1.BackgroundImage = $img
 $form1.BackgroundImageLayout = "Center"
+#endregion
 
+#region Tab_frontend
 #Tab Control 
 $tabControl.DataBindings.DefaultDataSourceUpdateMode = 0
 $System_Drawing_Point = New-Object System.Drawing.Point
@@ -53,10 +77,55 @@ $System_Drawing_Size.Width = 275
 $tabControl.Size = $System_Drawing_Size
 $form1.Controls.Add($tabControl)
 
+#Tab Control 2
+$tabControl2.DataBindings.DefaultDataSourceUpdateMode = 0
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 550
+$System_Drawing_Point.Y = 85
+$tabControl2.Location = $System_Drawing_Point
+$tabControl2.Name = "tabControl2"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Height = 315
+$System_Drawing_Size.Width = 275
+$tabControl2.Size = $System_Drawing_Size
+$form1.Controls.Add($tabControl2)
+
+# TabControl2 | Tab 1
+$Tab1Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab1Page.UseVisualStyleBackColor = $True
+$Tab1Page.BackColor = "White"
+$Tab1Page.Name = "Tab1Page"
+$Tab1Page.Text = "Tab1”
+$tabControl2.Controls.Add($Tab1Page)
+
+# TabControl2 | Tab 2
+$Tab2Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab2Page.UseVisualStyleBackColor = $True
+$Tab2Page.BackColor = "LightGray"
+$Tab2Page.Name = "Tab2Page"
+$Tab2Page.Text = "Tab2”
+$tabControl2.Controls.Add($Tab2Page)
+
+# TabControl2 | Tab 3
+$Tab3Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab3Page.UseVisualStyleBackColor = $True
+$Tab3Page.BackColor = "Gray"
+$Tab3Page.Name = "Tab3Page"
+$Tab3Page.Text = "Tab3”
+$tabControl2.Controls.Add($Tab3Page)
+
+# TabControl2 | Tab 4
+$Tab4Page.DataBindings.DefaultDataSourceUpdateMode = 0
+$Tab4Page.UseVisualStyleBackColor = $True
+$Tab4Page.BackColor = "Black"
+$Tab4Page.Name = "Tab4Page"
+$Tab4Page.Text = "Tab4”
+$tabControl2.Controls.Add($Tab4Page)
+
 #Verbose Output box
 $outputBox = New-Object System.Windows.Forms.TextBox 
-$outputBox.Location = New-Object System.Drawing.Size(550,50) 
-$outputBox.Size = New-Object System.Drawing.Size(300,350) 
+$outputBox.Location = New-Object System.Drawing.Size(10,500) 
+$outputBox.Size = New-Object System.Drawing.Size(880,175) 
 $outputBox.MultiLine = $True 
 $outputBox.ScrollBars = "Vertical"
 $form1.Controls.Add($outputBox)
@@ -89,6 +158,8 @@ $MemoryPage.Name = "MemoryPage"
 $MemoryPage.Text = "Users”
 $tabControl.Controls.Add($MemoryPage)
 
+#endregion
+
 #Add Label and TextBox
 $objLabel = New-Object System.Windows.Forms.Label
 $objLabel.Location = New-Object System.Drawing.Size(175,20)  
@@ -100,6 +171,7 @@ $objTextBox.Location = New-Object System.Drawing.Size(120,45)
 $objTextBox.Size = New-Object System.Drawing.Size(200,20)  
 $form1.Controls.Add($objTextBox) 
 
+#region Buttons_Backend
 
 #Button 1 Ping
 $button1.TabIndex = 0
@@ -237,6 +309,26 @@ $button8.DataBindings.DefaultDataSourceUpdateMode = 0
 $button8.add_Click($button5_RunOnClick)
 $TroubleshootingPage.Controls.Add($button8)
 
+#Button 1 Remote | Test
+$remotebutton1.TabIndex = 0
+$remotebutton1.Name = "remotebutton1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 175
+$System_Drawing_Size.Height = 25
+$remotebutton1.Size = $System_Drawing_Size
+$remotebutton1.UseVisualStyleBackColor = $True
+$remotebutton1.Text = "Local Computer Name"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 50
+$System_Drawing_Point.Y = 165
+$remotebutton1.Location = $System_Drawing_Point
+$remotebutton1.DataBindings.DefaultDataSourceUpdateMode = 0
+$remotebutton1.Add_Click({
+    $outputBox.Text = cmd /c "ping www.google.com -4"
+})
+$CPUPage.Controls.Add($remotebutton1)
+
+#endregion
 
 #Save the initial state of the form
 $InitialFormWindowState = $form1.WindowState
