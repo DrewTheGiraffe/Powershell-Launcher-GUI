@@ -14,6 +14,7 @@ $Hostnamebutton = New-Object System.Windows.Forms.Button
 $ADUserbutton = New-Object System.Windows.Forms.Button
 $Appbutton = New-Object System.Windows.Forms.Button
 $Zipbutton = New-Object System.Windows.Forms.Button
+$Themebutton = New-Object System.Windows.Forms.Button
 $button1 = New-Object System.Windows.Forms.Button
 $button2 = New-Object System.Windows.Forms.Button
 $button3 = New-Object System.Windows.Forms.Button
@@ -65,6 +66,45 @@ $form1.BackgroundImageLayout = "Center"
 
 #endregion
 
+
+
+#region verbose_box
+
+#Verbose Output box
+$outputBox = New-Object System.Windows.Forms.TextBox 
+$outputBox.Location = New-Object System.Drawing.Size(75,450) 
+$outputBox.Size = New-Object System.Drawing.Size(750,200) 
+$outputBox.MultiLine = $True 
+$outputBox.ScrollBars = "Vertical"
+$form1.Controls.Add($outputBox)
+
+#endregion
+
+
+
+
+
+#region Page_buttons
+
+
+#General tech button
+$Gbutton.TabIndex = 0
+$Gbutton.Name = "button1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 35
+$Gbutton.Size = $System_Drawing_Size
+$Gbutton.UseVisualStyleBackColor = $True
+$Gbutton.Text = "General Tech"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 400
+$System_Drawing_Point.Y = 35
+$Gbutton.Location = $System_Drawing_Point
+$Gbutton.DataBindings.DefaultDataSourceUpdateMode = 0
+$Gbutton.add_Click({
+
+#region General_tech
+
 #region tab_control
 #Tab Control 
 $tabControl.DataBindings.DefaultDataSourceUpdateMode = 0
@@ -81,49 +121,7 @@ $form1.Controls.Add($tabControl)
 
 #endregion
 
-#region verbose_box
-
-#Verbose Output box
-$outputBox = New-Object System.Windows.Forms.TextBox 
-$outputBox.Location = New-Object System.Drawing.Size(75,450) 
-$outputBox.Size = New-Object System.Drawing.Size(750,200) 
-$outputBox.MultiLine = $True 
-$outputBox.ScrollBars = "Vertical"
-$form1.Controls.Add($outputBox)
-
-#endregion
-
-#region General Tabs
-
-#region tabs_setup
-
-#Troubleshooting Page
-$TroubleshootingPage.DataBindings.DefaultDataSourceUpdateMode = 0
-$TroubleshootingPage.UseVisualStyleBackColor = $True
-$TroubleshootingPage.Name = "TroubleshootingPage"
-$TroubleshootingPage.Text = "Troubleshooting”
-$tabControl.Controls.Add($TroubleshootingPage)
-
-#Remote Page #########FINISH##############
-$CPUPage.DataBindings.DefaultDataSourceUpdateMode = 0
-$CPUPage.UseVisualStyleBackColor = $True
-$CPUPage.Name = "CPUPage"
-$CPUPage.Text = "Remote”
-$tabControl.Controls.Add($CPUPage)
-
-#Bitlocker Page #########FINISH##############
-$BitlockerPage.DataBindings.DefaultDataSourceUpdateMode = 0
-$BitlockerPage.UseVisualStyleBackColor = $True
-$BitlockerPage.Name = "BitlockerPage"
-$BitlockerPage.Text = "Bitlocker”
-$tabControl.Controls.Add($BitlockerPage)
-
-#Users Page #########FINISH##############
-$UsersPage.DataBindings.DefaultDataSourceUpdateMode = 0
-$UsersPage.UseVisualStyleBackColor = $True
-$UsersPage.Name = "UsersPage"
-$UsersPage.Text = "Users”
-$tabControl.Controls.Add($UsersPage)
+#region Enter Hostname
 
 #Add Label and TextBox
 $objLabel = New-Object System.Windows.Forms.Label
@@ -134,104 +132,47 @@ $form1.Controls.Add($objLabel)
 $objTextBox = New-Object System.Windows.Forms.TextBox 
 $objTextBox.Location = New-Object System.Drawing.Size(120,45) 
 $objTextBox.Size = New-Object System.Drawing.Size(200,20)  
-$form1.Controls.Add($objTextBox) 
+$form1.Controls.Add($objTextBox)
 
 #endregion
 
-#region Page_buttons
-#General tech button
-$Gbutton.TabIndex = 0
-$Gbutton.Name = "button1"
-$System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Width = 75
-$System_Drawing_Size.Height = 35
-$Gbutton.Size = $System_Drawing_Size
-$Gbutton.UseVisualStyleBackColor = $True
-$Gbutton.Text = "General Tech"
-$System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 400
-$System_Drawing_Point.Y = 35
-$Gbutton.Location = $System_Drawing_Point
-$Gbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Gbutton.add_Click($Gbutton_RunOnClick)
-$form1.Controls.Add($Gbutton)
+#region tabs_setup
+
+#Troubleshooting Page
+$TroubleshootingPage.DataBindings.DefaultDataSourceUpdateMode = 0
+$TroubleshootingPage.UseVisualStyleBackColor = $True
+$TroubleshootingPage.Name = "TroubleshootingPage"
+$TroubleshootingPage.Text = "Troubleshooting"
+$tabControl.Controls.Add($TroubleshootingPage)
+
+#Remote Page #########FINISH##############
+$CPUPage.DataBindings.DefaultDataSourceUpdateMode = 0
+$CPUPage.UseVisualStyleBackColor = $True
+$CPUPage.Name = "CPUPage"
+$CPUPage.Text = "Remote"
+$tabControl.Controls.Add($CPUPage)
+
+#Bitlocker Page #########FINISH##############
+$BitlockerPage.DataBindings.DefaultDataSourceUpdateMode = 0
+$BitlockerPage.UseVisualStyleBackColor = $True
+$BitlockerPage.Name = "BitlockerPage"
+$BitlockerPage.Text = "Bitlocker"
+$tabControl.Controls.Add($BitlockerPage)
+
+#Users Page #########FINISH##############
+$UsersPage.DataBindings.DefaultDataSourceUpdateMode = 0
+$UsersPage.UseVisualStyleBackColor = $True
+$UsersPage.Name = "UsersPage"
+$UsersPage.Text = "Users"
+$tabControl.Controls.Add($UsersPage)
 
 
-#Hostname creator button
-$Hostnamebutton.TabIndex = 0
-$Hostnamebutton.Name = "button1"
-$System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Width = 75
-$System_Drawing_Size.Height = 35
-$Hostnamebutton.Size = $System_Drawing_Size
-$Hostnamebutton.UseVisualStyleBackColor = $True
-$Hostnamebutton.Text = "Create a Hostname"
-$System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 475
-$System_Drawing_Point.Y = 35
-$Hostnamebutton.Location = $System_Drawing_Point
-$Hostnamebutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Hostnamebutton.add_Click($Hostnamebutton_RunOnClick)
-$form1.Controls.Add($Hostnamebutton)
 
-
-#Ad user creation button
-$ADUserbutton.TabIndex = 0
-$ADUserbutton.Name = "button1"
-$System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Width = 75
-$System_Drawing_Size.Height = 35
-$ADUserbutton.Size = $System_Drawing_Size
-$ADUserbutton.UseVisualStyleBackColor = $True
-$ADUserbutton.Text = "Create User"
-$System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 550
-$System_Drawing_Point.Y = 35
-$ADUserbutton.Location = $System_Drawing_Point
-$ADUserbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$ADUserbutton.add_Click($ADUserbutton_RunOnClick)
-$form1.Controls.Add($ADUserbutton)
-
-
-#Application button
-$Appbutton.TabIndex = 0
-$Appbutton.Name = "button1"
-$System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Width = 75
-$System_Drawing_Size.Height = 35
-$Appbutton.Size = $System_Drawing_Size
-$Appbutton.UseVisualStyleBackColor = $True
-$Appbutton.Text = "Install Apps"
-$System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 625
-$System_Drawing_Point.Y = 35
-$Appbutton.Location = $System_Drawing_Point
-$Appbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Appbutton.add_Click($Appbutton_RunOnClick)
-$form1.Controls.Add($Appbutton)
-
-
-#Zip Extractor button
-$Zipbutton.TabIndex = 0
-$Zipbutton.Name = "button1"
-$System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Width = 75
-$System_Drawing_Size.Height = 35
-$Zipbutton.Size = $System_Drawing_Size
-$Zipbutton.UseVisualStyleBackColor = $True
-$Zipbutton.Text = "Zip Extractor"
-$System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 700
-$System_Drawing_Point.Y = 35
-$Zipbutton.Location = $System_Drawing_Point
-$Zipbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Zipbutton.add_Click($Zipbutton_RunOnClick)
-$form1.Controls.Add($Zipbutton)
 #endregion
 
 #region troubleshooting_tab
 
-#Troubleshooting Page###############################################################################
+#Troubleshooting Page
 #Button 1 Ping
 $button1.TabIndex = 0
 $button1.Name = "button1"
@@ -564,20 +505,114 @@ $UsersPage.Controls.Add($button5Users)
 
 #endregion
 
+#endregion
+})
+$form1.Controls.Add($Gbutton)
+
+
+#Hostname creator button
+$Hostnamebutton.TabIndex = 0
+$Hostnamebutton.Name = "button1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 35
+$Hostnamebutton.Size = $System_Drawing_Size
+$Hostnamebutton.UseVisualStyleBackColor = $True
+$Hostnamebutton.Text = "Create a Hostname"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 475
+$System_Drawing_Point.Y = 35
+$Hostnamebutton.Location = $System_Drawing_Point
+$Hostnamebutton.DataBindings.DefaultDataSourceUpdateMode = 0
+$Hostnamebutton.add_Click($Hostnamebutton_RunOnClick)
+$form1.Controls.Add($Hostnamebutton)
+
+
+#Ad user creation button
+$ADUserbutton.TabIndex = 0
+$ADUserbutton.Name = "button1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 35
+$ADUserbutton.Size = $System_Drawing_Size
+$ADUserbutton.UseVisualStyleBackColor = $True
+$ADUserbutton.Text = "Create User"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 550
+$System_Drawing_Point.Y = 35
+$ADUserbutton.Location = $System_Drawing_Point
+$ADUserbutton.DataBindings.DefaultDataSourceUpdateMode = 0
+$ADUserbutton.add_Click($ADUserbutton_RunOnClick)
+$form1.Controls.Add($ADUserbutton)
+
+
+#Application button
+$Appbutton.TabIndex = 0
+$Appbutton.Name = "button1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 35
+$Appbutton.Size = $System_Drawing_Size
+$Appbutton.UseVisualStyleBackColor = $True
+$Appbutton.Text = "Install Apps"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 625
+$System_Drawing_Point.Y = 35
+$Appbutton.Location = $System_Drawing_Point
+$Appbutton.DataBindings.DefaultDataSourceUpdateMode = 0
+$Appbutton.add_Click($Appbutton_RunOnClick)
+$form1.Controls.Add($Appbutton)
+
+
+#Zip Extractor button
+$Zipbutton.TabIndex = 0
+$Zipbutton.Name = "button1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 35
+$Zipbutton.Size = $System_Drawing_Size
+$Zipbutton.UseVisualStyleBackColor = $True
+$Zipbutton.Text = "Zip Extractor"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 700
+$System_Drawing_Point.Y = 35
+$Zipbutton.Location = $System_Drawing_Point
+$Zipbutton.DataBindings.DefaultDataSourceUpdateMode = 0
+$Zipbutton.add_Click($Zipbutton_RunOnClick)
+$form1.Controls.Add($Zipbutton)
+
+
+#Theme button
+$Themebutton.TabIndex = 0
+$Themebutton.Name = "button1"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 75
+$System_Drawing_Size.Height = 35
+$Themebutton.Size = $System_Drawing_Size
+$Themebutton.UseVisualStyleBackColor = $True
+$Themebutton.Text = "Change Theme"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 775
+$System_Drawing_Point.Y = 35
+$Themebutton.Location = $System_Drawing_Point
+$Themebutton.DataBindings.DefaultDataSourceUpdateMode = 0
+$Themebutton.add_Click({
+#$TabControl.Dispose($TabControl)
+
 #region Theme Tab
 # Set Default Theme Button
 $DefaultThemeButton.TabIndex = 0
 $DefaultThemeButton.Name = "DefaultThemeButton"
 $System_Drawing_Size = New-Object System.Drawing.Size
-$System_Drawing_Size.Width = 75
-$System_Drawing_Size.Height = 25
+$System_Drawing_Size.Width = 150
+$System_Drawing_Size.Height = 125
 $DefaultThemeButton.Size = $System_Drawing_Size
 $DefaultThemeButton.UseVisualStyleBackColor = $True
 $DefaultThemeButton.BackColor = "LightGray"
 $DefaultThemeButton.Text = "DEFAULT"
 $System_Drawing_Point = New-Object System.Drawing.Point
-$System_Drawing_Point.X = 400
-$System_Drawing_Point.Y = 70
+$System_Drawing_Point.X = 150
+$System_Drawing_Point.Y = 125
 $DefaultThemeButton.Location = $System_Drawing_Point
 $DefaultThemeButton.DataBindings.DefaultDataSourceUpdateMode = 0
 $DefaultThemeButton.add_Click({
@@ -611,8 +646,8 @@ $form1.Controls.Add($DefaultThemeButton)
 
 # Set Dark Theme Button
 $DarkThemeButton = New-Object System.Windows.Forms.Button
-$DarkThemeButton.Location = New-Object System.Drawing.Point(475,70)
-$DarkThemeButton.Size = New-Object System.Drawing.Size(75, 25)
+$DarkThemeButton.Location = New-Object System.Drawing.Point(375,125)
+$DarkThemeButton.Size = New-Object System.Drawing.Size(150, 125)
 $DarkThemeButton.BackColor = "LightGray"
 $DarkThemeButton.Text = "DARK"
 $DarkThemeButton.Add_Click({
@@ -645,8 +680,8 @@ $form1.Controls.Add($DarkThemeButton)
 
 # Set LIGHT Theme Button
 $LightThemeButton = New-Object System.Windows.Forms.Button
-$LightThemeButton.Location = New-Object System.Drawing.Point(550,70)
-$LightThemeButton.Size = New-Object System.Drawing.Size(75, 25)
+$LightThemeButton.Location = New-Object System.Drawing.Point(600,125)
+$LightThemeButton.Size = New-Object System.Drawing.Size(150, 125)
 $LightThemeButton.BackColor = "LightGray"
 $LightThemeButton.Text = "LIGHT"
 $LightThemeButton.Add_Click({
@@ -678,6 +713,13 @@ $LightThemeButton.Add_Click({
 })
 $form1.Controls.Add($LightThemeButton)
 #endregion
+
+})
+$form1.Controls.Add($Themebutton)
+
+#endregion
+
+
 
 #Save the initial state of the form
 $InitialFormWindowState = $form1.WindowState
