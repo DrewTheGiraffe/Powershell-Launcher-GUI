@@ -125,7 +125,7 @@ If ($Setupbackend -eq $true){
         $ADUSERPS1URL = ""
         $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
         $ZipScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ZipExtractorGUI.ps1"
-        $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/f66d6b22ecea2150a0953bd686081cd5f9c5abd7/Launcher/Dependencies/Allinone.ps1"
+        $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/6315903ea790e8456f2a6adf5265d114b2f57099/Launcher/Dependencies/Allinone.ps1"
         
         # **DONT EDIT BELOW THIS LINE**
         $location = "C:\temp\Extra"
