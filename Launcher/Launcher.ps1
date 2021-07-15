@@ -127,6 +127,21 @@ If ($Setupbackend -eq $true){
         $ZipScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ZipExtractorGUI.ps1"
         $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/6315903ea790e8456f2a6adf5265d114b2f57099/Launcher/Dependencies/Allinone.ps1"
         
+        # Log Links
+        $Account_profile_query_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/ACCOUNT_PROFILES_QUERY_OUTPUT.log"
+        $Active_Users_Query_log_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/ACTIVE_USER_QUERY_OUTPUT.log"
+        $Bitlocker_Key_log_URL     = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/BITLOCKER_KEY.log"
+        $Application_Debug_Log_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Logs/DebugLog.txt"
+        
+        # Directories Links
+        $Citrix_path_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/Citrix.txt"
+        $DCAM_path_URL   = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/DCAM.txt"
+        $Acrobat_path_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/acrobatDCPro.txt"
+        $FireFox_path_URL= "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/firefox.txt"
+        $google_chrome_URL="https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/google_chrome.txt"
+        $share_point_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/sharepoint_editor.txt"
+        $Teams_Micro_URL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/518b2e323a35ed717e56542d999723d6bd3e9a60/Launcher/Dependencies/Directories/teams.txt"
+        
         # **DONT EDIT BELOW THIS LINE**
         $location = "C:\temp\Extra"
         # Applications Script
