@@ -39,7 +39,7 @@ $iconImage            = [System.Drawing.Image]::FromStream($stream, $true)
 $LauncherForm.Icon    = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $stream).GetHIcon())
 # ico converter : https://cloudconvert.com/png-to-ico
 
-$img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\NewPanda.png')
+$img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png')
 $LauncherForm.BackgroundImage = $img
 $LauncherForm.BackgroundImageLayout = "Center"
 
@@ -87,6 +87,16 @@ If ($Setupbackend -eq $true){
         If ((Test-Path -Path "C:\temp\Launcher\Logs" -PathType Container) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Logs" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Logs directory" -ForegroundColor Cyan 
+        }
+        # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "Panda" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\Panda" -ForegroundColor Cyan 
+        }
+        # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda" -PathType Container) -cne ($true)) {
+            New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "AltPanda" -ItemType "directory" -Force 
+            Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Cyan 
         }
         
         <#
@@ -165,7 +175,7 @@ If ($Setupbackend -eq $true){
             return;
         }
         # AllInOne Script
-        If ($comboBox1.SelectedItem -eq $option6) {
+        If ($comboBox1.SelectedItem -eq $option7) {
             write-host "`nGetting Newest Script from Github!" -ForegroundColor Cyan
             Write-Host "`nFound Data on Github Repo!" -ForegroundColor Cyan
             Invoke-WebRequest -Uri $AllInOneURL -OutFile "$location\Allinone.ps1"
@@ -236,8 +246,9 @@ $option3 = 'Hostname Creator [SA/WA]'
 $option4 = 'ADUser Creator    [AO]'
 $option5 = 'General Tech       [SA/WA]'
 $option6 = 'Zip Script             [SA/WA]'
+$option7 = 'Master Tool         [SA/WA/AO]'
 
-$Choices = @($option1,$option2,$option3,$option4,$option5,$option6)
+$Choices = @($option1,$option2,$option3,$option4,$option5,$option6,$option7)
 $comboBox1 = New-Object System.Windows.Forms.ComboBox
 $comboBox1.Location = New-Object System.Drawing.Point(27, 15)
 $comboBox1.Size = New-Object System.Drawing.Size(350, 310)
@@ -315,4 +326,5 @@ If ($Script:CANCELED -cne $True) {
  else { Write-Host "Script Exited Successfully" }        
 }
 MainLauncher 
+
 
