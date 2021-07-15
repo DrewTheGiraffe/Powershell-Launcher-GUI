@@ -98,6 +98,16 @@ If ($Setupbackend -eq $true){
             New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "AltPanda" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Cyan 
         }
+        # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container) -cne ($true)) {
+            Invoke-WebRequest -Uri $AltPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" 
+            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Cyan 
+        }
+        # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container) -cne ($true)) {
+            Invoke-WebRequest -Uri $NewPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" 
+            Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Cyan 
+        }
         
         <#
         Repo Link: https://github.com/DrewTheGiraffe/Powershell-Launcher-GUI/tree/main/Launcher/Dependencies
