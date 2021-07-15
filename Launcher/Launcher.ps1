@@ -103,6 +103,7 @@ If ($Setupbackend -eq $true){
         $ADUSERPS1URL = ""
         $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
         $ZipScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ZipExtractorGUI.ps1"
+        $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/f66d6b22ecea2150a0953bd686081cd5f9c5abd7/Launcher/Dependencies/Allinone.ps1"
         
         # **DONT EDIT BELOW THIS LINE**
         $location = "C:\temp\Extra"
@@ -153,11 +154,21 @@ If ($Setupbackend -eq $true){
             Write-Host "`nGeneral Tech Script Updated!" -ForegroundColor Green
             return;
         }
-        # General Tech Script
+        # Zip Script Script
         If ($comboBox1.SelectedItem -eq $option6) {
             write-host "`nGetting Newest Script from Github!" -ForegroundColor Cyan
             Write-Host "`nFound Data on Github Repo!" -ForegroundColor Cyan
             Invoke-WebRequest -Uri $ZipScriptURL -OutFile "$location\ZipExtractorGUI.ps1"
+            Write-Host "`nDownload finished" -ForegroundColor Green
+            Sleep 1
+            Write-Host "`nZip Script Updated!" -ForegroundColor Green
+            return;
+        }
+        # AllInOne Script
+        If ($comboBox1.SelectedItem -eq $option6) {
+            write-host "`nGetting Newest Script from Github!" -ForegroundColor Cyan
+            Write-Host "`nFound Data on Github Repo!" -ForegroundColor Cyan
+            Invoke-WebRequest -Uri $AllInOneURL -OutFile "$location\Allinone.ps1"
             Write-Host "`nDownload finished" -ForegroundColor Green
             Sleep 1
             Write-Host "`nZip Script Updated!" -ForegroundColor Green
@@ -304,3 +315,4 @@ If ($Script:CANCELED -cne $True) {
  else { Write-Host "Script Exited Successfully" }        
 }
 MainLauncher 
+
