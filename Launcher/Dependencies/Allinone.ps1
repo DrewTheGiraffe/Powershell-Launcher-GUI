@@ -1,3 +1,20 @@
+# General Technician Script!
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/22/2021
+# MOS: 25B & 25U
+<#
+#####################################################
+    Big thanks to Reddit Friends / Sources
+ for making this script possible. The goal here
+ is to make things easier for IMO's. If you get
+ a moment feel free to check out this code. If 
+ I am still in the Army apon you reading this,
+ feel free to reach out with any feedback. 
+            Contact DSN: 915-741-4627
+#####################################################
+#>
+
+
+
 function CreateForm {
 #[reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
 #[reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
@@ -43,8 +60,20 @@ $TroubleshootingPage = New-Object System.Windows.Forms.TabPage
 $CPUPage = New-Object System.Windows.Forms.TabPage
 $BitlockerPage = New-Object System.Windows.Forms.TabPage
 $UsersPage = New-Object System.Windows.Forms.TabPage
-
+$objLabel1 = New-Object System.Windows.Forms.Label
+$objTextBox1 = New-Object System.Windows.Forms.TextBox
 $InitialFormWindowState = New-Object System.Windows.Forms.FormWindowState
+$objChromeCheckbox = New-Object System.Windows.Forms.Checkbox
+$objFireFoxCheckbox = New-Object System.Windows.Forms.Checkbox 
+$objMSTEAMSCheckbox = New-Object System.Windows.Forms.Checkbox 
+$objCitrixCheckbox = New-Object System.Windows.Forms.Checkbox 
+$objDCAMCheckbox = New-Object System.Windows.Forms.Checkbox
+$objWinGUICheckbox = New-Object System.Windows.Forms.Checkbox
+$objAdobeDCPROCheckbox = New-Object System.Windows.Forms.Checkbox
+$objSharePointDesigner2013Checkbox = New-Object System.Windows.Forms.Checkbox
+$objJoeSmithCheckbox = New-Object System.Windows.Forms.CheckBox
+$objGEarthCheckbox = New-Object System.Windows.Forms.CheckBox
+$objDisableLogsCheckbox = New-Object System.Windows.Forms.CheckBox
 
 #Form Parameter
 $form1.Text = "General Tech"
@@ -56,6 +85,8 @@ $System_Drawing_Size.Width = 900
 $System_Drawing_Size.Height = 700
 $form1.FormBorderStyle = 'Fixed3D'
 $form1.ClientSize = $System_Drawing_Size
+
+
 
 #region logo
 
@@ -80,6 +111,93 @@ $form1.Controls.Add($outputBox)
 
 #endregion
 
+#region draws everything
+
+
+#region Applications content
+
+#This creates a label for the TextBox1
+$objLabel1.Location = New-Object System.Drawing.Size(10,20) 
+$objLabel1.Size = New-Object System.Drawing.Size(280,20)
+[String]$MandatoryWrite = "*" 
+$objLabel1.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabel1.Text = "Enter Hostname or IPV4 Address $MandatoryWrite"
+
+#Creates the Textbox
+$objTextBox1.Location = New-Object System.Drawing.Size(10,40) 
+$objTextBox1.Size = New-Object System.Drawing.Size(260,20)
+$objTextBox1.TabIndex = 0 
+
+
+#This creates a checkbox 
+$objChromeCheckbox.Location = New-Object System.Drawing.Size(30,110) 
+$objChromeCheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objChromeCheckbox.Text = "Install Google Chrome"
+$objChromeCheckbox.TabIndex = 2
+
+#This creates a checkbox 
+$objFireFoxCheckbox.Location = New-Object System.Drawing.Size(30,130) 
+$objFireFoxCheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objFireFoxCheckbox.Text = "Install FireFox"
+$objFireFoxCheckbox.TabIndex = 3
+
+#This creates a checkbox 
+$objMSTEAMSCheckbox.Location = New-Object System.Drawing.Size(30,150) 
+$objMSTEAMSCheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objMSTEAMSCheckbox.Text = "Install MS Teams"
+$objMSTEAMSCheckbox.TabIndex = 4
+
+#This creates a checkbox 
+$objCitrixCheckbox.Location = New-Object System.Drawing.Size(30,170) 
+$objCitrixCheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objCitrixCheckbox.Text = "Install Citrix"
+$objCitrixCheckbox.TabIndex = 4
+
+#This creates a checkbox  
+$objDCAMCheckbox.Location = New-Object System.Drawing.Size(30,190) 
+$objDCAMCheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objDCAMCheckbox.Text = "Install DCAM"
+$objDCAMCheckbox.TabIndex = 5
+
+#This creates a checkbox  
+$objWinGUICheckbox.Location = New-Object System.Drawing.Size(30,210) 
+$objWinGUICheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objWinGUICheckbox.Text = "Install GSS Army (WinGUI)"
+$objWinGUICheckbox.TabIndex = 6
+
+#This creates a checkbox  
+$objAdobeDCPROCheckbox.Location = New-Object System.Drawing.Size(30,230) 
+$objAdobeDCPROCheckbox.Size = New-Object System.Drawing.Size(350,20)
+$objAdobeDCPROCheckbox.Text = "Install Adobe DC Pro"
+$objAdobeDCPROCheckbox.TabIndex = 7
+
+#This creates a checkbox  
+$objSharePointDesigner2013Checkbox.Location = New-Object System.Drawing.Size(30,250) 
+$objSharePointDesigner2013Checkbox.Size = New-Object System.Drawing.Size(350,20)
+$objSharePointDesigner2013Checkbox.Text = "Install Share Point Designer 2013"
+$objSharePointDesigner2013Checkbox.TabIndex = 8
+
+#Santiago's checkbox
+$objJoeSmithCheckbox.Location = New-Object System.Drawing.Size(30,270)
+$objJoeSmithCheckbox.size = New-Object System.Drawing.Size(350,20)
+$objJoeSmithCheckbox.Text = "Install Joe.Smith Local Administrator"
+$objJoeSmithCheckbox.TabIndex = 9
+
+# Google Earth 
+$objGEarthCheckbox.Location = New-Object System.Drawing.Size(30,290)
+$objGEarthCheckbox.size = New-Object System.Drawing.Size(350,20)
+$objGEarthCheckbox.Text = "Install Google Earth"
+$objGEarthCheckbox.TabIndex = 10
+
+$objDisableLogsCheckbox.Location = New-Object System.Drawing.Size(30,400)
+$objDisableLogsCheckbox.size = New-Object System.Drawing.Size(350,20)
+$objDisableLogsCheckbox.Text = "Disable Auto Logging [NOT RECOMMENDED]"
+$objDisableLogsCheckbox.TabIndex = 11
+
+
+#endregion
+
+#endregion
 
 
 
@@ -103,6 +221,20 @@ $Gbutton.Location = $System_Drawing_Point
 $Gbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Gbutton.add_Click({
 
+$form1.Controls.Remove($objLabel1)
+$form1.Controls.Remove($objTextBox1)
+$form1.Controls.Remove($objChromeCheckbox)
+$form1.Controls.Remove($objFireFoxCheckbox)
+$form1.Controls.Remove($objMSTEAMSCheckbox)
+$form1.Controls.Remove($objCitrixCheckbox)
+$form1.Controls.Remove($objDCAMCheckbox)
+$form1.Controls.Remove($objWinGUICheckbox)
+$form1.Controls.Remove($objAdobeDCPROCheckbox)
+$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
+$form1.Controls.Remove($objJoeSmithCheckbox)
+$form1.Controls.Remove($objGEarthCheckbox)
+$form1.Controls.Remove($objDisableLogsCheckbox)
+
 #region General_tech
 
 #region tab_control
@@ -117,6 +249,7 @@ $System_Drawing_Size = New-Object System.Drawing.Size
 $System_Drawing_Size.Height = 315
 $System_Drawing_Size.Width = 275
 $tabControl.Size = $System_Drawing_Size
+$form1.Controls.Remove($tabControl)
 $form1.Controls.Add($tabControl)
 
 #endregion
@@ -143,6 +276,7 @@ $TroubleshootingPage.DataBindings.DefaultDataSourceUpdateMode = 0
 $TroubleshootingPage.UseVisualStyleBackColor = $True
 $TroubleshootingPage.Name = "TroubleshootingPage"
 $TroubleshootingPage.Text = "Troubleshooting"
+$tabControl.Controls.Remove($TroubleshootingPage)
 $tabControl.Controls.Add($TroubleshootingPage)
 
 #Remote Page #########FINISH##############
@@ -150,6 +284,7 @@ $CPUPage.DataBindings.DefaultDataSourceUpdateMode = 0
 $CPUPage.UseVisualStyleBackColor = $True
 $CPUPage.Name = "CPUPage"
 $CPUPage.Text = "Remote"
+$tabControl.Controls.Remove($CPUPage)
 $tabControl.Controls.Add($CPUPage)
 
 #Bitlocker Page #########FINISH##############
@@ -157,6 +292,7 @@ $BitlockerPage.DataBindings.DefaultDataSourceUpdateMode = 0
 $BitlockerPage.UseVisualStyleBackColor = $True
 $BitlockerPage.Name = "BitlockerPage"
 $BitlockerPage.Text = "Bitlocker"
+$tabControl.Controls.Remove($BitlockerPage)
 $tabControl.Controls.Add($BitlockerPage)
 
 #Users Page #########FINISH##############
@@ -164,6 +300,7 @@ $UsersPage.DataBindings.DefaultDataSourceUpdateMode = 0
 $UsersPage.UseVisualStyleBackColor = $True
 $UsersPage.Name = "UsersPage"
 $UsersPage.Text = "Users"
+$tabControl.Controls.Remove($UsersPage)
 $tabControl.Controls.Add($UsersPage)
 
 
@@ -171,8 +308,7 @@ $tabControl.Controls.Add($UsersPage)
 #endregion
 
 #region troubleshooting_tab
-
-#Troubleshooting Page
+    #region TroubleshootingPage
 #Button 1 Ping
 $button1.TabIndex = 0
 $button1.Name = "button1"
@@ -327,6 +463,7 @@ $button9.add_Click($button5_RunOnClick)
 $TroubleshootingPage.Controls.Add($button9)
 
 #endregion
+
 
 #region Bitlocker_tab
 
@@ -505,7 +642,7 @@ $UsersPage.Controls.Add($button5Users)
 
 #endregion
 
-#endregion
+
 })
 $form1.Controls.Add($Gbutton)
 
@@ -560,7 +697,61 @@ $System_Drawing_Point.X = 625
 $System_Drawing_Point.Y = 35
 $Appbutton.Location = $System_Drawing_Point
 $Appbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Appbutton.add_Click($Appbutton_RunOnClick)
+$Appbutton.add_Click({
+
+
+
+
+
+#region applications content
+#This creates Textbox Label
+$form1.Controls.Add($objLabel1) 
+
+#This creates the TextBox1
+$form1.Controls.Add($objTextBox1)
+
+
+
+
+
+#region Action Check Boxes for Apps
+$form1.Controls.Add($objChromeCheckbox)
+
+
+$form1.Controls.Add($objFireFoxCheckbox)
+
+
+$form1.Controls.Add($objMSTEAMSCheckbox)
+
+
+$form1.Controls.Add($objCitrixCheckbox)
+
+
+$form1.Controls.Add($objDCAMCheckbox)
+
+
+$form1.Controls.Add($objWinGUICheckbox)
+
+
+$form1.Controls.Add($objAdobeDCPROCheckbox)
+
+
+$form1.Controls.Add($objSharePointDesigner2013Checkbox)
+
+
+$form1.Controls.Add($objJoeSmithCheckbox)
+
+
+$form1.Controls.Add($objGEarthCheckbox)
+
+
+$form1.Controls.Add($objDisableLogsCheckbox)
+#endregion
+#endregion
+
+
+})
+
 $form1.Controls.Add($Appbutton)
 
 
@@ -727,69 +918,19 @@ $InitialFormWindowState = $form1.WindowState
 $form1.add_Load($OnLoadForm_StateCorrection)
 #Show the Form
 $form1.ShowDialog()| Out-Null
-} #End function CreateForm
- 
- function Invoke-Sqlcmd3
-
-{
-    param(
-    [string]$Query,             
-    [string]$Database="tempdb",
-    [Int32]$QueryTimeout=30
-    )
-    $conn=new-object System.Data.SqlClient.SQLConnection
-    $conn.ConnectionString="Server={0};Database={1};Integrated Security=True" -f $Server,$Database
-    $conn.Open()
-    $cmd=new-object system.Data.SqlClient.SqlCommand($Query,$conn)
-    $cmd.CommandTimeout=$QueryTimeout
-    $ds=New-Object system.Data.DataSet
-    $da=New-Object system.Data.SqlClient.SqlDataAdapter($cmd)
-    [void]$da.fill($ds)
-    $conn.Close()
-    $ds.Tables[0]
+#$form1.DialogResult = "OK" | Out-Null
 }
+ #End function CreateForm
 
  
 
-Function SQLVersion
-{
-[string]$SQLVersion = @"
-SELECT  @@Version
-"@ 
- $Server = $objTextBox.text
-Invoke-Sqlcmd3 -ServerInstance $Server -Database Master -Query $SQLVersion | Out-GridView -Title "$server SQL Server Version"
-}
 
-Function LastReboot
-{
-$Server = $objTextBox.text
-$wmi = Get-WmiObject -Class Win32_OperatingSystem -Computer $server
-$wmi.ConvertToDatetime($wmi.LastBootUpTime) | Select DateTime | Out-GridView -Title "$Server Last Reboot"
-}
+ 
 
-Function Requests
-{
-[string]$Requests = @"
-SELECT
-   db_name(r.database_id) as database_name, r.session_id AS SPID,r.status,s.host_name,
-     r.start_time,(r.total_elapsed_time/1000) AS 'TotalElapsedTime Sec',
-   r.wait_type as current_wait_type,r.wait_resource as current_wait_resource,
-   r.blocking_session_id,r.logical_reads,r.reads,r.cpu_time as cpu_time_ms,r.writes,r.row_count,
-   substring(st.text,r.statement_start_offset/2,
-   (CASE WHEN r.statement_end_offset = -1 THEN len(convert(nvarchar(max), st.text)) * 2 ELSE r.statement_end_offset END - r.statement_start_offset)/2) as statement
-FROM
-   sys.dm_exec_requests r
-      LEFT OUTER JOIN sys.dm_exec_sessions s on s.session_id = r.session_id
-      LEFT OUTER JOIN sys.dm_exec_connections c on c.connection_id = r.connection_id       
-      CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) st 
-WHERE r.status NOT IN ('background','sleeping')
-"@ 
- $Server = $objTextBox.text
-Invoke-Sqlcmd3 -ServerInstance $Server -Database Master -Query $Requests | Out-GridView -Title "$server Requests"
-}
 
 
 
 #Call the Function
 
 CreateForm
+
