@@ -52,7 +52,7 @@ $OnLoadForm_StateCorrection={$GForm.WindowState=$InitialFormWindowState}
 #Init the OnLoad event to correct the initial state of the form
 $GForm.add_Load($OnLoadForm_StateCorrection)
 
-$iconConverted2Base64 = [Convert]::ToBase64String((Get-Content "C:\temp\Launcher\Dependencies\icon\NewPanda.ico" -Encoding Byte))
+$iconConverted2Base64 = [Convert]::ToBase64String((Get-Content "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.ico" -Encoding Byte))
 $iconBase64           = $iconConverted2Base64
 $iconBytes            = [Convert]::FromBase64String($iconBase64)
 $stream               = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Length)
