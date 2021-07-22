@@ -1,5 +1,5 @@
-# General Technician Script!
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/22/2021
+# Allinone Script
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/22/2021 @ 05:39
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -74,6 +74,14 @@ $objSharePointDesigner2013Checkbox = New-Object System.Windows.Forms.Checkbox
 $objJoeSmithCheckbox = New-Object System.Windows.Forms.CheckBox
 $objGEarthCheckbox = New-Object System.Windows.Forms.CheckBox
 $objDisableLogsCheckbox = New-Object System.Windows.Forms.CheckBox
+$objSamAccountNameTextBox = New-Object System.Windows.Forms.TextBox
+$objLabelSamAccountName = New-Object System.Windows.Forms.Label
+$objLabelSecGroupName = New-Object System.Windows.Forms.Label
+$objSecGroupTextBox = New-Object System.Windows.Forms.TextBox 
+$updateADPath = New-Object System.Windows.Forms.Button
+$objLabelpcdescripName = New-Object System.Windows.Forms.Label
+$objpcdescripTextBox = New-Object System.Windows.Forms.TextBox 
+$ButtonStart = New-Object System.Windows.Forms.Button
 
 #Form Parameter
 $form1.Text = "General Tech"
@@ -97,7 +105,16 @@ $form1.BackgroundImageLayout = "Center"
 
 #endregion
 
-
+#Add Label and TextBox
+$objLabel = New-Object System.Windows.Forms.Label
+$objLabel.Location = New-Object System.Drawing.Size(175,20)  
+$objLabel.Size = New-Object System.Drawing.Size(110,20)  
+$objLabel.Text = "Enter Hostname"
+$form1.Controls.Add($objLabel)
+$objTextBox = New-Object System.Windows.Forms.TextBox 
+$objTextBox.Location = New-Object System.Drawing.Size(120,45) 
+$objTextBox.Size = New-Object System.Drawing.Size(200,20)  
+$form1.Controls.Add($objTextBox)
 
 #region verbose_box
 
@@ -113,21 +130,7 @@ $form1.Controls.Add($outputBox)
 
 #region draws everything
 
-
 #region Applications content
-
-#This creates a label for the TextBox1
-$objLabel1.Location = New-Object System.Drawing.Size(10,20) 
-$objLabel1.Size = New-Object System.Drawing.Size(280,20)
-[String]$MandatoryWrite = "*" 
-$objLabel1.ForeColor = [System.Drawing.Color]::FromName("Red")
-$objLabel1.Text = "Enter Hostname or IPV4 Address $MandatoryWrite"
-
-#Creates the Textbox
-$objTextBox1.Location = New-Object System.Drawing.Size(10,40) 
-$objTextBox1.Size = New-Object System.Drawing.Size(260,20)
-$objTextBox1.TabIndex = 0 
-
 
 #This creates a checkbox 
 $objChromeCheckbox.Location = New-Object System.Drawing.Size(30,110) 
@@ -194,18 +197,14 @@ $objDisableLogsCheckbox.size = New-Object System.Drawing.Size(350,20)
 $objDisableLogsCheckbox.Text = "Disable Auto Logging [NOT RECOMMENDED]"
 $objDisableLogsCheckbox.TabIndex = 11
 
-
 #endregion
 
 #endregion
-
-
-
 
 #region Page_buttons
 
 
-#General tech button
+#region General tech button
 $Gbutton.TabIndex = 0
 $Gbutton.Name = "button1"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -221,6 +220,7 @@ $Gbutton.Location = $System_Drawing_Point
 $Gbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Gbutton.add_Click({
 
+#region remove
 $form1.Controls.Remove($objLabel1)
 $form1.Controls.Remove($objTextBox1)
 $form1.Controls.Remove($objChromeCheckbox)
@@ -235,6 +235,7 @@ $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
 
+#endregion
 #region General_tech
 
 #region tab_control
@@ -254,20 +255,7 @@ $form1.Controls.Add($tabControl)
 
 #endregion
 
-#region Enter Hostname
 
-#Add Label and TextBox
-$objLabel = New-Object System.Windows.Forms.Label
-$objLabel.Location = New-Object System.Drawing.Size(175,20)  
-$objLabel.Size = New-Object System.Drawing.Size(110,20)  
-$objLabel.Text = "Enter Hostname"
-$form1.Controls.Add($objLabel)
-$objTextBox = New-Object System.Windows.Forms.TextBox 
-$objTextBox.Location = New-Object System.Drawing.Size(120,45) 
-$objTextBox.Size = New-Object System.Drawing.Size(200,20)  
-$form1.Controls.Add($objTextBox)
-
-#endregion
 
 #region tabs_setup
 
@@ -303,12 +291,10 @@ $UsersPage.Text = "Users"
 $tabControl.Controls.Remove($UsersPage)
 $tabControl.Controls.Add($UsersPage)
 
-
-
 #endregion
 
 #region troubleshooting_tab
-    #region TroubleshootingPage
+
 #Button 1 Ping
 $button1.TabIndex = 0
 $button1.Name = "button1"
@@ -463,7 +449,6 @@ $button9.add_Click($button5_RunOnClick)
 $TroubleshootingPage.Controls.Add($button9)
 
 #endregion
-
 
 #region Bitlocker_tab
 
@@ -640,14 +625,12 @@ $UsersPage.Controls.Add($button5Users)
 
 #endregion
 
-#endregion
-
-
 })
 $form1.Controls.Add($Gbutton)
+#endregion
+#endregion
 
-
-#Hostname creator button
+#region Hostname creator button
 $Hostnamebutton.TabIndex = 0
 $Hostnamebutton.Name = "button1"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -661,11 +644,90 @@ $System_Drawing_Point.X = 475
 $System_Drawing_Point.Y = 35
 $Hostnamebutton.Location = $System_Drawing_Point
 $Hostnamebutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Hostnamebutton.add_Click($Hostnamebutton_RunOnClick)
+$Hostnamebutton.add_Click({
+
+#This creates a label for the objLabelSamAccountName
+$objLabelSamAccountName.Location = New-Object System.Drawing.Size(180,80) 
+$objLabelSamAccountName.Size = New-Object System.Drawing.Size(140,20)
+[String]$MandatoryWrite = "*" 
+#$objLabelSamAccountName.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabelSamAccountName.Text = "Enter New SAN $MandatoryWrite"
+$form1.Controls.Add($objLabelSamAccountName)
+
+#This creates the TextBox for SamAccountName 
+$objSamAccountNameTextBox.Location = New-Object System.Drawing.Size(120,100) 
+$objSamAccountNameTextBox.Size = New-Object System.Drawing.Size(200,20)
+$objSamAccountNameTextBox.TabIndex = 0 
+$form1.Controls.Add($objSamAccountNameTextBox)
+
+#This creates a label for the SecurityGroup
+$objLabelSecGroupName.Location = New-Object System.Drawing.Size(180,140) 
+$objLabelSecGroupName.Size = New-Object System.Drawing.Size(145,20)
+[String]$MandatoryWrite = "*" 
+#$objLabelSecGroupName.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabelSecGroupName.Text = "Enter New Security Group $MandatoryWrite"
+$form1.Controls.Add($objLabelSecGroupName)
+
+#This creates the TextBox for SecurityGroup
+$objSecGroupTextBox.Location = New-Object System.Drawing.Size(120,160) 
+$objSecGroupTextBox.Size = New-Object System.Drawing.Size(360,20)
+$objSecGroupTextBox.TabIndex = 0 
+$form1.Controls.Add($objSecGroupTextBox)
+
+#This creates a label for PCdescription
+$objLabelpcdescripName.Location = New-Object System.Drawing.Size(180,200) 
+$objLabelpcdescripName.Size = New-Object System.Drawing.Size(145,20)
+[String]$MandatoryWrite = "*" 
+#$objLabelpcdescripName.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabelpcdescripName.Text = "Enter New Description $MandatoryWrite"
+$form1.Controls.Add($objLabelpcdescripName)
+
+#This creates the TextBox for PCdescription
+$objpcdescripTextBox.Location = New-Object System.Drawing.Size(120,220) 
+$objpcdescripTextBox.Size = New-Object System.Drawing.Size(360,20)
+$objpcdescripTextBox.TabIndex = 0 
+$form1.Controls.Add($objpcdescripTextBox)
+
+#region update AD Path button
+$updateADPath.TabIndex = 0
+$updateADPath.Name = "ADPathButton"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 200
+$System_Drawing_Size.Height = 23
+$updateADPath.Size = $System_Drawing_Size
+$updateADPath.UseVisualStyleBackColor = $True
+$updateADPath.Text = "AD Path"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 120
+$System_Drawing_Point.Y = 270
+$updateADPath.BackColor = "LightGray"
+$updateADPath.Location = $System_Drawing_Point
+$updateADPath.DataBindings.DefaultDataSourceUpdateMode = 0
+$updateADPath.add_Click({
+
+
+#contents for update ad path button click
+
+})
+$form1.Controls.Add($updateADPath)
+
+# Start Button
+$ButtonStart.Location = New-Object System.Drawing.Point(120, 320)
+$ButtonStart.Size = New-Object System.Drawing.Size(200, 23)
+$ButtonStart.BackColor = "LightGray"
+$ButtonStart.Text = "Create"
+$ButtonStart.Add_Click({
+
+})
+$form1.Controls.Add($ButtonStart)
+
+})
+
+
 $form1.Controls.Add($Hostnamebutton)
 
 
-#Ad user creation button
+#region Ad user creation button
 $ADUserbutton.TabIndex = 0
 $ADUserbutton.Name = "button1"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -681,9 +743,9 @@ $ADUserbutton.Location = $System_Drawing_Point
 $ADUserbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $ADUserbutton.add_Click($ADUserbutton_RunOnClick)
 $form1.Controls.Add($ADUserbutton)
+#endregion
 
-
-#Application button
+#region Application button
 $Appbutton.TabIndex = 0
 $Appbutton.Name = "button1"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -698,21 +760,6 @@ $System_Drawing_Point.Y = 35
 $Appbutton.Location = $System_Drawing_Point
 $Appbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Appbutton.add_Click({
-
-
-
-
-
-#region applications content
-#This creates Textbox Label
-$form1.Controls.Add($objLabel1) 
-
-#This creates the TextBox1
-$form1.Controls.Add($objTextBox1)
-
-
-
-
 
 #region Action Check Boxes for Apps
 $form1.Controls.Add($objChromeCheckbox)
@@ -747,15 +794,13 @@ $form1.Controls.Add($objGEarthCheckbox)
 
 $form1.Controls.Add($objDisableLogsCheckbox)
 #endregion
-#endregion
-
 
 })
 
 $form1.Controls.Add($Appbutton)
+#endregion
 
-
-#Zip Extractor button
+#region Zip Extractor button
 $Zipbutton.TabIndex = 0
 $Zipbutton.Name = "button1"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -771,9 +816,9 @@ $Zipbutton.Location = $System_Drawing_Point
 $Zipbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Zipbutton.add_Click($Zipbutton_RunOnClick)
 $form1.Controls.Add($Zipbutton)
+#endregion
 
-
-#Theme button
+#region Theme button
 $Themebutton.TabIndex = 0
 $Themebutton.Name = "button1"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -907,7 +952,7 @@ $form1.Controls.Add($LightThemeButton)
 
 })
 $form1.Controls.Add($Themebutton)
-
+#endregion
 #endregion
 
 
@@ -933,4 +978,3 @@ $form1.ShowDialog()| Out-Null
 #Call the Function
 
 CreateForm
-
