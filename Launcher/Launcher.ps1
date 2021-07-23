@@ -194,7 +194,7 @@ $SetupButton.Add_Click({
             Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Green 
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             $NewPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/17954326b052c83d4db5bcf17e97e48e5f938975/Launcher/Dependencies/icon/Panda/NewPanda.png"
             Invoke-WebRequest -Uri $NewPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" 
             Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Green 
@@ -217,48 +217,48 @@ $theoption=$comboBox1.SelectedItem
 
 If ($Setupbackend -eq $true){
      # If path doesnt exist exists. C:\temp
-        If ((Test-Path -Path "C:\temp" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\" -Name "temp" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher
-        If ((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\temp" -Name "Launcher" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Changelogs
-        If ((Test-Path -Path "C:\temp\Launcher" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Changelogs" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Changelogs directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Dependencies
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Dependencies" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Dependencies directory" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Logs
-        If ((Test-Path -Path "C:\temp\Launcher\Logs" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Logs" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher" -Name "Logs" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Logs directory" -ForegroundColor Green
         }
         # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "Panda" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\Panda" -ForegroundColor Green 
         }
         # If path doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             New-Item -Path "C:\temp\Launcher\Dependencies\icon" -Name "AltPanda" -ItemType "directory" -Force 
             Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Green
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container -ErrorAction Ignore) -cne ($true)) {
             $AltPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/28c960232d486caeaf1e80687e9a33906de158cd/Launcher/Dependencies/icon/AltPanda/AltPanda.png"
             Invoke-WebRequest -Uri $AltPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" 
             Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Green 
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container  -ErrorAction Ignore) -cne ($true)) {
             $NewPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/17954326b052c83d4db5bcf17e97e48e5f938975/Launcher/Dependencies/icon/Panda/NewPanda.png"
             Invoke-WebRequest -Uri $NewPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" 
             Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Green 
@@ -490,5 +490,6 @@ If ($Script:CANCELED -cne $True) {
  else { Write-Host "Script Exited Successfully" }        
 }
 MainLauncher 
+ 
 
 
