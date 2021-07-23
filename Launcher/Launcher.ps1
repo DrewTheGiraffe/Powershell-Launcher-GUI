@@ -276,8 +276,8 @@ If ($Setupbackend -eq $true){
         $HostnameSURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/HostnameGUI.ps1"
         $ADUSERPS1URL = ""
         $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
-        $ZipScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ZipExtractorGUI.ps1"
-        $AllInOneURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/f66d6b22ecea2150a0953bd686081cd5f9c5abd7/Launcher/Dependencies/Allinone.ps1"
+        $ZipScriptURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ZipExtractorGUI.ps1"
+        $AllInOneURL  = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/5ad5d46185b437469534c67ed3809ea8fcc6b58f/Launcher/Dependencies/Allinone.ps1"
         
 
 
