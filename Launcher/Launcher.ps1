@@ -272,12 +272,12 @@ If ($Setupbackend -eq $true){
             Paste the permalink for any file in the URL box at that website.
             Just make sure you use production url option only and it will work fine in powershell
         #>
-        $AppScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ApplicationsGUI.ps1"
-        $HostnameSURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/HostnameGUI.ps1"
+        $AppScriptURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ApplicationsGUI.ps1"
+        $HostnameSURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/HostnameGUI.ps1"
         $ADUSERPS1URL = ""
-        $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
+        $GeneralTechU = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/GeneralTechGUI.ps1"
         $ZipScriptURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ZipExtractorGUI.ps1"
-        $AllInOneURL  = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/5ad5d46185b437469534c67ed3809ea8fcc6b58f/Launcher/Dependencies/Allinone.ps1"
+        $AllInOneURL  = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/Allinone.ps1"
         
 
 
