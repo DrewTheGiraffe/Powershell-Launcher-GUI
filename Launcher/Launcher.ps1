@@ -1,5 +1,5 @@
 # Launcher Script v2.0
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 Fort Bliss TX 07/15/2021
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 Fort Bliss TX 07/26/2021
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -252,13 +252,13 @@ If ($Setupbackend -eq $true){
             Write-Host "`nCreated C:\temp\Launcher\Dependencies\icon\AltPanda" -ForegroundColor Green
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Container -ErrorAction Ignore) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -PathType Leaf -ErrorAction Ignore) -cne ($true)) {
             $AltPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/28c960232d486caeaf1e80687e9a33906de158cd/Launcher/Dependencies/icon/AltPanda/AltPanda.png"
             Invoke-WebRequest -Uri $AltPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" 
             Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\AltPanda\AltPanda.png" -ForegroundColor Green 
         }
         # If file doesnt exist exists. C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png
-        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Container  -ErrorAction Ignore) -cne ($true)) {
+        If ((Test-Path -Path "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -PathType Leaf -ErrorAction Ignore) -cne ($true)) {
             $NewPandaURL  = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/17954326b052c83d4db5bcf17e97e48e5f938975/Launcher/Dependencies/icon/Panda/NewPanda.png"
             Invoke-WebRequest -Uri $NewPandaURL -OutFile "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" 
             Write-Host "`nInstalled C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png" -ForegroundColor Green 
@@ -272,12 +272,12 @@ If ($Setupbackend -eq $true){
             Paste the permalink for any file in the URL box at that website.
             Just make sure you use production url option only and it will work fine in powershell
         #>
-        $AppScriptURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ApplicationsGUI.ps1"
-        $HostnameSURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/HostnameGUI.ps1"
+        $AppScriptURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/ApplicationsGUI.ps1"
+        $HostnameSURL = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/HostnameGUI.ps1"
         $ADUSERPS1URL = ""
-        $GeneralTechU = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/GeneralTechGUI.ps1"
+        $GeneralTechU = "https://rawcdn.githack.com/DrewTheGiraffe/Powershell-Launcher-GUI/5e33006cd27c8130568d36e21ea0aafd85a08661/Launcher/Dependencies/GeneralTechGUI.ps1"
         $ZipScriptURL = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ZipExtractorGUI.ps1"
-        $AllInOneURL  = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/Allinone.ps1"
+        $AllInOneURL  = "https://raw.githubusercontent.com/DrewTheGiraffe/Powershell-Launcher-GUI/5ad5d46185b437469534c67ed3809ea8fcc6b58f/Launcher/Dependencies/Allinone.ps1"
         
 
 
