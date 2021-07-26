@@ -1,0 +1,36 @@
+#region update AD Path button
+$updateADPath.TabIndex = 0
+$updateADPath.Name = "ADPathButton"
+$System_Drawing_Size = New-Object System.Drawing.Size
+$System_Drawing_Size.Width = 200
+$System_Drawing_Size.Height = 23
+$updateADPath.Size = $System_Drawing_Size
+$updateADPath.UseVisualStyleBackColor = $True
+$updateADPath.Text = "AD Path"
+$System_Drawing_Point = New-Object System.Drawing.Point
+$System_Drawing_Point.X = 120
+$System_Drawing_Point.Y = 270
+$updateADPath.BackColor = "LightGray"
+$updateADPath.Location = $System_Drawing_Point
+$updateADPath.DataBindings.DefaultDataSourceUpdateMode = 0
+$updateADPath.add_Click({
+
+    $outputBox.Text = "Testing Verbose Output"
+    Sleep 1 # Init output
+    $outputBox.Text = ""
+    cls
+    $outputBox.Text = "
+    Path is case sensitive and space sensitive 
+    Click File>Save and close Notepad to continue"
+    Sleep 1
+    Start-Process -Wait -PSPath "C:\WINDOWS\system32\notepad.exe" -ArgumentList "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt"
+    Sleep 1
+    $outputBox.Text = "Reading New Path"
+    $ADPathContent = Get-Content -LiteralPath "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt" -Force
+    Sleep 1
+    $outputBox.Text = "
+    New Path Saved to Cache!
+    New Path Loaded!"
+        
+
+})
