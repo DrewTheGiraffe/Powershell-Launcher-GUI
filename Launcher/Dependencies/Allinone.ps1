@@ -1,5 +1,5 @@
 # Allinone Script
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/26/2021 @ 13:56
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/22/2021 @ 05:39
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -16,12 +16,10 @@
 
 
 function CreateForm {
-#[reflection.assembly]::loadwithpartialname("System.Windows.Forms") | Out-Null
-#[reflection.assembly]::loadwithpartialname("System.Drawing") | Out-Null
-
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.drawing
 
+#region Global_Definitions
 #Form Setup
 $form1 = New-Object System.Windows.Forms.Form
 #$anything = new-object System.Windows.Forms.Page
@@ -83,8 +81,11 @@ $objLabelpcdescripName = New-Object System.Windows.Forms.Label
 $objpcdescripTextBox = New-Object System.Windows.Forms.TextBox 
 $ButtonStart = New-Object System.Windows.Forms.Button
 
+#endregion Global_Definitions
+
+#region Form_Drawing
 #Form Parameter
-$form1.Text = "General Tech"
+$form1.Text = "Master Tool [SA/WA/AO]"
 $form1.Name = "form1"
 $form1.DataBindings.DefaultDataSourceUpdateMode = 0
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -93,8 +94,7 @@ $System_Drawing_Size.Width = 900
 $System_Drawing_Size.Height = 700
 $form1.FormBorderStyle = 'Fixed3D'
 $form1.ClientSize = $System_Drawing_Size
-
-
+#endregion
 
 #region logo
 
@@ -105,18 +105,18 @@ $form1.BackgroundImageLayout = "Center"
 
 #endregion
 
-#region Hostname input box
+#region Global_Hostname_Box
 #Add Label and TextBox
 $objLabel = New-Object System.Windows.Forms.Label
 $objLabel.Location = New-Object System.Drawing.Size(175,20)  
 $objLabel.Size = New-Object System.Drawing.Size(110,20)  
 $objLabel.Text = "Enter Hostname"
 $form1.Controls.Add($objLabel)
-$objTextBox = New-Object System.Windows.Forms.TextBox 
-$objTextBox.Location = New-Object System.Drawing.Size(120,45) 
-$objTextBox.Size = New-Object System.Drawing.Size(200,20)  
-$form1.Controls.Add($objTextBox)
-#endregion
+$objTextBoxHostname = New-Object System.Windows.Forms.TextBox 
+$objTextBoxHostname.Location = New-Object System.Drawing.Size(120,45) 
+$objTextBoxHostname.Size = New-Object System.Drawing.Size(200,20)  
+$form1.Controls.Add($objTextBoxHostname)
+#endregion Global_Hostname_Box
 
 #region verbose_box
 
@@ -129,6 +129,8 @@ $outputBox.ScrollBars = "Vertical"
 $form1.Controls.Add($outputBox)
 
 #endregion
+
+#region draws everything
 
 #region Applications content
 
@@ -199,6 +201,8 @@ $objDisableLogsCheckbox.TabIndex = 11
 
 #endregion
 
+#endregion
+
 #region Page_buttons
 
 #region General tech button
@@ -218,7 +222,6 @@ $Gbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Gbutton.add_Click({
 
 #region remove
-#applications
 $form1.Controls.Remove($objLabel1)
 $form1.Controls.Remove($objTextBox1)
 $form1.Controls.Remove($objChromeCheckbox)
@@ -232,24 +235,11 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
-
-#hostname creator
-$form1.Controls.Remove($objLabelSamAccountName)
-$form1.Controls.Remove($objSamAccountNameTextBox)
-$form1.Controls.Remove($objLabelSecGroupName)
-$form1.Controls.Remove($objSecGroupTextBox)
-$form1.Controls.Remove($objLabelpcdescripName)
-$form1.Controls.Remove($objpcdescripTextBox)
-$form1.Controls.Remove($updateADPath)
-$form1.Controls.Remove($ButtonStart)
-
-#theme page
-$form1.Controls.Remove($DefaultThemeButton)
 $form1.Controls.Remove($DarkThemeButton)
 $form1.Controls.Remove($LightThemeButton)
+$form1.Controls.Remove($DefaultThemeButton) 
 
 #endregion
-
 #region General_tech
 
 #region tab_control
@@ -268,8 +258,6 @@ $form1.Controls.Remove($tabControl)
 $form1.Controls.Add($tabControl)
 
 #endregion
-
-
 
 #region tabs_setup
 
@@ -636,12 +624,13 @@ $button5Users.Location = $System_Drawing_Point
 $button5Users.DataBindings.DefaultDataSourceUpdateMode = 0
 $button5Users.add_Click($button5Users_RunOnClick)
 $UsersPage.Controls.Add($button5Users)
-
-#endregion
-
 })
 $form1.Controls.Add($Gbutton)
+
 #endregion
+
+#endregion GeneralTech
+
 #endregion
 
 #region Hostname creator button
@@ -660,56 +649,14 @@ $Hostnamebutton.Location = $System_Drawing_Point
 $Hostnamebutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Hostnamebutton.add_Click({
 
-#region Remove
 
-#General Tech Page
-$form1.Controls.Remove($tabControl)
-$form1.Controls.Remove($TroubleshootingPage)
-$form1.Controls.Remove($CPUPage)
-$form1.Controls.Remove($BitlockerPage)
-$form1.Controls.Remove($UsersPage)
-$form1.Controls.Remove($button1)
-$form1.Controls.Remove($button2)
-$form1.Controls.Remove($button3)
-$form1.Controls.Remove($button4)
-$form1.Controls.Remove($button5)
-$form1.Controls.Remove($button6)
-$form1.Controls.Remove($button7)
-$form1.Controls.Remove($button8)
-$form1.Controls.Remove($button9)
-$form1.Controls.Remove($button1Bit)
-$form1.Controls.Remove($button2Bit)
-$form1.Controls.Remove($button3Bit)
-$form1.Controls.Remove($button4Bit)
-$form1.Controls.Remove($button5Bit)
-$form1.Controls.Remove($ADBackupBox)
-$form1.Controls.Remove($button1Users)
-$form1.Controls.Remove($button2Users)
-$form1.Controls.Remove($button3Users)
-$form1.Controls.Remove($button4Users)
-$form1.Controls.Remove($button5Users)
-
-#Applications Page
-$form1.Controls.Remove($objLabel1)
-$form1.Controls.Remove($objTextBox1)
-$form1.Controls.Remove($objChromeCheckbox)
-$form1.Controls.Remove($objFireFoxCheckbox)
-$form1.Controls.Remove($objMSTEAMSCheckbox)
-$form1.Controls.Remove($objCitrixCheckbox)
-$form1.Controls.Remove($objDCAMCheckbox)
-$form1.Controls.Remove($objWinGUICheckbox)
-$form1.Controls.Remove($objAdobeDCPROCheckbox)
-$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
-$form1.Controls.Remove($objJoeSmithCheckbox)
-$form1.Controls.Remove($objGEarthCheckbox)
-$form1.Controls.Remove($objDisableLogsCheckbox)
-
-#theme page
 $form1.Controls.Remove($DefaultThemeButton)
 $form1.Controls.Remove($DarkThemeButton)
-$form1.Controls.Remove($LightThemeButton)
+$Form1.Controls.Remove($LightThemeButton)   
+$form1.Controls.Remove($tabControl) # Disables General Tech Elems
 
-#endregion
+
+
 
 #This creates a label for the objLabelSamAccountName
 $objLabelSamAccountName.Location = New-Object System.Drawing.Size(180,80) 
@@ -770,9 +717,7 @@ $updateADPath.Location = $System_Drawing_Point
 $updateADPath.DataBindings.DefaultDataSourceUpdateMode = 0
 $updateADPath.add_Click({
 
-
-#contents for update ad path button click
-  $outputBox.Text = "Testing Verbose Output"
+    $outputBox.Text = "Testing Verbose Output"
     Sleep 1 # Init output
     $outputBox.Text = ""
     cls
@@ -788,6 +733,7 @@ $updateADPath.add_Click({
     $outputBox.Text = "
     New Path Saved to Cache!
     New Path Loaded!"
+        
 
 })
 $form1.Controls.Add($updateADPath)
@@ -799,6 +745,40 @@ $ButtonStart.BackColor = "LightGray"
 $ButtonStart.Text = "Create"
 $ButtonStart.Add_Click({
 
+        # if hostname check
+        If ($objHostnameTextBox1.Text -cne $null) {$ContinueOn=$True;$Computers = $objHostnameTextBox1.Text}
+        else {$ContinueOn=$False}
+        # if SAN Check
+        If ($objSamAccountNameTextBox.Text -cne $null) {$ContinueOn=$True; $SamAccountName = $objSamAccountNameTextBox.Text}
+        else {$ContinueOn=$False}
+        # if sec group check
+        If ($objSecGroupTextBox.Text -cne $null) {$ContinueOn=$True;$CustomSecGroup = $objSecGroupTextBox.Text}
+        else {$ContinueOn=$False}
+        # if pc description
+        If ($objpcdescripTextBox -cne $null){$ContinueOn=$True;$PCDescription=$objpcdescripTextBox.Text}
+        else {$ContinueOn=$False}
+        If ($ContinueOn -cne $False) {
+        ForEach ($Computer in $Computers)
+        {
+            $ADPathContent = Get-Content -LiteralPath "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt" -Force
+            # adds Computer Name to AD @Domain_Name location
+            New-ADComputer -Name $Computer -SamAccountName $SamAccountName -Path $ADPathContent -Enabled $true
+            Write-Host "Creating Hostname $Computer" -ForegroundColor Green
+            Sleep 3
+            $User = Get-ADComputer -Identity "CN=$Computer,$ADPathContent" -Server "nasw.ds.army.mil"
+            $Group = Get-ADGroup -Identity $CustomSecGroup -Server "nasw.ds.army.mil"
+
+            # adds BLIS FORSCOM WORKSTATION CERTIFICATE REQUEST to selected computer @Name                                                                                                                                      
+            Add-ADGroupMember -Identity $Group -Members $User -Server "nasw.ds.army.mil"  
+            Write-Host "`nAdded Security Group to Hostname : $Computer" -ForegroundColor Green
+            Sleep 3
+            # adds Computer Description to AD Obj @nasw.ds.army.mil location
+            Set-ADComputer -Identity $User -Description $PCDescription
+            Write-Host "`nAdded Custom Description to Hostname : $Computer" -ForegroundColor Green
+            Sleep 2
+        }
+          Write-Host "`nFinished Creating Hostname : $Computer" -ForegroundColor Green
+    }
 })
 $form1.Controls.Add($ButtonStart)
 
@@ -807,7 +787,6 @@ $form1.Controls.Add($ButtonStart)
 
 $form1.Controls.Add($Hostnamebutton)
 #endregion
-
 #endregion
 
 #region Ad user creation button
@@ -844,62 +823,57 @@ $Appbutton.Location = $System_Drawing_Point
 $Appbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Appbutton.add_Click({
 
-#region remove
-#General Tech Page
-$form1.Controls.Remove($tabControl)
-$form1.Controls.Remove($TroubleshootingPage)
-$form1.Controls.Remove($CPUPage)
-$form1.Controls.Remove($BitlockerPage)
-$form1.Controls.Remove($UsersPage)
-$form1.Controls.Remove($button1)
-$form1.Controls.Remove($button2)
-$form1.Controls.Remove($button3)
-$form1.Controls.Remove($button4)
-$form1.Controls.Remove($button5)
-$form1.Controls.Remove($button6)
-$form1.Controls.Remove($button7)
-$form1.Controls.Remove($button8)
-$form1.Controls.Remove($button9)
-$form1.Controls.Remove($button1Bit)
-$form1.Controls.Remove($button2Bit)
-$form1.Controls.Remove($button3Bit)
-$form1.Controls.Remove($button4Bit)
-$form1.Controls.Remove($button5Bit)
-$form1.Controls.Remove($ADBackupBox)
-$form1.Controls.Remove($button1Users)
-$form1.Controls.Remove($button2Users)
-$form1.Controls.Remove($button3Users)
-$form1.Controls.Remove($button4Users)
-$form1.Controls.Remove($button5Users)
-
-#hostname creator
-$form1.Controls.Remove($objLabelSamAccountName)
-$form1.Controls.Remove($objSamAccountNameTextBox)
-$form1.Controls.Remove($objLabelSecGroupName)
-$form1.Controls.Remove($objSecGroupTextBox)
-$form1.Controls.Remove($objLabelpcdescripName)
-$form1.Controls.Remove($objpcdescripTextBox)
-$form1.Controls.Remove($updateADPath)
-$form1.Controls.Remove($ButtonStart)
-
-#theme page
-$form1.Controls.Remove($DefaultThemeButton)
+$form1.Controls.Remove($objLabel1)
+$form1.Controls.Remove($objTextBox1)
+$form1.Controls.Remove($objChromeCheckbox)
+$form1.Controls.Remove($objFireFoxCheckbox)
+$form1.Controls.Remove($objMSTEAMSCheckbox)
+$form1.Controls.Remove($objCitrixCheckbox)
+$form1.Controls.Remove($objDCAMCheckbox)
+$form1.Controls.Remove($objWinGUICheckbox)
+$form1.Controls.Remove($objAdobeDCPROCheckbox)
+$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
+$form1.Controls.Remove($objJoeSmithCheckbox)
+$form1.Controls.Remove($objGEarthCheckbox)
+$form1.Controls.Remove($objDisableLogsCheckbox)
 $form1.Controls.Remove($DarkThemeButton)
 $form1.Controls.Remove($LightThemeButton)
+$form1.Controls.Remove($DefaultThemeButton) 
+$form1.Controls.Remove($tabControl) # Disables General Tech Elems
 
-#endregion
+
 
 #region Action Check Boxes for Apps
 $form1.Controls.Add($objChromeCheckbox)
+
+
 $form1.Controls.Add($objFireFoxCheckbox)
+
+
 $form1.Controls.Add($objMSTEAMSCheckbox)
+
+
 $form1.Controls.Add($objCitrixCheckbox)
+
+
 $form1.Controls.Add($objDCAMCheckbox)
+
+
 $form1.Controls.Add($objWinGUICheckbox)
+
+
 $form1.Controls.Add($objAdobeDCPROCheckbox)
+
+
 $form1.Controls.Add($objSharePointDesigner2013Checkbox)
+
+
 $form1.Controls.Add($objJoeSmithCheckbox)
+
+
 $form1.Controls.Add($objGEarthCheckbox)
+
+
 $form1.Controls.Add($objDisableLogsCheckbox)
 #endregion
 
@@ -941,62 +915,9 @@ $System_Drawing_Point.Y = 35
 $Themebutton.Location = $System_Drawing_Point
 $Themebutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Themebutton.add_Click({
+#$TabControl.Dispose($TabControl)
 
-#region remove
-#Applications
-$form1.Controls.Remove($objLabel1)
-$form1.Controls.Remove($objTextBox1)
-$form1.Controls.Remove($objChromeCheckbox)
-$form1.Controls.Remove($objFireFoxCheckbox)
-$form1.Controls.Remove($objMSTEAMSCheckbox)
-$form1.Controls.Remove($objCitrixCheckbox)
-$form1.Controls.Remove($objDCAMCheckbox)
-$form1.Controls.Remove($objWinGUICheckbox)
-$form1.Controls.Remove($objAdobeDCPROCheckbox)
-$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
-$form1.Controls.Remove($objJoeSmithCheckbox)
-$form1.Controls.Remove($objGEarthCheckbox)
-$form1.Controls.Remove($objDisableLogsCheckbox)
-
-#general tech
-$form1.Controls.Remove($tabControl)
-$form1.Controls.Remove($TroubleshootingPage)
-$form1.Controls.Remove($CPUPage)
-$form1.Controls.Remove($BitlockerPage)
-$form1.Controls.Remove($UsersPage)
-$form1.Controls.Remove($button1)
-$form1.Controls.Remove($button2)
-$form1.Controls.Remove($button3)
-$form1.Controls.Remove($button4)
-$form1.Controls.Remove($button5)
-$form1.Controls.Remove($button6)
-$form1.Controls.Remove($button7)
-$form1.Controls.Remove($button8)
-$form1.Controls.Remove($button9)
-$form1.Controls.Remove($button1Bit)
-$form1.Controls.Remove($button2Bit)
-$form1.Controls.Remove($button3Bit)
-$form1.Controls.Remove($button4Bit)
-$form1.Controls.Remove($button5Bit)
-$form1.Controls.Remove($ADBackupBox)
-$form1.Controls.Remove($button1Users)
-$form1.Controls.Remove($button2Users)
-$form1.Controls.Remove($button3Users)
-$form1.Controls.Remove($button4Users)
-$form1.Controls.Remove($button5Users)
-
-
-#hostname creator
-$form1.Controls.Remove($objLabelSamAccountName)
-$form1.Controls.Remove($objSamAccountNameTextBox)
-$form1.Controls.Remove($objLabelSecGroupName)
-$form1.Controls.Remove($objSecGroupTextBox)
-$form1.Controls.Remove($objLabelpcdescripName)
-$form1.Controls.Remove($objpcdescripTextBox)
-$form1.Controls.Remove($updateADPath)
-$form1.Controls.Remove($ButtonStart)
-
-#endregion
+$form1.Controls.Remove($tabControl) # Disables General Tech Elems
 
 #region Theme Tab
 # Set Default Theme Button
@@ -1062,6 +983,7 @@ $DarkThemeButton.Add_Click({
     $button7.BackColor = "LightGray"
     $button8.BackColor = "LightGray"
     $button9.BackColor = "LightGray"
+    
 
     $TabControl.BackColor = "Gray"
     $TroubleshootingPage.BackColor = "Gray"
@@ -1069,7 +991,7 @@ $DarkThemeButton.Add_Click({
     $BitlockerPage.BackColor = "Gray"
     $UsersPage.BackColor = "Gray"
 
-    $objTextBox.BackColor = "LightGray"
+    $objTextBoxHostname.BackColor = "LightGray"
     $DefaultThemeButton.BackColor = "LightGray"
     $LightThemeButton.BackColor = "LightGray"
     $DarkThemeButton.BackColor = "LightGray"
@@ -1115,10 +1037,10 @@ $form1.Controls.Add($LightThemeButton)
 })
 $form1.Controls.Add($Themebutton)
 #endregion
-#endregion
 
+#endregion Page_buttons
 
-
+#region GUI_INITIALIZATION
 #Save the initial state of the form
 $InitialFormWindowState = $form1.WindowState
 #Init the OnLoad event to correct the initial state of the form
@@ -1126,17 +1048,8 @@ $form1.add_Load($OnLoadForm_StateCorrection)
 #Show the Form
 $form1.ShowDialog()| Out-Null
 #$form1.DialogResult = "OK" | Out-Null
+#endregion GUI_INITIALIZATION
+
 }
- #End function CreateForm
-
- 
-
-
- 
-
-
-
-
-#Call the Function
 
 CreateForm
