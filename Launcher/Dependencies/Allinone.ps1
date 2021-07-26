@@ -1,5 +1,5 @@
 # Allinone Script
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/2/2021 @ 13:56
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/26/2021 @ 13:56
 # MOS: 25B & 25U
 <#
 #####################################################
