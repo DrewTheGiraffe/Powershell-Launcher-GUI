@@ -1,5 +1,4 @@
 
-
 # Allinone Script
 # ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/26/2021 @ 15:20
 # MOS: 25B & 25U
@@ -72,6 +71,7 @@ $objWinGUICheckbox = New-Object System.Windows.Forms.Checkbox
 $objAdobeDCPROCheckbox = New-Object System.Windows.Forms.Checkbox
 $objSharePointDesigner2013Checkbox = New-Object System.Windows.Forms.Checkbox
 $objJoeSmithCheckbox = New-Object System.Windows.Forms.CheckBox
+$ButtonInstall = New-Object System.Windows.Forms.Button
 $objGEarthCheckbox = New-Object System.Windows.Forms.CheckBox
 $objDisableLogsCheckbox = New-Object System.Windows.Forms.CheckBox
 $objSamAccountNameTextBox = New-Object System.Windows.Forms.TextBox
@@ -82,6 +82,8 @@ $updateADPath = New-Object System.Windows.Forms.Button
 $objLabelpcdescripName = New-Object System.Windows.Forms.Label
 $objpcdescripTextBox = New-Object System.Windows.Forms.TextBox 
 $ButtonStart = New-Object System.Windows.Forms.Button
+$objLabelZipExtractorPathlabel = New-Object System.Windows.Forms.Label
+$objZipExtractorFilePathTextBox = New-Object System.Windows.Forms.TextBox 
 
 #endregion Global_Definitions
 
@@ -813,22 +815,29 @@ $updateADPath.Location = $System_Drawing_Point
 $updateADPath.DataBindings.DefaultDataSourceUpdateMode = 0
 $updateADPath.add_Click({
 
-    $outputBox.Text = "Testing Verbose Output"
-    Sleep 1 # Init output
-    $outputBox.Text = ""
-    cls
-    $outputBox.Text = "
-    Path is case sensitive and space sensitive 
-    Click File>Save and close Notepad to continue"
+    
+    $outputBox.Text = "Preparing Active Directory Path Log..."
+    
+    Sleep 2
+    
+    $outputBox.Text = "Set Path is case sensitive and space sensitive
+Click File>Save and close Notepad to continue" 
+
     Sleep 1
-    Start-Process -Wait -PSPath "C:\WINDOWS\system32\notepad.exe" -ArgumentList "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt"
+    
+    Start-Process -Wait -PSPath "C:\Windows\System32\notepad.exe" -ArgumentList "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt"
+    
     Sleep 1
+    
     $outputBox.Text = "Reading New Path"
+    
     $ADPathContent = Get-Content -LiteralPath "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt" -Force
+    
     Sleep 1
-    $outputBox.Text = "
-    New Path Saved to Cache!
-    New Path Loaded!"
+    
+    $outputBox.Text = "New Path Saved to Cache!
+Don't Forget to click Set Path!"
+
         
 
 })
@@ -841,49 +850,75 @@ $ButtonStart.BackColor = "LightGray"
 $ButtonStart.Text = "Create"
 $ButtonStart.Add_Click({
 
-        # if hostname check
-        If ($objHostnameTextBox1.Text -cne $null) {$ContinueOn=$True;$Computers = $objHostnameTextBox1.Text}
+         If (Get-Module ActiveDirectory) {
+        $outputBox.Text = "Active Directory already loaded on Admin System"
+    } 
+    else {
+        Import-Module ActiveDirectory | Out-Null
+    }
+    # if hostname check
+        If ($objHostnameTextBox1.Text -cne $null) {$ContinueOn=$true;$Computers = $objHostnameTextBox1.Text}
         else {$ContinueOn=$False}
         # if SAN Check
-        If ($objSamAccountNameTextBox.Text -cne $null) {$ContinueOn=$True; $SamAccountName = $objSamAccountNameTextBox.Text}
+        If ($objSamAccountNameTextBox.Text -cne $null) {$ContinueOn=$true; $SamAccountName = $objSamAccountNameTextBox.Text}
         else {$ContinueOn=$False}
         # if sec group check
-        If ($objSecGroupTextBox.Text -cne $null) {$ContinueOn=$True;$CustomSecGroup = $objSecGroupTextBox.Text}
-        else {$ContinueOn=$False}
+        If ($objSecGroupTextBox.Text -cne $null) {$ContinueOn=$true;$CustomSecGroup = $objSecGroupTextBox.Text}
+        else {$ContinueOn=$false}
         # if pc description
-        If ($objpcdescripTextBox -cne $null){$ContinueOn=$True;$PCDescription=$objpcdescripTextBox.Text}
-        else {$ContinueOn=$False}
-        If ($ContinueOn -cne $False) {
+        If ($objpcdescripTextBox -cne $null){$ContinueOn=$true;$PCDescription=$objpcdescripTextBox.Text}
+        else {$ContinueOn=$false}
+        If ($ContinueOn -cne $false) {
         ForEach ($Computer in $Computers)
         {
             $ADPathContent = Get-Content -LiteralPath "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt" -Force
+            
             # adds Computer Name to AD @Domain_Name location
             New-ADComputer -Name $Computer -SamAccountName $SamAccountName -Path $ADPathContent -Enabled $true
-            Write-Host "Creating Hostname $Computer" -ForegroundColor Green
+            
+            $outputBox.Text = "Creating Hostname $Computer"
+            
             Sleep 3
+            
             $User = Get-ADComputer -Identity "CN=$Computer,$ADPathContent" -Server "nasw.ds.army.mil"
             $Group = Get-ADGroup -Identity $CustomSecGroup -Server "nasw.ds.army.mil"
 
             # adds BLIS FORSCOM WORKSTATION CERTIFICATE REQUEST to selected computer @Name                                                                                                                                      
             Add-ADGroupMember -Identity $Group -Members $User -Server "nasw.ds.army.mil"  
-            Write-Host "`nAdded Security Group to Hostname : $Computer" -ForegroundColor Green
+            
+            $outputBox.Text = "Added Security Group to Hostname : $Computer"
+            
             Sleep 3
+            
             # adds Computer Description to AD Obj @nasw.ds.army.mil location
             Set-ADComputer -Identity $User -Description $PCDescription
-            Write-Host "`nAdded Custom Description to Hostname : $Computer" -ForegroundColor Green
+            $outputBox.Text = "Added Custom Description to Hostname : $Computer"
+            
             Sleep 2
         }
-          Write-Host "`nFinished Creating Hostname : $Computer" -ForegroundColor Green
+          $outputBox.Text = "Finished Creating Hostname : $Computer"
     }
+    else { 
+        $outputBox.Text = "Absent Data Found"
+        
+        Sleep 1
+        
+        $outputBox.Text = "Script Closing Safely"
+        
+        Sleep 2
+        
+        $outputBox.Text = "All Modules exited successfully" 
+    }
+
 })
 $form1.Controls.Add($ButtonStart)
 
+#endregion
 })
 
-
 $form1.Controls.Add($Hostnamebutton)
-#endregion
-#endregion
+
+#endregion Hostname Creator Button
 
 #region Ad user creation button
 $ADUserbutton.TabIndex = 0
@@ -981,7 +1016,7 @@ $form1.Controls.Remove($LightThemeButton)
 
 #endregion remove
 
-#region Action Check Boxes for Apps
+#region Action Check Boxes and button for Apps
 $form1.Controls.Add($objChromeCheckbox)
 
 
@@ -1013,6 +1048,17 @@ $form1.Controls.Add($objGEarthCheckbox)
 
 
 $form1.Controls.Add($objDisableLogsCheckbox)
+
+# Install Button
+$ButtonInstall.Location = New-Object System.Drawing.Point(50,320)
+$ButtonInstall.Size = New-Object System.Drawing.Size(200, 23)
+$ButtonInstall.BackColor = "LightGray"
+$ButtonInstall.Text = "Install Application"
+$ButtonInstall.Add_Click({
+
+#add install backend here
+})
+$form1.Controls.Add($ButtonInstall)
 #endregion
 
 })
@@ -1034,7 +1080,24 @@ $System_Drawing_Point.X = 700
 $System_Drawing_Point.Y = 35
 $Zipbutton.Location = $System_Drawing_Point
 $Zipbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$Zipbutton.add_Click($Zipbutton_RunOnClick)
+$Zipbutton.add_Click({
+
+# This broke my hostname and zip buttons :(***********************************
+<#This creates a label for the Path + Filename
+$objLabelZipExtractorPathlabel.Location = New-Object System.Drawing.Size(180,140) 
+$objLabelZipExtractorPathlabel.Size = New-Object System.Drawing.Size(145,20)
+[String]$MandatoryWrite = "*" 
+#$objLabelSecGroupName.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabelZipExtractorPathlabel.Text = "Enter New Security Group $MandatoryWrite"
+$form1.Controls.Add($objLabelZipExtractorPathlabel)
+
+#This creates the TextBox for PAth + Filename
+$objZipExtractorFilePathTextBox.Location = New-Object System.Drawing.Size(120,160) 
+$objZipExtractorFilePathTextBox.Size = New-Object System.Drawing.Size(360,20)
+$objZipExtractorFilePathTextBox.TabIndex = 0 
+$form1.Controls.Add($objZipExtractorFilePathTextBox)
+#>
+})
 $form1.Controls.Add($Zipbutton)
 #endregion
 
@@ -1053,7 +1116,7 @@ $System_Drawing_Point.Y = 35
 $Themebutton.Location = $System_Drawing_Point
 $Themebutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Themebutton.add_Click({
-#$TabControl.Dispose($TabControl)
+
 
 #region remove
 
