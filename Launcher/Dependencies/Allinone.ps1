@@ -1,3 +1,5 @@
+
+
 # Allinone Script
 # ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/26/2021 @ 15:20
 # MOS: 25B & 25U
@@ -222,6 +224,45 @@ $Gbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Gbutton.add_Click({
 
 #region remove
+
+#general tech
+$form1.Controls.Remove($tabControl)
+$form1.Controls.Remove($TroubleshootingPage)
+$form1.Controls.Remove($CPUPage)
+$form1.Controls.Remove($BitlockerPage)
+$form1.Controls.Remove($UsersPage)
+$form1.Controls.Remove($button1)
+$form1.Controls.Remove($button2)
+$form1.Controls.Remove($button3)
+$form1.Controls.Remove($button4)
+$form1.Controls.Remove($button5)
+$form1.Controls.Remove($button6)
+$form1.Controls.Remove($button7)
+$form1.Controls.Remove($button8)
+$form1.Controls.Remove($button9)
+$form1.Controls.Remove($button1Bit)
+$form1.Controls.Remove($button2Bit)
+$form1.Controls.Remove($button3Bit)
+$form1.Controls.Remove($button4Bit)
+$form1.Controls.Remove($button5Bit)
+$form1.Controls.Remove($ADBackupBox)
+$form1.Controls.Remove($button1Users)
+$form1.Controls.Remove($button2Users)
+$form1.Controls.Remove($button3Users)
+$form1.Controls.Remove($button4Users)
+$form1.Controls.Remove($button5Users)
+
+#hostname creator
+$form1.Controls.Remove($objLabelSamAccountName)
+$form1.Controls.Remove($objSamAccountNameTextBox)
+$form1.Controls.Remove($objLabelSecGroupName)
+$form1.Controls.Remove($objSecGroupTextBox)
+$form1.Controls.Remove($objLabelpcdescripName)
+$form1.Controls.Remove($objpcdescripTextBox)
+$form1.Controls.Remove($updateADPath)
+$form1.Controls.Remove($ButtonStart)
+
+#applications remove
 $form1.Controls.Remove($objLabel1)
 $form1.Controls.Remove($objTextBox1)
 $form1.Controls.Remove($objChromeCheckbox)
@@ -235,11 +276,14 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
+
+#theme page
+$form1.Controls.Remove($DefaultThemeButton)
 $form1.Controls.Remove($DarkThemeButton)
 $form1.Controls.Remove($LightThemeButton)
-$form1.Controls.Remove($DefaultThemeButton) 
 
 #endregion
+
 #region General_tech
 
 #region tab_control
@@ -649,14 +693,66 @@ $Hostnamebutton.Location = $System_Drawing_Point
 $Hostnamebutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Hostnamebutton.add_Click({
 
+#region remove
 
+#general tech
+$form1.Controls.Remove($tabControl)
+$form1.Controls.Remove($TroubleshootingPage)
+$form1.Controls.Remove($CPUPage)
+$form1.Controls.Remove($BitlockerPage)
+$form1.Controls.Remove($UsersPage)
+$form1.Controls.Remove($button1)
+$form1.Controls.Remove($button2)
+$form1.Controls.Remove($button3)
+$form1.Controls.Remove($button4)
+$form1.Controls.Remove($button5)
+$form1.Controls.Remove($button6)
+$form1.Controls.Remove($button7)
+$form1.Controls.Remove($button8)
+$form1.Controls.Remove($button9)
+$form1.Controls.Remove($button1Bit)
+$form1.Controls.Remove($button2Bit)
+$form1.Controls.Remove($button3Bit)
+$form1.Controls.Remove($button4Bit)
+$form1.Controls.Remove($button5Bit)
+$form1.Controls.Remove($ADBackupBox)
+$form1.Controls.Remove($button1Users)
+$form1.Controls.Remove($button2Users)
+$form1.Controls.Remove($button3Users)
+$form1.Controls.Remove($button4Users)
+$form1.Controls.Remove($button5Users)
+
+#hostname creator
+$form1.Controls.Remove($objLabelSamAccountName)
+$form1.Controls.Remove($objSamAccountNameTextBox)
+$form1.Controls.Remove($objLabelSecGroupName)
+$form1.Controls.Remove($objSecGroupTextBox)
+$form1.Controls.Remove($objLabelpcdescripName)
+$form1.Controls.Remove($objpcdescripTextBox)
+$form1.Controls.Remove($updateADPath)
+$form1.Controls.Remove($ButtonStart)
+
+#applications remove
+$form1.Controls.Remove($objLabel1)
+$form1.Controls.Remove($objTextBox1)
+$form1.Controls.Remove($objChromeCheckbox)
+$form1.Controls.Remove($objFireFoxCheckbox)
+$form1.Controls.Remove($objMSTEAMSCheckbox)
+$form1.Controls.Remove($objCitrixCheckbox)
+$form1.Controls.Remove($objDCAMCheckbox)
+$form1.Controls.Remove($objWinGUICheckbox)
+$form1.Controls.Remove($objAdobeDCPROCheckbox)
+$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
+$form1.Controls.Remove($objJoeSmithCheckbox)
+$form1.Controls.Remove($objGEarthCheckbox)
+$form1.Controls.Remove($objDisableLogsCheckbox)
+
+#theme page
 $form1.Controls.Remove($DefaultThemeButton)
 $form1.Controls.Remove($DarkThemeButton)
-$Form1.Controls.Remove($LightThemeButton)   
-$form1.Controls.Remove($tabControl) # Disables General Tech Elems
+$form1.Controls.Remove($LightThemeButton)
 
-
-
+#endregion remove
 
 #This creates a label for the objLabelSamAccountName
 $objLabelSamAccountName.Location = New-Object System.Drawing.Size(180,80) 
@@ -823,6 +919,46 @@ $Appbutton.Location = $System_Drawing_Point
 $Appbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Appbutton.add_Click({
 
+#region remove
+
+#general tech
+$form1.Controls.Remove($tabControl)
+$form1.Controls.Remove($TroubleshootingPage)
+$form1.Controls.Remove($CPUPage)
+$form1.Controls.Remove($BitlockerPage)
+$form1.Controls.Remove($UsersPage)
+$form1.Controls.Remove($button1)
+$form1.Controls.Remove($button2)
+$form1.Controls.Remove($button3)
+$form1.Controls.Remove($button4)
+$form1.Controls.Remove($button5)
+$form1.Controls.Remove($button6)
+$form1.Controls.Remove($button7)
+$form1.Controls.Remove($button8)
+$form1.Controls.Remove($button9)
+$form1.Controls.Remove($button1Bit)
+$form1.Controls.Remove($button2Bit)
+$form1.Controls.Remove($button3Bit)
+$form1.Controls.Remove($button4Bit)
+$form1.Controls.Remove($button5Bit)
+$form1.Controls.Remove($ADBackupBox)
+$form1.Controls.Remove($button1Users)
+$form1.Controls.Remove($button2Users)
+$form1.Controls.Remove($button3Users)
+$form1.Controls.Remove($button4Users)
+$form1.Controls.Remove($button5Users)
+
+#hostname creator
+$form1.Controls.Remove($objLabelSamAccountName)
+$form1.Controls.Remove($objSamAccountNameTextBox)
+$form1.Controls.Remove($objLabelSecGroupName)
+$form1.Controls.Remove($objSecGroupTextBox)
+$form1.Controls.Remove($objLabelpcdescripName)
+$form1.Controls.Remove($objpcdescripTextBox)
+$form1.Controls.Remove($updateADPath)
+$form1.Controls.Remove($ButtonStart)
+
+#applications remove
 $form1.Controls.Remove($objLabel1)
 $form1.Controls.Remove($objTextBox1)
 $form1.Controls.Remove($objChromeCheckbox)
@@ -836,12 +972,14 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
+
+#theme page
+$form1.Controls.Remove($DefaultThemeButton)
 $form1.Controls.Remove($DarkThemeButton)
 $form1.Controls.Remove($LightThemeButton)
-$form1.Controls.Remove($DefaultThemeButton) 
-$form1.Controls.Remove($tabControl) # Disables General Tech Elems
 
 
+#endregion remove
 
 #region Action Check Boxes for Apps
 $form1.Controls.Add($objChromeCheckbox)
@@ -916,6 +1054,67 @@ $Themebutton.Location = $System_Drawing_Point
 $Themebutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Themebutton.add_Click({
 #$TabControl.Dispose($TabControl)
+
+#region remove
+
+#general tech
+$form1.Controls.Remove($tabControl)
+$form1.Controls.Remove($TroubleshootingPage)
+$form1.Controls.Remove($CPUPage)
+$form1.Controls.Remove($BitlockerPage)
+$form1.Controls.Remove($UsersPage)
+$form1.Controls.Remove($button1)
+$form1.Controls.Remove($button2)
+$form1.Controls.Remove($button3)
+$form1.Controls.Remove($button4)
+$form1.Controls.Remove($button5)
+$form1.Controls.Remove($button6)
+$form1.Controls.Remove($button7)
+$form1.Controls.Remove($button8)
+$form1.Controls.Remove($button9)
+$form1.Controls.Remove($button1Bit)
+$form1.Controls.Remove($button2Bit)
+$form1.Controls.Remove($button3Bit)
+$form1.Controls.Remove($button4Bit)
+$form1.Controls.Remove($button5Bit)
+$form1.Controls.Remove($ADBackupBox)
+$form1.Controls.Remove($button1Users)
+$form1.Controls.Remove($button2Users)
+$form1.Controls.Remove($button3Users)
+$form1.Controls.Remove($button4Users)
+$form1.Controls.Remove($button5Users)
+
+#hostname creator
+$form1.Controls.Remove($objLabelSamAccountName)
+$form1.Controls.Remove($objSamAccountNameTextBox)
+$form1.Controls.Remove($objLabelSecGroupName)
+$form1.Controls.Remove($objSecGroupTextBox)
+$form1.Controls.Remove($objLabelpcdescripName)
+$form1.Controls.Remove($objpcdescripTextBox)
+$form1.Controls.Remove($updateADPath)
+$form1.Controls.Remove($ButtonStart)
+
+#applications remove
+$form1.Controls.Remove($objLabel1)
+$form1.Controls.Remove($objTextBox1)
+$form1.Controls.Remove($objChromeCheckbox)
+$form1.Controls.Remove($objFireFoxCheckbox)
+$form1.Controls.Remove($objMSTEAMSCheckbox)
+$form1.Controls.Remove($objCitrixCheckbox)
+$form1.Controls.Remove($objDCAMCheckbox)
+$form1.Controls.Remove($objWinGUICheckbox)
+$form1.Controls.Remove($objAdobeDCPROCheckbox)
+$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
+$form1.Controls.Remove($objJoeSmithCheckbox)
+$form1.Controls.Remove($objGEarthCheckbox)
+$form1.Controls.Remove($objDisableLogsCheckbox)
+
+#theme page
+$form1.Controls.Remove($DefaultThemeButton)
+$form1.Controls.Remove($DarkThemeButton)
+$form1.Controls.Remove($LightThemeButton)
+
+#endregion remove
 
 $form1.Controls.Remove($tabControl) # Disables General Tech Elems
 
