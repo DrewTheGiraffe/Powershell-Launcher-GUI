@@ -1,4 +1,4 @@
-#region update AD Path button
+# update AD Path button
 $updateADPath.TabIndex = 0
 $updateADPath.Name = "ADPathButton"
 $System_Drawing_Size = New-Object System.Drawing.Size
@@ -14,23 +14,28 @@ $updateADPath.BackColor = "LightGray"
 $updateADPath.Location = $System_Drawing_Point
 $updateADPath.DataBindings.DefaultDataSourceUpdateMode = 0
 $updateADPath.add_Click({
+    
+    $outputBox.Text = "Preparing Active Directory Path Log..."
+    
+    Sleep 2
+    
+    $outputBox.Text = "Set Path is case sensitive and space sensitive
+Click File>Save and close Notepad to continue" 
 
-    $outputBox.Text = "Testing Verbose Output"
-    Sleep 1 # Init output
-    $outputBox.Text = ""
-    cls
-    $outputBox.Text = "
-    Path is case sensitive and space sensitive 
-    Click File>Save and close Notepad to continue"
     Sleep 1
-    Start-Process -Wait -PSPath "C:\WINDOWS\system32\notepad.exe" -ArgumentList "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt"
+    
+    Start-Process -Wait -PSPath "C:\Windows\System32\notepad.exe" -ArgumentList "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt"
+    
     Sleep 1
+    
     $outputBox.Text = "Reading New Path"
+    
     $ADPathContent = Get-Content -LiteralPath "C:\temp\Launcher\Dependencies\Directories\Hostname Path\ActiveDirectoryPath.txt" -Force
+    
     Sleep 1
-    $outputBox.Text = "
-    New Path Saved to Cache!
-    New Path Loaded!"
-        
+    
+    $outputBox.Text = "New Path Saved to Cache!
+Don't Forget to click Set Path!"
 
 })
+$form1.Controls.Add($updateADPath)
