@@ -1,6 +1,5 @@
-
 # Allinone Script
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/26/2021 @ 15:20
+# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/272021 @ 07:34
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -84,6 +83,8 @@ $objpcdescripTextBox = New-Object System.Windows.Forms.TextBox
 $ButtonStart = New-Object System.Windows.Forms.Button
 $objLabelZipExtractorPathlabel = New-Object System.Windows.Forms.Label
 $objZipExtractorFilePathTextBox = New-Object System.Windows.Forms.TextBox 
+$objLabelZipExtractorfilenamelabel = New-Object System.Windows.Forms.Label
+$objZipExtractorFileNameTextBox = New-Object System.Windows.Forms.TextBox 
 
 #endregion Global_Definitions
 
@@ -278,6 +279,12 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
+
+#zip extractor page
+$form1.Controls.Remove($objLabelZipExtractorPathlabel)
+$form1.Controls.Remove($objZipExtractorFilePathTextBox)
+$form1.Controls.Remove($objLabelZipExtractorfilenamelabel)
+$form1.Controls.Remove($objZipExtractorFileNameTextBox)
 
 #theme page
 $form1.Controls.Remove($DefaultThemeButton)
@@ -677,6 +684,8 @@ $form1.Controls.Add($Gbutton)
 
 #endregion GeneralTech
 
+
+
 #endregion
 
 #region Hostname creator button
@@ -748,6 +757,12 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
+
+#zip extractor page
+$form1.Controls.Remove($objLabelZipExtractorPathlabel)
+$form1.Controls.Remove($objZipExtractorFilePathTextBox)
+$form1.Controls.Remove($objLabelZipExtractorfilenamelabel)
+$form1.Controls.Remove($objZipExtractorFileNameTextBox)
 
 #theme page
 $form1.Controls.Remove($DefaultThemeButton)
@@ -934,7 +949,80 @@ $System_Drawing_Point.X = 550
 $System_Drawing_Point.Y = 35
 $ADUserbutton.Location = $System_Drawing_Point
 $ADUserbutton.DataBindings.DefaultDataSourceUpdateMode = 0
-$ADUserbutton.add_Click($ADUserbutton_RunOnClick)
+$ADUserbutton.add_Click({
+
+#region remove
+
+#general tech
+$form1.Controls.Remove($tabControl)
+$form1.Controls.Remove($TroubleshootingPage)
+$form1.Controls.Remove($CPUPage)
+$form1.Controls.Remove($BitlockerPage)
+$form1.Controls.Remove($UsersPage)
+$form1.Controls.Remove($button1)
+$form1.Controls.Remove($button2)
+$form1.Controls.Remove($button3)
+$form1.Controls.Remove($button4)
+$form1.Controls.Remove($button5)
+$form1.Controls.Remove($button6)
+$form1.Controls.Remove($button7)
+$form1.Controls.Remove($button8)
+$form1.Controls.Remove($button9)
+$form1.Controls.Remove($button1Bit)
+$form1.Controls.Remove($button2Bit)
+$form1.Controls.Remove($button3Bit)
+$form1.Controls.Remove($button4Bit)
+$form1.Controls.Remove($button5Bit)
+$form1.Controls.Remove($ADBackupBox)
+$form1.Controls.Remove($button1Users)
+$form1.Controls.Remove($button2Users)
+$form1.Controls.Remove($button3Users)
+$form1.Controls.Remove($button4Users)
+$form1.Controls.Remove($button5Users)
+
+#hostname creator
+$form1.Controls.Remove($objLabelSamAccountName)
+$form1.Controls.Remove($objSamAccountNameTextBox)
+$form1.Controls.Remove($objLabelSecGroupName)
+$form1.Controls.Remove($objSecGroupTextBox)
+$form1.Controls.Remove($objLabelpcdescripName)
+$form1.Controls.Remove($objpcdescripTextBox)
+$form1.Controls.Remove($updateADPath)
+$form1.Controls.Remove($ButtonStart)
+
+#applications remove
+$form1.Controls.Remove($objLabel1)
+$form1.Controls.Remove($objTextBox1)
+$form1.Controls.Remove($objChromeCheckbox)
+$form1.Controls.Remove($objFireFoxCheckbox)
+$form1.Controls.Remove($objMSTEAMSCheckbox)
+$form1.Controls.Remove($objCitrixCheckbox)
+$form1.Controls.Remove($objDCAMCheckbox)
+$form1.Controls.Remove($objWinGUICheckbox)
+$form1.Controls.Remove($objAdobeDCPROCheckbox)
+$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
+$form1.Controls.Remove($objJoeSmithCheckbox)
+$form1.Controls.Remove($objGEarthCheckbox)
+$form1.Controls.Remove($objDisableLogsCheckbox)
+
+#zip extractor page
+$form1.Controls.Remove($objLabelZipExtractorPathlabel)
+$form1.Controls.Remove($objZipExtractorFilePathTextBox)
+$form1.Controls.Remove($objLabelZipExtractorfilenamelabel)
+$form1.Controls.Remove($objZipExtractorFileNameTextBox)
+
+#theme page
+$form1.Controls.Remove($DefaultThemeButton)
+$form1.Controls.Remove($DarkThemeButton)
+$form1.Controls.Remove($LightThemeButton)
+
+
+#endregion remove
+
+
+
+
+})
 $form1.Controls.Add($ADUserbutton)
 #endregion
 
@@ -1007,6 +1095,12 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
+
+#zip extractor page
+$form1.Controls.Remove($objLabelZipExtractorPathlabel)
+$form1.Controls.Remove($objZipExtractorFilePathTextBox)
+$form1.Controls.Remove($objLabelZipExtractorfilenamelabel)
+$form1.Controls.Remove($objZipExtractorFileNameTextBox)
 
 #theme page
 $form1.Controls.Remove($DefaultThemeButton)
@@ -1082,21 +1176,104 @@ $Zipbutton.Location = $System_Drawing_Point
 $Zipbutton.DataBindings.DefaultDataSourceUpdateMode = 0
 $Zipbutton.add_Click({
 
-# This broke my hostname and zip buttons :(***********************************
-<#This creates a label for the Path + Filename
-$objLabelZipExtractorPathlabel.Location = New-Object System.Drawing.Size(180,140) 
+#region remove
+
+#general tech
+$form1.Controls.Remove($tabControl)
+$form1.Controls.Remove($TroubleshootingPage)
+$form1.Controls.Remove($CPUPage)
+$form1.Controls.Remove($BitlockerPage)
+$form1.Controls.Remove($UsersPage)
+$form1.Controls.Remove($button1)
+$form1.Controls.Remove($button2)
+$form1.Controls.Remove($button3)
+$form1.Controls.Remove($button4)
+$form1.Controls.Remove($button5)
+$form1.Controls.Remove($button6)
+$form1.Controls.Remove($button7)
+$form1.Controls.Remove($button8)
+$form1.Controls.Remove($button9)
+$form1.Controls.Remove($button1Bit)
+$form1.Controls.Remove($button2Bit)
+$form1.Controls.Remove($button3Bit)
+$form1.Controls.Remove($button4Bit)
+$form1.Controls.Remove($button5Bit)
+$form1.Controls.Remove($ADBackupBox)
+$form1.Controls.Remove($button1Users)
+$form1.Controls.Remove($button2Users)
+$form1.Controls.Remove($button3Users)
+$form1.Controls.Remove($button4Users)
+$form1.Controls.Remove($button5Users)
+
+#hostname creator
+$form1.Controls.Remove($objLabelSamAccountName)
+$form1.Controls.Remove($objSamAccountNameTextBox)
+$form1.Controls.Remove($objLabelSecGroupName)
+$form1.Controls.Remove($objSecGroupTextBox)
+$form1.Controls.Remove($objLabelpcdescripName)
+$form1.Controls.Remove($objpcdescripTextBox)
+$form1.Controls.Remove($updateADPath)
+$form1.Controls.Remove($ButtonStart)
+
+#applications remove
+$form1.Controls.Remove($objLabel1)
+$form1.Controls.Remove($objTextBox1)
+$form1.Controls.Remove($objChromeCheckbox)
+$form1.Controls.Remove($objFireFoxCheckbox)
+$form1.Controls.Remove($objMSTEAMSCheckbox)
+$form1.Controls.Remove($objCitrixCheckbox)
+$form1.Controls.Remove($objDCAMCheckbox)
+$form1.Controls.Remove($objWinGUICheckbox)
+$form1.Controls.Remove($objAdobeDCPROCheckbox)
+$form1.Controls.Remove($objSharePointDesigner2013Checkbox)
+$form1.Controls.Remove($objJoeSmithCheckbox)
+$form1.Controls.Remove($objGEarthCheckbox)
+$form1.Controls.Remove($objDisableLogsCheckbox)
+
+#zip extractor page
+$form1.Controls.Remove($objLabelZipExtractorPathlabel)
+$form1.Controls.Remove($objZipExtractorFilePathTextBox)
+$form1.Controls.Remove($objLabelZipExtractorfilenamelabel)
+$form1.Controls.Remove($objZipExtractorFileNameTextBox)
+
+#theme page
+$form1.Controls.Remove($DefaultThemeButton)
+$form1.Controls.Remove($DarkThemeButton)
+$form1.Controls.Remove($LightThemeButton)
+
+#endregion remove
+
+This creates a label for the Path + Filename
+$objLabelZipExtractorPathlabel.Location = New-Object System.Drawing.Size(165,100) 
 $objLabelZipExtractorPathlabel.Size = New-Object System.Drawing.Size(145,20)
 [String]$MandatoryWrite = "*" 
 #$objLabelSecGroupName.ForeColor = [System.Drawing.Color]::FromName("Red")
-$objLabelZipExtractorPathlabel.Text = "Enter New Security Group $MandatoryWrite"
+$objLabelZipExtractorPathlabel.Text = "Enter Path + File $MandatoryWrite"
 $form1.Controls.Add($objLabelZipExtractorPathlabel)
 
 #This creates the TextBox for PAth + Filename
-$objZipExtractorFilePathTextBox.Location = New-Object System.Drawing.Size(120,160) 
+$objZipExtractorFilePathTextBox.Location = New-Object System.Drawing.Size(120,120) 
 $objZipExtractorFilePathTextBox.Size = New-Object System.Drawing.Size(360,20)
 $objZipExtractorFilePathTextBox.TabIndex = 0 
 $form1.Controls.Add($objZipExtractorFilePathTextBox)
-#>
+
+#This creates a label for the file name label
+$objLabelZipExtractorfilenamelabel = New-Object System.Windows.Forms.Label
+$objLabelZipExtractorfilenamelabel.Location = New-Object System.Drawing.Size(165,160) 
+$objLabelZipExtractorfilenamelabel.Size = New-Object System.Drawing.Size(120,20)
+[String]$MandatoryWrite = "*" 
+$objLabelZipExtractorfilenamelabel.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
+#$objLabelZipExtractorfilenamelabel.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabelZipExtractorfilenamelabel.Text = "File Name $MandatoryWrite"
+$form1.Controls.Add($objLabelZipExtractorfilenamelabel)
+
+#File Name
+$objZipExtractorFileNameTextBox = New-Object System.Windows.Forms.TextBox 
+$objZipExtractorFileNameTextBox.Location = New-Object System.Drawing.Size(120,180) 
+$objZipExtractorFileNameTextBox.Size = New-Object System.Drawing.Size(160,20)
+$objZipExtractorFileNameTextBox.TabIndex = 2 
+$form1.Controls.Add($objZipExtractorFileNameTextBox)
+
 })
 $form1.Controls.Add($Zipbutton)
 #endregion
@@ -1171,6 +1348,12 @@ $form1.Controls.Remove($objSharePointDesigner2013Checkbox)
 $form1.Controls.Remove($objJoeSmithCheckbox)
 $form1.Controls.Remove($objGEarthCheckbox)
 $form1.Controls.Remove($objDisableLogsCheckbox)
+
+#zip extractor page
+$form1.Controls.Remove($objLabelZipExtractorPathlabel)
+$form1.Controls.Remove($objZipExtractorFilePathTextBox)
+$form1.Controls.Remove($objLabelZipExtractorfilenamelabel)
+$form1.Controls.Remove($objZipExtractorFileNameTextBox)
 
 #theme page
 $form1.Controls.Remove($DefaultThemeButton)
