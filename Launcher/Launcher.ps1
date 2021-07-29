@@ -272,7 +272,7 @@ If ($Setupbackend -eq $true){
             Paste the permalink for any file in the URL box at that website.
             Just make sure you use production url option only and it will work fine in powershell
         #>
-        $AppScriptURL = "https://gitcdn.link/repo/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ApplicationsGUI.ps1onsGUI.ps1"
+        $AppScriptURL = "https://gitcdn.link/repo/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/ApplicationsGUI.ps1"
         $HostnameSURL = "https://gitcdn.link/repo/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/HostnameGUI.ps1"
         $ADUSERPS1URL = ""
         $GeneralTechU = "https://gitcdn.link/repo/DrewTheGiraffe/Powershell-Launcher-GUI/main/Launcher/Dependencies/GeneralTechGUI.ps1"
