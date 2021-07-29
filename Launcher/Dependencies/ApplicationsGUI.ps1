@@ -1,5 +1,5 @@
-﻿# ~Script By SPC Burgess 2-3 FA S6 03/17/2021
-# MOS: 25B & 25U
+﻿# ~Script By SPC Burgess 2-3 FA S6 07/29/2021
+# MOS: 25B
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
