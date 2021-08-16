@@ -674,14 +674,14 @@ $ELocalButton.Add_Click({
                 sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Write-Host "Creating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-                C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith 37Jek!*T4g37Jek /add /Y
+                C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith MzdKZWshKlQ0ZzM3SmVr /add /Y # MzdKZWshKlQ0ZzM3SmVr = Encrypted Password
                 Write-Host "Created Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Green
                 Sleep 2 
                 Write-Host "Applying Permissions to Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe \\$theinfo -s net localgroup Administrators Joe.Smith /add
                 Sleep 2
                 Write-Host "Activating Joe.Smith Local Administrator or remote computer : $theinfo" -ForegroundColor Cyan
-                $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: 37Jek!*T4g37Jek`n`nHostname: $theinfo"
+                $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: MzdKZWshKlQ0ZzM3SmVr`n`nHostname: $theinfo" # MzdKZWshKlQ0ZzM3SmVr = Encrypted Password
                 # Create File 
                 Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt"
                 Sleep 2
