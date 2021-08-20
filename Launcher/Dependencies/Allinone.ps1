@@ -85,7 +85,18 @@ $objLabelZipExtractorPathlabel = New-Object System.Windows.Forms.Label
 $objZipExtractorFilePathTextBox = New-Object System.Windows.Forms.TextBox 
 $objLabelZipExtractorfilenamelabel = New-Object System.Windows.Forms.Label
 $objZipExtractorFileNameTextBox = New-Object System.Windows.Forms.TextBox 
-
+$objTextBoxlastname = New-Object System.Windows.Forms.TextBox
+$objLabelLastname = New-Object System.Windows.Forms.Label
+$objLabelfirstname = New-Object System.Windows.Forms.TextBox
+$objTextBoxfirstname = New-Object System.Windows.Forms.Label
+$objTextBoxmi = New-Object System.Windows.Forms.TextBox
+$objLabelmi = New-Object System.Windows.Forms.Label
+$objTextBoxDODID = New-Object System.Windows.Forms.TextBox
+$objLabelDODID = New-Object System.Windows.Forms.Label
+$objTextBoxrnk = New-Object System.Windows.Forms.TextBox
+$objLabelrnk = New-Object System.Windows.Forms.Label
+$objTextBoxemail = New-Object System.Windows.Forms.TextBox
+$objLabelEmail = New-Object System.Windows.Forms.Label
 #endregion Global_Definitions
 
 #region Form_Drawing
@@ -193,7 +204,7 @@ $objJoeSmithCheckbox.size = New-Object System.Drawing.Size(350,20)
 $objJoeSmithCheckbox.Text = "Install Joe.Smith Local Administrator"
 $objJoeSmithCheckbox.TabIndex = 9
 
-# Google Earth 
+#Google Earth 
 $objGEarthCheckbox.Location = New-Object System.Drawing.Size(30,290)
 $objGEarthCheckbox.size = New-Object System.Drawing.Size(350,20)
 $objGEarthCheckbox.Text = "Install Google Earth"
@@ -1019,6 +1030,105 @@ $form1.Controls.Remove($LightThemeButton)
 
 #endregion remove
 
+#region aduser content
+#***********************************************************************
+#This creates a label for the TextBox Last Name
+$objLabelLastname = New-Object System.Windows.Forms.Label
+$objLabelLastname.Location = New-Object System.Drawing.Size(175,70) 
+$objLabelLastname.Size = New-Object System.Drawing.Size(280,20)
+[String]$MandatoryWrite = "*" 
+$objLabelLastname.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabelLastname.Text = "Last Name"
+$form1.Controls.Add($objLabelLastname) 
+
+#This creates the TextBox Last Name
+$objTextBoxlastname = New-Object System.Windows.Forms.TextBox 
+$objTextBoxlastname.Location = New-Object System.Drawing.Size(120,90) 
+$objTextBoxlastname.Size = New-Object System.Drawing.Size(260,20)
+$objTextBoxlastname.TabIndex = 0 
+$form1.Controls.Add($objTextBoxlastname)
+#***************************************************************************
+#This creates a label for the TextBox First Name
+$objLabelfirstname = New-Object System.Windows.Forms.Label
+$objLabelfirstname.Location = New-Object System.Drawing.Size(175,120) 
+$objLabelfirstname.Size = New-Object System.Drawing.Size(280,20)
+$objLabelfirstname.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabelfirstname.Text = "First Name"
+$form1.Controls.Add($objLabelfirstname) 
+
+#This creates the TextBox Firstname
+$objTextBoxfirstname = New-Object System.Windows.Forms.TextBox 
+$objTextBoxfirstname.Location = New-Object System.Drawing.Size(120,140) 
+$objTextBoxfirstname.Size = New-Object System.Drawing.Size(260,20)
+$objTextBoxfirstname.TabIndex = 1 
+$form1.Controls.Add($objTextBoxfirstname)
+#*************************************************************************
+#This creates a label for the TextBox Middle Initial
+$objLabelmi = New-Object System.Windows.Forms.Label
+$objLabelmi.Location = New-Object System.Drawing.Size(135,170) 
+$objLabelmi.Size = New-Object System.Drawing.Size(50,20)
+[String]$MandatoryWrite = "*" 
+$objLabelmi.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabelmi.Text = "MI"
+$form1.Controls.Add($objLabelmi) 
+
+#This creates the TextBox Middle Initial
+$objTextBoxmi = New-Object System.Windows.Forms.TextBox 
+$objTextBoxmi.Location = New-Object System.Drawing.Size(120,190) 
+$objTextBoxmi.Size = New-Object System.Drawing.Size(50,20)
+$objTextBoxmi.TabIndex = 2 
+$form1.Controls.Add($objTextBoxmi)
+#***************************************************************************
+#This creates a label for the TextBox DODID
+$objLabelDODID = New-Object System.Windows.Forms.Label
+$objLabelDODID.Location = New-Object System.Drawing.Size(210,170) 
+$objLabelDODID.Size = New-Object System.Drawing.Size(50,20)# (280,20)
+[String]$MandatoryWrite = "*" 
+$objLabelDODID.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabelDODID.Text = "DODID"
+$form1.Controls.Add($objLabelDODID) 
+
+#This creates the TextBox DODID
+$objTextBoxDODID = New-Object System.Windows.Forms.TextBox 
+$objTextBoxDODID.Location = New-Object System.Drawing.Size(180,190) 
+$objTextBoxDODID.Size = New-Object System.Drawing.Size(130,20)
+$objTextBoxDODID.TabIndex = 3 
+$form1.Controls.Add($objTextBoxDODID)
+#***************************************************************************
+#This creates a label for the TextBox Rank
+$objLabelrnk = New-Object System.Windows.Forms.Label
+$objLabelrnk.Location = New-Object System.Drawing.Size(320,170) 
+$objLabelrnk.Size = New-Object System.Drawing.Size(45,20)
+[String]$MandatoryWrite = "*" 
+$objLabelrnk.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabelrnk.Text = "Rank"
+$form1.Controls.Add($objLabelrnk) 
+
+#This creates the TextBox Rank
+$objTextBoxrnk = New-Object System.Windows.Forms.TextBox 
+$objTextBoxrnk.Location = New-Object System.Drawing.Sie(500,300) 
+$objTextBoxrnk.Size = New-Object System.Drawing.Size(100,20)
+$objTextBoxrnk.TabIndex = 5 
+$form1.Controls.Add($objTextBoxrnk)
+#***************************************************************************
+#This creates a label for the TextBox Email
+$objLabelEmail = New-Object System.Windows.Forms.Label
+$objLabelEmail.Location = New-Object System.Drawing.Size(300,70) 
+$objLabelEmail.Size = New-Object System.Drawing.Size(280,20)
+[String]$MandatoryWrite = "*" 
+$objLabelEmail.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabelEmail.Text = "Email"
+$form1.Controls.Add($objLabelEmail) 
+
+#This creates the TextBox Email
+$objTextBoxemail = New-Object System.Windows.Forms.TextBox 
+$objTextBoxemail.Location = New-Object System.Drawing.Size(300,90) 
+$objTextBoxemail.Size = New-Object System.Drawing.Size(260,20)
+$objTextBoxemail.TabIndex = 4 
+$form1.Controls.Add($objTextBoxemail)
+#***************************************************************************
+
+#endregion aduser content
 
 
 
