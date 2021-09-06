@@ -13,6 +13,9 @@
             Contact DSN: 915-741-4627
 #####################################################
 #>
+
+
+
 Function GeneralTool{
 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
@@ -27,7 +30,9 @@ catch { Write-Host -f Yellow "Unable to Located File" }
 
 
 # Globals 
-$exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" 
+$sspath = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZQ==" -Decrypt $true
+$sspath2 = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZVwq" -Decrypt $true
+$exactadminfile = $sspath
 $userfile = "C:\Windows\System32" 
 $FinalFileString = "$exactadminfile`n$userfile"
 $LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName; # returns : TheHostname.nasw.ds.army.mil
@@ -52,7 +57,7 @@ $OnLoadForm_StateCorrection={$GForm.WindowState=$InitialFormWindowState}
 #Init the OnLoad event to correct the initial state of the form
 $GForm.add_Load($OnLoadForm_StateCorrection)
 
-$iconConverted2Base64 = [Convert]::ToBase64String((Get-Content "C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.ico" -Encoding Byte))
+$iconConverted2Base64 = [Convert]::ToBase64String((Get-Content "C:\temp\Launcher\Dependencies\icon\NewPanda.ico" -Encoding Byte))
 $iconBase64           = $iconConverted2Base64
 $iconBytes            = [Convert]::FromBase64String($iconBase64)
 $stream               = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Length)
@@ -110,7 +115,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -134,7 +139,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath2" -ForegroundColor Yellow
             break;
         }
           
@@ -174,7 +179,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -198,7 +203,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
           
@@ -312,7 +317,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -336,7 +341,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
           
@@ -372,7 +377,7 @@ $DeleteUserButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -397,7 +402,7 @@ $DeleteUserButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -438,7 +443,7 @@ $RestartButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -461,7 +466,7 @@ $RestartButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -495,7 +500,7 @@ $ShutdownButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -517,7 +522,7 @@ $ShutdownButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -551,7 +556,7 @@ $CMDButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -573,7 +578,7 @@ $CMDButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -607,7 +612,7 @@ $PSButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -629,7 +634,7 @@ $PSButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -663,7 +668,7 @@ $ELocalButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -674,14 +679,15 @@ $ELocalButton.Add_Click({
                 sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Write-Host "Creating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-                C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith MzdKZWshKlQ0ZzM3SmVr /add /Y # MzdKZWshKlQ0ZzM3SmVr = Encrypted Password
+                $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
+                C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith $Password /add /Y
                 Write-Host "Created Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Green
                 Sleep 2 
                 Write-Host "Applying Permissions to Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe \\$theinfo -s net localgroup Administrators Joe.Smith /add
                 Sleep 2
                 Write-Host "Activating Joe.Smith Local Administrator or remote computer : $theinfo" -ForegroundColor Cyan
-                $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: MzdKZWshKlQ0ZzM3SmVr`n`nHostname: $theinfo" # MzdKZWshKlQ0ZzM3SmVr = Encrypted Password
+                $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $theinfo"
                 # Create File 
                 Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt"
                 Sleep 2
@@ -692,6 +698,7 @@ $ELocalButton.Add_Click({
                 Write-Host "`n`n`n`nLogin Credentials Logged to JoeSmith.txt at Path : C:\temp\Launcher\Logs" -ForegroundColor Cyan 
                 Write-Host "`nFinished Installing Joe Smith on remote host : $theinfo" -ForegroundColor Green
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt"
+                Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($null) #Clear Log After use.. Security. 
                 break;
             }
             else 
@@ -701,7 +708,7 @@ $ELocalButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -735,7 +742,7 @@ $DELocalButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -758,7 +765,7 @@ $DELocalButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -795,7 +802,7 @@ $MBButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -845,7 +852,7 @@ $DisBButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -895,7 +902,7 @@ $QueryKeyButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -946,7 +953,7 @@ $TPMButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -970,7 +977,7 @@ $TPMButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath\" -ForegroundColor Yellow
                 break;
             }
           
@@ -995,13 +1002,13 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
         elseif ((Test-Path $exactadminfile\$filename) -eq !(Test-Path $exactadminfile\$filename)) #if the file path is = non existant.
         { 
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
         else 
@@ -1042,7 +1049,7 @@ $SNButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -1092,7 +1099,7 @@ $QAppsButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -1182,7 +1189,8 @@ $objLabel4 = New-Object System.Windows.Forms.Label
 $objLabel4.Location = New-Object System.Drawing.Size(360,300) 
 $objLabel4.Size = New-Object System.Drawing.Size(400,65)
 $objLabel4.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel4.Text = "Development Team`n                SPC Burgess`n                           SPC Santiago`n    2-3 FA S6 Fort Bliss TX"
+$ssTitle = Base64 -Content "RGV2ZWxvcG1lbnQgVGVhbQogICAgICAgICAgICAgICAgU1BDIEJ1cmdlc3MKICAgICAgICAgICAgICAgICAgICAgICAgICAgU1BDIFNhbnRpYWdvCiAgICAyLTMgRkEgUzYgRm9ydCBCbGlzcyBUWA==" -Decrypt $true
+$objLabel4.Text = $ssTitle
 $GForm.Controls.Add($objLabel4) 
 
 ###### FONT SIZE CHANGE:
@@ -1198,3 +1206,4 @@ $GForm.Dispose() | Out-Null
 
 }
 GeneralTool
+
