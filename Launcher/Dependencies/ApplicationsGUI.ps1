@@ -1,5 +1,5 @@
-﻿# ~Script By SPC Burgess 2-3 FA S6 07/29/2021
-# MOS: 25B
+# ~Script By SPC Burgess 2-3 FA S6 03/17/2021
+# MOS: 25B & 25U
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
@@ -14,6 +14,9 @@
 #>
 
 
+
+
+
 Function Draw-Test {
 cls
 # Call Sys ASM Functions
@@ -24,6 +27,10 @@ Add-Type -AssemblyName 'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral
 
 # enable rich visual styles in PowerShell console mode:
 [System.Windows.Forms.Application]::EnableVisualStyles()
+
+# include external script 
+try { . ("C:\temp\Launcher\Dependencies\Get-InputBox.ps1") }
+catch { Write-Host -f Yellow "Unable to Located File" }
 
 <#
 #####################################################
@@ -128,14 +135,21 @@ Sleep 2
 
     # Edit any of these directories in the event the Network Enterprise Center Changes there app locations.
     $GChromeDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\google_chrome.txt' -Force
+    $sschrome         = Base64 -Content $GChromeDirectory -Decrypt $true
     $FireFoxDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\firefox.txt'
+    $ssFireFox        = Base64 -Content $FireFoxDirectory -Decrypt $true
     $MSTeamsDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\teams.txt'
+    $ssMSTeams        = Base64 -Content $MSTeamsDirectory -Decrypt $true
     $CitrixxDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\Citrix.txt'
+    $ssCitrix         = Base64 -Content $CitrixxDirectory -Decrypt $true
     $MedicalDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\DCAM.txt'
+    $ssDCAM           = Base64 -Content $MedicalDirectory -Decrypt $true
     $GSSARMYDirectory =                          'C:\temp\GCSS_Army_Integrated_Installer_4_16_0.exe'
     $GEarthDirectory  = $null
-    $ACROBATDCPRO     = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt'    
+    $ACROBATDCPRO     = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt'
+    $ssAdobeAcrobat   = Base64 -Content $ACROBATDCPRO -Decrypt $true    
     $SHAREPOINTDESIGNER = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\sharepoint_editor.txt'
+    $ssSharepoint       = Base64 -Content $SHAREPOINTDESIGNER -Decrypt $true
     
 If ($objDisableLogsCheckbox.Checked -eq $True) {
     [String]$Nothing = $null
@@ -146,35 +160,35 @@ If ($objDisableLogsCheckbox.Checked -eq $True) {
         If ($objChromeCheckbox.Checked -eq $True)
         {
             Write-Host "Installing Google Chrome on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GChromeDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $sschrome
             return "Chrome Installer finished on remote host : $Computers"; # Continue
         }
         # FireFox
         If ($objFireFoxCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing FireFox on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $FireFoxDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssFireFox
             return "FireFox Installer finished on remote host : $Computers"; # Continue
         }
         # MS Teams
         If ($objMSTEAMSCheckbox.Checked -eq $True) 
         {
             Write-Host "Copying MS Teams to 'C:\temp' directory on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $MSTeamsDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssMSTeams
             return "MS Teams finished copying on remote host : $Computers"; # Continue
         }
         # Citrix
         If ($objCitrixCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing Citrix on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $CitrixxDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssCitrix
             return "Citrix Installer finished on remote host : $Computers"; # Continue
         }
         # DCAM
         If ($objDCAMCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing DCAM on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $MedicalDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssDCAM
             return "DCAM Installer finished on remote host : $Computers"; # Continue
         }
         # GSS Army (WinGUI)
@@ -199,26 +213,27 @@ If ($objDisableLogsCheckbox.Checked -eq $True) {
         If ($objAdobeDCPROCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing Adobe DC Pro on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ACROBATDCPRO /A /R
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssAdobeAcrobat /A /R
             return "Adobe Installer finished on remote host : $Computers"; # Continue
         }
         # Share Pointer Designer
         If ($objSharePointDesigner2013Checkbox.Checked -eq $True) 
         {
             Write-Host "Installing Sharepoint Designer 2013 on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $SHAREPOINTDESIGNER
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssSharepoint
             return "Sharepoint Designer 2013 Installer finished on remote host : $Computers"; # Continue
         }
         If ($objJoeSmithCheckbox.Checked -eq $True) 
         {
             Write-Host "`nCreating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s net user Joe.Smith 37Jek!*T4g37Jek /add /Y
+            $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
+            C:\Windows\System32\PsExec.exe \\$Computers -s net user Joe.Smith $Password /add /Y
             Write-Host "`nCreated Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Green
             Sleep 2 
             Write-Host "`nApplying Permissions to Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
             C:\Windows\System32\PsExec.exe \\$Computers -s net localgroup Administrators Joe.Smith /add
             Sleep 2
-            $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: 37Jek!*T4g37Jek`n`nHostname: $Computers"
+            $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $Computers"
             # Create File 
             Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt"
             Sleep 2
@@ -247,7 +262,8 @@ else {
 $Computers = $objTextBox1.Text
 
 # Check if PS_Tools Exists on Script Users computer.. 
-$exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" #First folder to check the file
+$sspspath = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZQ==" -Decrypt $true
+$exactadminfile = $sspspath
 $userfile = "C:\Windows\System32" #Second folder to check the file
 $FinalFileString = "$exactadminfile`n$userfile" # New line = `n
 
@@ -332,7 +348,8 @@ $LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName # returns : The
 foreach ($filename in $filenames) {
   if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) { #if the file is in share drive but not in Win\Sys32 folder
     Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan
-    Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+    $sspath2 = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZVwq" -Decrypt $true
+    Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
     for ($i = 1; $i -le 100; $i++)
     {
         Write-Progress -Activity "Downloading PsTools to $LocalHostName" -Status "$i% Complete:" -PercentComplete $i;
@@ -349,35 +366,35 @@ foreach ($filename in $filenames) {
         If ($objChromeCheckbox.Checked -eq $True)
         {
             Write-Host "Installing Google Chrome on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GChromeDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $sschrome
             return "Chrome Installer finished on remote host : $Computers"; # Continue
         }
         # FireFox
         If ($objFireFoxCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing FireFox on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $FireFoxDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssFireFox
             return "FireFox Installer finished on remote host : $Computers"; # Continue
         }
         # MS Teams
         If ($objMSTEAMSCheckbox.Checked -eq $True) 
         {
             Write-Host "Copying MS Teams to 'C:\temp' directory on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $MSTeamsDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssMSTeams
             return "MS Teams finished copying on remote host : $Computers"; # Continue
         }
         # Citrix
         If ($objCitrixCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing Citrix on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $CitrixxDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssCitrix
             return "Citrix Installer finished on remote host : $Computers"; # Continue
         }
         # DCAM
         If ($objDCAMCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing DCAM on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $MedicalDirectory
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssDCAM
             return "DCAM Installer finished on remote host : $Computers"; # Continue
         }
         # GSS Army (WinGUI)
@@ -401,26 +418,27 @@ foreach ($filename in $filenames) {
         If ($objAdobeDCPROCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing Adobe DC Pro on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ACROBATDCPRO /A /R
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssAdobeAcrobat /A /R
             return "Adobe Installer finished on remote host : $Computers"; # Continue
         }
         # Share Pointer Designer
         If ($objSharePointDesigner2013Checkbox.Checked -eq $True) 
         {
             Write-Host "Installing Sharepoint Designer 2013 on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $SHAREPOINTDESIGNER
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssSharepoint
             return "Sharepoint Designer 2013 Installer finished on remote host : $Computers"; # Continue
         }
         If ($objJoeSmithCheckbox.Checked -eq $True) 
         {
+            $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
             Write-Host "Creating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s net user Joe.Smith 37Jek!*T4g37Jek /add /Y
+            C:\Windows\System32\PsExec.exe \\$Computers -s net user Joe.Smith $Password /add /Y
             Write-Host "Created Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Green
             Sleep 2 
             Write-Host "Applying Permissions to Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
             C:\Windows\System32\PsExec.exe \\$Computers -s net localgroup Administrators Joe.Smith /add
             Sleep 2
-            $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: 37Jek!*T4g37Jek`n`nHostname: $Computers"
+            $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $Computers"
             # Create File 
             If (!(Test-Path $Paths) -and (Test-path $Paths)) {
                 Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt" 
@@ -431,6 +449,7 @@ foreach ($filename in $filenames) {
             Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
             Sleep 4
             Write-Host "`n`n`n`nLogin Credentials Logged to JoeSmith.txt at Path : $Paths" -ForegroundColor Cyan 
+            Start-Process -FilePath "C:\Windows\System32\notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt" # Launch log for user creds
             return "`nFinished Installing Joe Smith on remote host : $Computers"; # Continue  
         }
         # Google Earth 
@@ -441,6 +460,7 @@ foreach ($filename in $filenames) {
             #C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GEarthDirectory
             return "Remote Process Canceled on remote host : $Computers"; # Continue
         }
+        Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($null) #clear log after use. 
       }# End of If info != Null
       Sleep 3
       return "No applications selected program safely exiting";
@@ -561,4 +581,5 @@ https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.manageme
 https://social.technet.microsoft.com/Forums/scriptcenter/en-US/e3d80f73-55f6-4a7e-95b5-4e9216ef1847/powershell-windows-forms-checkbox?forum=winserverpowershell
 https://stackoverflow.com/questions/31879814/check-if-a-file-exists-or-not-in-windows-powershell/31881297
 https://devblogs.microsoft.com/scripting/provide-progress-for-your-script-with-a-powershell-cmdlet/
+#>
 #>
