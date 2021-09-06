@@ -1,4 +1,4 @@
-﻿function Get-InputBox($formTitle, $textTitle){
+function Get-InputBox($formTitle, $textTitle){
     [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
     [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") 
     $Script:userInput=$null
@@ -48,5 +48,16 @@
 
     return $userInput
 }
-
+Function Base64([String]$Content,[Bool]$Decrypt,[Bool]$Encrypt) {
+Add-Type -AssemblyName System
+Add-Type -AssemblyName System.Security
+Add-Type -AssemblyName System.Text.Encoding
+        If ($Decrypt -eq $true) {
+            $result = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Content))
+        }
+        If ($Encrypt -eq $true) {
+            $result = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($Content)) 
+        }
+    return $result
+}
 # $Computers = Get-InputBox "Test Text" "Please Enter Computer Name" 
