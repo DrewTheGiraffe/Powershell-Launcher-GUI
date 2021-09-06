@@ -67,7 +67,7 @@ $GForm.Icon    = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bi
 # ico converter : https://cloudconvert.com/png-to-ico
 
 # Draws Logo
-$img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\NewPanda.png')
+$img = [System.Drawing.Image]::Fromfile('C:\temp\Launcher\Dependencies\icon\Panda\NewPanda.png')
 $GForm.BackgroundImage = $img
 $GForm.BackgroundImageLayout = "Center"
 
@@ -817,6 +817,7 @@ $MBButton.Add_Click({
                     Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
+                    Set-Content -Path "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log" -Value ($null) # Clear log after use. Security.
                     break;
                 }
             }
@@ -867,6 +868,7 @@ $DisBButton.Add_Click({
                     Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
+                    Set-Content -Path "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log" -Value ($null) # Clear log after use. Security.
                     break;
                 }
             }
@@ -921,6 +923,7 @@ $QueryKeyButton.Add_Click({
                     [String]$KeyBackup = Get-InputBox "Numerical Password Input" "Example: `n{EA70CF76-XXXX-XXXX-XXXX-9EDF86339DF7}" 
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo manage-bde -protectors -adbackup C: -id $KeyBackup
                     Write-Host "Successfully backed up Bitlocker Key to Active Directory" -ForegroundColor Green
+                    Set-Content -Path "C:\temp\Launcher\Logs\BITLOCKER_KEY.log" -Value ($null) # Clear log after use. Security.
                     break;
                 }
             }
@@ -1206,4 +1209,5 @@ $GForm.Dispose() | Out-Null
 
 }
 GeneralTool
+
 
