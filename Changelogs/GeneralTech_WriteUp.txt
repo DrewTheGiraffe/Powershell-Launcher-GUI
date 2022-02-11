@@ -37,17 +37,3 @@ Active Logged In Users: Displays everybody who is currently logged into the targ
 Local Users: Displays local accounts on the target computer
 Account Profiles: Displays what network account profiles are currently on target computer
 
-
-
-######################################### UPDATE 12/21/2021 #########################################
-
-Converted alot of code to not rely on PSEXEC suite and run strictly off of Powershell Remoting Protocols.
-Next update will completely remote psexec support from general tech (trust me processes are faster).
-I fixed the RCC flag for suspicious remote activity over NIPR domain. 
-Any previous versions of generaltech should be removed and version 5 should be the only one you use.
-Added encryption for secure passwords (Local Admin).
-Added Obfuscation for secure strings stored at rest on script.
-
-Note: 
-I will soon ETS from the army so I will soley rely on you IMO's / SA Users to report bugs. 
-Take care and happy holidays from my entire S6 team & I. ~SPC Burgess, Drew J 2-3 FA S6

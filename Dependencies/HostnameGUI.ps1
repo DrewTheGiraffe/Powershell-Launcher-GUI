@@ -1,5 +1,5 @@
 ﻿# HostnameGUI Script!
-# MOS: 25B & 25U ~ SPC BURGESS & SPC SANTIAGO
+# MOS: 25B & 25U
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
@@ -9,13 +9,7 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
 
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES.
-
-            Contact DSN: 915-741-4627
+            Contact DSN: 915-741-0470
 #####################################################
 #>
 Function ADD_COMPUTER_TO_ACTIVE_DIRECTORY {
@@ -33,7 +27,7 @@ Sleep 1
 [void][System.Windows.Forms.Application]::EnableVisualStyles()
 
 $HostnameForm = New-Object System.Windows.Forms.Form
-$HostnameForm.Text = "[SA/WA] HOSTNAME CREATOR By SPC Burgess 2-3 FA S6 v4.0"
+$HostnameForm.Text = "[SA/WA] HOSTNAME CREATOR By SPC Burgess 2-3 FA S6 v2.0"
 $HostnameForm.ClientSize = New-Object System.Drawing.Size(850, 185)
 $HostnameForm.BackColor = "LightGray"
 $HostnameForm.StartPosition = "CenterScreen"

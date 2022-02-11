@@ -10,220 +10,28 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
 
-            Contact DSN: 915-741-0470
+            Contact DSN: 915-741-4627
 #####################################################
 #>
-function Get-InputBox($formTitle, $textTitle){
-    [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
-    [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") 
-    $Script:userInput=$null
-    $Script:CANCELED=$false
-    
-    $objForm = New-Object System.Windows.Forms.Form
-    $objForm.Text = $formTitle
-    $objForm.Size = New-Object System.Drawing.Size(300,200)
-    $objForm.StartPosition = "CenterScreen"
-
-    $objForm.KeyPreview = $True
-    $objForm.Add_KeyDown({if ($_.KeyCode -eq "Enter") {$Script:userInput=$objTextBox.Text;$objForm.Close()}})
-    $objForm.Add_KeyDown({if ($_.KeyCode -eq "Escape") {$Script:CANCELED=$true;$objForm.Close()}})
-
-    $OKButton = New-Object System.Windows.Forms.Button
-    $OKButton.Location = New-Object System.Drawing.Size(75,120)
-    $OKButton.Size = New-Object System.Drawing.Size(75,23)
-    $OKButton.Text = "OK"
-    $OKButton.Add_Click({$Script:userInput=$objTextBox.Text;$objForm.Close()})
-    $objForm.Controls.Add($OKButton)
-
-    $CANCELButton = New-Object System.Windows.Forms.Button
-    $CANCELButton.Location = New-Object System.Drawing.Size(150,120)
-    $CANCELButton.Size = New-Object System.Drawing.Size(75,23)
-    $CANCELButton.Text = "CANCEL"
-    $CANCELButton.Add_Click({$Script:CANCELED=$true;$objForm.Close()})
-    $objForm.Controls.Add($CANCELButton)
-
-    $objLabel = New-Object System.Windows.Forms.Label
-    $objLabel.Location = New-Object System.Drawing.Size(10,20)
-    $objLabel.Size = New-Object System.Drawing.Size(280,30)
-    $objLabel.Text = $textTitle
-    $objForm.Controls.Add($objLabel)
-
-    $objTextBox = New-Object System.Windows.Forms.TextBox
-    $objTextBox.Location = New-Object System.Drawing.Size(10,50)
-    $objTextBox.Size = New-Object System.Drawing.Size(260,20)
-    $objTextBox.PasswordChar = "*"
-    $objForm.Controls.Add($objTextBox)
-
-    $objForm.Topmost = $True
-
-    $objForm.Add_Shown({$objForm.Activate()})
-
-    [void] $objForm.ShowDialog()
-
-    IF(($userInput.Length -eq 0) -and (!($Script:CANCELED))) {$userInput = $env:COMPUTERNAME}
-
-    return $userInput
-}
-Function Get-SmartCardCredential{
-<#
-.SYNOPSIS
-Get certificate credentials from the user's certificate store.
-
-.DESCRIPTION
-Returns a PSCredential object of the user's selected certificate.
-
-.EXAMPLE
-Get-SmartCardCred
-UserName                                           Password
---------                                           --------
-@@BVkEYkWiqJgd2d9xz3-5BiHs1cAN System.Security.SecureString
-
-.EXAMPLE
-$Cred = Get-SmartCardCred
-
-.OUTPUTS
-[System.Management.Automation.PSCredential]
-
-.NOTES
-Author: Joshua Chase
-Last Modified: 01 August 2018
-C# code used from https://github.com/bongiovimatthew-microsoft/pscredentialWithCert
-#>
-    
-[cmdletbinding()]
-param()
-
-
-
-    $SmartCardCode = @"
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using System;
-using System.Management.Automation;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Security.Cryptography.X509Certificates;
-
-
-namespace SmartCardLogon{
-
-    static class NativeMethods
-    {
-
-        public enum CRED_MARSHAL_TYPE
-        {
-            CertCredential = 1,
-            UsernameTargetCredential
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct CERT_CREDENTIAL_INFO
-        {
-            public uint cbSize;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
-            public byte[] rgbHashOfCert;
-        }
-
-        [DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool CredMarshalCredential(
-            CRED_MARSHAL_TYPE CredType,
-            IntPtr Credential,
-            out IntPtr MarshaledCredential
-        );
-
-        [DllImport("advapi32.dll", SetLastError = true)]
-        public static extern bool CredFree([In] IntPtr buffer);
-
-    }
-
-    public class Certificate
-    {
-
-        public static PSCredential MarshalFlow(string thumbprint, SecureString pin)
-        {
-            //
-            // Set up the data struct
-            //
-            NativeMethods.CERT_CREDENTIAL_INFO certInfo = new NativeMethods.CERT_CREDENTIAL_INFO();
-            certInfo.cbSize = (uint)Marshal.SizeOf(typeof(NativeMethods.CERT_CREDENTIAL_INFO));
-
-            //
-            // Locate the certificate in the certificate store 
-            //
-            X509Certificate2 certCredential = new X509Certificate2();
-            X509Store userMyStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            userMyStore.Open(OpenFlags.ReadOnly);
-            X509Certificate2Collection certsReturned = userMyStore.Certificates.Find(X509FindType.FindByThumbprint, thumbprint, false);
-            userMyStore.Close();
-
-            if (certsReturned.Count == 0)
-            {
-                throw new Exception("Unable to find the specified certificate.");
-            }
-
-            //
-            // Marshal the certificate 
-            //
-            certCredential = certsReturned[0];
-            certInfo.rgbHashOfCert = certCredential.GetCertHash();
-            int size = Marshal.SizeOf(certInfo);
-            IntPtr pCertInfo = Marshal.AllocHGlobal(size);
-            Marshal.StructureToPtr(certInfo, pCertInfo, false);
-            IntPtr marshaledCredential = IntPtr.Zero;
-            bool result = NativeMethods.CredMarshalCredential(NativeMethods.CRED_MARSHAL_TYPE.CertCredential, pCertInfo, out marshaledCredential);
-
-            string certBlobForUsername = null;
-            PSCredential psCreds = null;
-
-            if (result)
-            {
-                certBlobForUsername = Marshal.PtrToStringUni(marshaledCredential);
-                psCreds = new PSCredential(certBlobForUsername, pin);
-            }
-
-            Marshal.FreeHGlobal(pCertInfo);
-            if (marshaledCredential != IntPtr.Zero)
-            {
-                NativeMethods.CredFree(marshaledCredential);
-            }
-            
-            return psCreds;
-        }
-    }
-}
-"@
-
-    Add-Type -TypeDefinition $SmartCardCode -Language CSharp
-    Add-Type -AssemblyName System.Security
-
-    $ValidCerts = [System.Security.Cryptography.X509Certificates.X509Certificate2[]](Get-ChildItem 'Cert:\CurrentUser\My')
-    $Cert = [System.Security.Cryptography.X509Certificates.X509Certificate2UI]::SelectFromCollection($ValidCerts, 'Choose a certificate', 'Choose a certificate', 0)
-
-    #$Pin = Read-Host "Enter your PIN: " -AsSecureString
-    $Pin = Get-InputBox "Script Pin Request" "Please Enter Your Pin:"
-    $SecurePin = ConvertTo-SecureString -AsPlainText $Pin -Force
-
-    [PSCredential]$TheCertificate = ([SmartCardLogon.Certificate]::MarshalFlow($Cert.Thumbprint, $SecurePin))
-    return $TheCertifcate
-    #Write-Output ([SmartCardLogon.Certificate]::MarshalFlow($Cert.Thumbprint, $Pin))
-}
 Function UserCreator{
 cls
-
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 [System.Windows.Forms.Application]::EnableVisualStyles()
 Sleep 1
 Import-Module ActiveDirectory | Out-Null
 Sleep 1
+try { "C:\temp\Launcher\Dependencies\Get-SmartCardCredential.ps1" }
+catch { Write-Host "Get-SmartCardCredential.ps1 Not Found" -ForegroundColor Yellow }
+cls
+Sleep 1
 Write-Host "All Active Directory Modules Loaded" -ForegroundColor Cyan
 Sleep 1
-Write-Host "`n`nScript Ready For User Interaction" -ForegroundColor Green
+Write-Host "Script Ready For User Interaction" -ForegroundColor Green
 Sleep 1
 #creates window
 $ADForm = New-Object System.Windows.Forms.Form
-$ADForm.Text = 'AD User Creation'
+$ADForm.Text = 'AD User Creation [US Military Edition]'
 $ADForm.Width = 600
 $ADForm.Height = 400
 $ADForm.BackColor = "White"
@@ -447,7 +255,35 @@ $CREATEButton.Size = New-Object System.Drawing.Size(75,23)
 $CREATEButton.BackColor = "LightGray"
 $CREATEButton.Text = "CREATE"
 $CREATEButton.Anchor = 'right,bottom'
-$CREATEButton.Add_Click({
+$CREATEButton.Add_Click({$Script:CANCELED=$False;$ADForm.Close()})
+$ADForm.Controls.Add($CREATEButton)
+
+#This Creates Button Cancel
+$CANCELButton = New-Object System.Windows.Forms.Button
+$CANCELButton.Location = New-Object System.Drawing.Size(300,310)
+$CANCELButton.Size = New-Object System.Drawing.Size(75,23)
+$CANCELButton.BackColor = "LightGray"
+$CANCELButton.Anchor = 'right,bottom'
+$CANCELButton.Text = "CANCEL"
+$CANCELButton.Add_Click({$Script:CANCELED=$True;$ADForm.Close()})
+$ADForm.Controls.Add($CANCELButton)
+
+#This creates a label for the Credits
+$objLabel11 = New-Object System.Windows.Forms.Label
+$objLabel11.Location = New-Object System.Drawing.Size(220,340) 
+$objLabel11.Size = New-Object System.Drawing.Size(200,20)
+$objLabel11.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabel11.Text = "By: SPC Burgess, SPC Santiago"
+$ADForm.Controls.Add($objLabel11) 
+
+###### FONT SIZE CHANGE:
+$objLabel4.ForeColor = [System.Drawing.Color]::FromName("Black")
+$objLabel4.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
+
+$ADForm.TopMost = $True # Set Window to open in front of all apps.
+$ADForm.Add_Shown({$ADForm.Activate()})
+$ADForm.ShowDialog() | Out-Null
+
 # Back End here
 
 $Fullname = '$Lastname $Firstname'
@@ -503,38 +339,12 @@ If ($DontContinue -eq $False) {
     Write-Host "Somethings missing"
 }
 else { 
-    $TheCredential = Get-SmartCardCredential
-    New-ADUser -Name $Fullname -GivenName $Firstname -Surname $Lastname -SamAccountName $FinalSamName -UserPrincipalName ($FinalSamName + '@' + $AddMIL) -CannotChangePassword $objNoChgPW -PasswordNeverExpires $objNoPWExp -Path $paath -ChangePasswordAtLogon $MustChPW -Enabled $MustChPW -DisplayName $Displayname -Office $Office -OfficePhone $DSN -EmailAddress $Email -Credential -PassThru $TheCredential
+    #try { "C:\temp\Launcher\Dependencies\Get-SmartCardCredential.ps1" }
+    #catch { Write-host "Failed to locate File Get-SmartCardCredential" -ForegroundColor Yellow }
+    #$TheCredential = Get-SmartCardCert
+    New-ADUser -Name $Fullname -GivenName $Firstname -Surname $Lastname -SamAccountName $FinalSamName -UserPrincipalName ($FinalSamName + '@' + $AddMIL) -CannotChangePassword $objNoChgPW -PasswordNeverExpires $objNoPWExp -Path $paath -ChangePasswordAtLogon $MustChPW -Enabled $MustChPW -DisplayName $Displayname -Office $Office -OfficePhone $DSN -EmailAddress $Email -Credential $TheCredential
   }
  }
-})
-$ADForm.Controls.Add($CREATEButton)
-
-#This Creates Button Cancel
-$CANCELButton = New-Object System.Windows.Forms.Button
-$CANCELButton.Location = New-Object System.Drawing.Size(300,310)
-$CANCELButton.Size = New-Object System.Drawing.Size(75,23)
-$CANCELButton.BackColor = "LightGray"
-$CANCELButton.Anchor = 'right,bottom'
-$CANCELButton.Text = "CANCEL"
-$CANCELButton.Add_Click({$Script:CANCELED=$True;$ADForm.Close()})
-$ADForm.Controls.Add($CANCELButton)
-
-#This creates a label for the Credits
-$objLabel11 = New-Object System.Windows.Forms.Label
-$objLabel11.Location = New-Object System.Drawing.Size(220,340) 
-$objLabel11.Size = New-Object System.Drawing.Size(200,20)
-$objLabel11.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel11.Text = "By: SPC Burgess, SPC Santiago"
-$ADForm.Controls.Add($objLabel11) 
-
-###### FONT SIZE CHANGE:
-$objLabel4.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel4.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-
-$ADForm.TopMost = $True # Set Window to open in front of all apps.
-$ADForm.Add_Shown({$ADForm.Activate()})
-$ADForm.ShowDialog() | Out-Null
 }
 UserCreator
 

@@ -1,17 +1,5 @@
-﻿<# Script By ~ SPC BURGESS 2-3 FA S6
-**************************************
-
-     Zip Script DOD Edition Only
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES. 
-
-**************************************
-#>
-
+﻿
+# Last modified 07/23/2021
 
 
 
@@ -28,7 +16,7 @@ Function ZipExtractor {
 
     # Draw Form
     $ZipExtractorForm = New-Object System.Windows.Forms.Form
-    $ZipExtractorForm.Text = "[SA/WA] Zip Script v4.0"
+    $ZipExtractorForm.Text = "[SA/WA] Zip Script v2.0"
     $ZipExtractorForm.ClientSize = New-Object System.Drawing.Size(400, 185)
     $ZipExtractorForm.BackColor = "LightGray"
     $ZipExtractorForm.StartPosition = "CenterScreen"
@@ -58,7 +46,7 @@ Function ZipExtractor {
     $titleLabel.ForeColor = "Black"
     $titleLabel.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
     $titleLabel.Font = New-Object System.Drawing.Font("Lucida Console",14,[System.Drawing.FontStyle]::Regular)
-    $titleLabel.Text = "Zip Script V4"
+    $titleLabel.Text = "Zip Script V2"
     $ZipExtractorForm.Controls.Add($titleLabel)
 
     # Give us the credit.. This took months to complete.

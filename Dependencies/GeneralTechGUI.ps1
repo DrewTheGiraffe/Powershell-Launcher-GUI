@@ -1,4 +1,4 @@
-﻿# General Technician Script!
+# General Technician Script!
 # ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/13/2021
 # MOS: 25B & 25U
 <#
@@ -10,15 +10,12 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
 
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES.
-
             Contact DSN: 915-741-4627
 #####################################################
 #>
+
+
+
 Function GeneralTool{
 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
@@ -33,16 +30,16 @@ catch { Write-Host -f Yellow "Unable to Located File" }
 
 
 # Globals 
-$PSTOOLSDownloadLocation = Get-Content -LiteralPath "C:\temp\Launcher\Logs\PSEXEC_INSTALL.txt" -Force
-$exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" 
+$sspath = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZQ==" -Decrypt $true
+$sspath2 = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZVwq" -Decrypt $true
+$exactadminfile = $sspath
 $userfile = "C:\Windows\System32" 
 $FinalFileString = "$exactadminfile`n$userfile"
-$LocalHostName = $env:COMPUTERNAME # returns HOSTNAME only.
-#[System.Net.DNS]::GetHostByName($null).HostName; # returns : TheHostname.nasw.ds.army.mil
+$LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName; # returns : TheHostname.nasw.ds.army.mil
 
 #creates window
 $GForm = New-Object System.Windows.Forms.Form
-$GForm.Text = '[SA/WA] General Tech v5.0'
+$GForm.Text = '[SA/WA] General Tech v3.0'
 $GForm.Width = 800
 $GForm.Height = 420
 $GForm.BackColor = "White"
@@ -78,7 +75,7 @@ $GForm.BackgroundImageLayout = "Center"
 $objLabel1 = New-Object System.Windows.Forms.Label
 $objLabel1.Location = New-Object System.Drawing.Size(125,20) 
 $objLabel1.Size = New-Object System.Drawing.Size(280,20)
-$objLabel1.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objLabel1.ForeColor = [System.Drawing.Color]::FromName("Black")
 $objLabel1.Text = "Enter hostname or IP address"
 $GForm.Controls.Add($objLabel1) 
 
@@ -118,7 +115,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList '"\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\*" "C:\Windows\System32" /H /Y' 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -142,7 +139,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath2" -ForegroundColor Yellow
             break;
         }
           
@@ -182,7 +179,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -206,7 +203,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
           
@@ -320,7 +317,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -344,7 +341,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
           
@@ -380,7 +377,7 @@ $DeleteUserButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -405,7 +402,7 @@ $DeleteUserButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -446,7 +443,7 @@ $RestartButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -469,7 +466,7 @@ $RestartButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -503,7 +500,7 @@ $ShutdownButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -525,7 +522,7 @@ $ShutdownButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -559,7 +556,7 @@ $CMDButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -581,7 +578,7 @@ $CMDButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -615,7 +612,7 @@ $PSButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -637,7 +634,7 @@ $PSButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -662,132 +659,62 @@ $ELocalButton.Add_Click({
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
     Sleep 1
+
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
     Sleep 2
-    $Password = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('MwA3AEoAZQBrACEAKgBUADQAZwAzADcASgBlAGsA'))
-    $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
+        $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
-    
+            if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
+            {   
+                Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
+                Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
+                break;
+            } 
+            else 
+            {
             If ($objTextBox1.Text -cne $null) 
             {
-                # Function Globals
-
-                $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force -ErrorAction Ignore
-
-                # Process Start
-
-                Write-Host "`nCreating Joe.Smith Local Administrator on remote Computer" -ForegroundColor Cyan
-
-                Invoke-Command -ComputerName $theinfo -ScriptBlock {
-    
-                    $Password = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('MwA3AEoAZQBrACEAKgBUADQAZwAzADcASgBlAGsA'))
-    
-                    [System.Security.SecureString]$SecurePassword = ConvertTo-SecureString -String $Password -AsPlainText -Force
-
-                    New-LocalUser -Name "joe.smith" -Password $SecurePassword -ErrorAction Ignore
-
-                    Set-LocalUser -Name "joe.smith" -AccountNeverExpires -Description "Local Administrator Account 20H2+ PXE Image" -FullName "Joe Smith" -PasswordNeverExpires $True -UserMayChangePassword $False -ErrorAction Ignore
-
-                    If (Get-LocalUser -Name "joe.smith" -ErrorAction Ignore) {
-        
-                        Write-Host "`nCreated Joe Smith local administrator" -ForegroundColor Green
-
-                        Write-Host "`nApplying Permissions to Joe Smith local administrator" -ForegroundColor Cyan
-
-                    If (Get-LocalGroupMember -Group "Administrators" -Member "joe.smith" -ErrorAction Ignore)
-                    {
-            
-                        Write-Host "`nJoe Smith is already an administrator..Moving on!" -ForegroundColor Green
-        
-                    }
-                    else {
-            
-                        Write-Host "`nApplying administrator privileges to Joe Smith" -ForegroundColor Cyan
-                        Add-LocalGroupMember -Group "Administrators" -Member "joe.smith" -ErrorAction Ignore
-
-                    }
-
-                    Write-Host "`nActivating Joe Smith local administrator" -ForegroundColor Cyan
-
-                    Enable-LocalUser -Name "joe.smith" -ErrorAction Ignore
-
-        
-                } 
-                else {
-
-                    Write-Host "`nFailed to locate Joe Smith on remote computer" -ForegroundColor Yellow -BackgroundColor Black
-
-                    Write-Host "`nScript Stopped" -ForegroundColor Red -BackgroundColor Black
-
-                    Break;
-    
-                }
-              
-                Write-Host "`nFinished Joe Smith process on remote host" -ForegroundColor Green
-   
-            }
-            
-            $oFile = New-Object System.IO.FileInfo "C:\temp\Launcher\Logs\JoeSmith.txt"
-
-            if ((Test-Path -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -ErrorAction Ignore) -eq $false) {
-        
-                Write-Host "`nCreating Joe Smith Login Credential log" -ForegroundColor Cyan
-
-                New-Item -Path "C:\temp\Launcher\Logs" -Name "JoeSmith.txt" -ItemType "file" -Force -ErrorAction Ignore
-
+                sleep 1   
+                $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
+                Write-Host "Creating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
+                $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
+                C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith $Password /add /Y
+                Write-Host "Created Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Green
+                Sleep 2 
+                Write-Host "Applying Permissions to Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
+                C:\Windows\System32\PsExec.exe \\$theinfo -s net localgroup Administrators Joe.Smith /add
+                Sleep 2
+                Write-Host "Activating Joe.Smith Local Administrator or remote computer : $theinfo" -ForegroundColor Cyan
                 $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $theinfo"
-
+                # Create File 
+                Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt"
+                Sleep 2
+                New-Item -Path "C:\temp\Launcher\Logs" -Name "JoeSmith.txt" -ItemType "file" -Force
+                # Write Content To File
                 Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
-
+                Sleep 4
+                Write-Host "`n`n`n`nLogin Credentials Logged to JoeSmith.txt at Path : C:\temp\Launcher\Logs" -ForegroundColor Cyan 
+                Write-Host "`nFinished Installing Joe Smith on remote host : $theinfo" -ForegroundColor Green
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt"
-
-                Start-Sleep -Seconds 4
-
-                $oStream = $oFile.Open([System.IO.FileMode]::Open, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
-
-                if ($oStream) {
-
-            
-                    $oStream.Close()
-
-                    
-        
-                }
-
+                Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($null) #Clear Log After use.. Security. 
+                break;
             }
-            Else {
-        
-                    Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($null)
-
-                    $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $theinfo"
-               
-                    Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
-
-                    Start-sleep -Seconds 2
-
-                    Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt"
-
-            }
-            
-            }
-
-            Else {
+            else 
+            {
                 sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-            
-            # break out after first run..
-            break;
-            
+                sleep 1
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
+                break;
+            }
           
         }# End of for loop
 
-        # Remove log for security       
-        Remove-Item -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Force
-
-})
+    })
 $GForm.Controls.Add($ELocalButton)
 
 #This Creates Button Deletes local admin
@@ -815,7 +742,7 @@ $DELocalButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -826,7 +753,7 @@ $DELocalButton.Add_Click({
                 sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Write-Host "Disabling Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
-                C:\Windows\System32\PsExec.exe \\$theinfo -s net user joe.smith /Active:no /delete
+                C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith /Active:no
                 Sleep 2
                 Write-Host "`nFinished Removing Joe Smith on remote host : $theinfo" -ForegroundColor Green
                 break;
@@ -838,7 +765,7 @@ $DELocalButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
           
@@ -875,7 +802,7 @@ $MBButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -890,6 +817,7 @@ $MBButton.Add_Click({
                     Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
+                    Set-Content -Path "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log" -Value ($null) # Clear log after use. Security.
                     break;
                 }
             }
@@ -925,7 +853,7 @@ $DisBButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -940,6 +868,7 @@ $DisBButton.Add_Click({
                     Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
+                    Set-Content -Path "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log" -Value ($null) # Clear log after use. Security.
                     break;
                 }
             }
@@ -949,7 +878,7 @@ $GForm.Controls.Add($DisBButton)
 
 #This Creates Button Query Bitlocker Key
 $QueryKeyButton = New-Object System.Windows.Forms.Button
-$QueryKeyButton.Location = New-Object System.Drawing.Size(400,65) 
+$QueryKeyButton.Location = New-Object System.Drawing.Size(400,70)
 $QueryKeyButton.Size = New-Object System.Drawing.Size(300,23)
 $QueryKeyButton.BackColor = "LightGray"
 $QueryKeyButton.Text = "Query Bitlocker Key & Backup to AD"
@@ -966,61 +895,45 @@ $QueryKeyButton.Add_Click({
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
     Sleep 1
-    $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
+
+    Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
     Sleep 2
-    If ($theinfo -and !$null) 
-    {
-        sleep 1 
-        Write-Host "`nQuerying Bitlocker Key Info..." -ForegroundColor Cyan 
-        $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
-        Invoke-Command -ComputerName $theinfo -ScriptBlock {
-        
-            # Smart Alternative right here.. this will just grab the numericalpassword by itself without querying the entire volume like i do below... ~ DREW BURGESS
-            # (Get-WmiObject -Namespace "Root\cimv2\Security\MicrosoftVolumeEncryption" -Class "Win32_EncryptableVolume").GetKeyProtectors(3).volumekeyprotectorID
-
-            $Bitlocker = Get-BitLockerVolume -MountPoint 'C:'
-    
-            foreach ($blv in $Bitlocker) {
-
-                 Backup-BitLockerKeyProtector –MountPoint $blv.MountPoint –KeyProtectorId (($blv.KeyProtector)[2] | Select-Object –ExpandProperty KeyProtectorID)
-
-            }
-            
-            Write-Host "`nRecovery information was successfully backed up to Active Directory on remote host." -ForegroundColor Green
-
-        } -ErrorAction Ignore
-                    <# 
-
-                    Retired code relies on PSEXEC SUITE ~ DREW BURGESS
-                    
+        $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
+        Foreach ($filename in $filenames) 
+        {
+            if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
+            {   
+                Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
+                Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
+                break;
+            } 
+            else 
+            {
+            If ($objTextBox1.Text -cne $null) 
+                {
+                    sleep 1   
                     Write-Host "`nWriting Bitlocker key to file" -ForegroundColor Cyan
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo manage-bde -protectors -get C: > C:\temp\Launcher\Logs\BITLOCKER_KEY.log
-                    Write-Host "Copy Numerical Password ID and close Notepad`nExample: {EA70CF76-XXXX-XXXX-XXXX-9EDF86339DF7}"
                     Sleep 5
+                    Write-Host "Copy Numerical Password ID and close Notepad`nExample: {EA70CF76-XXXX-XXXX-XXXX-9EDF86339DF7}"
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\BITLOCKER_KEY.log"
-                    Write-Host "`nFinishing Process on remote host : $theinfo" -ForegroundColor Green
+                    Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                     [String]$KeyBackup = Get-InputBox "Numerical Password Input" "Example: `n{EA70CF76-XXXX-XXXX-XXXX-9EDF86339DF7}" 
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo manage-bde -protectors -adbackup C: -id $KeyBackup
                     Write-Host "Successfully backed up Bitlocker Key to Active Directory" -ForegroundColor Green
-                    
-                    #>
-                   # break;
-   }
-   Else {
-   
-        Write-Host "`nNo Hostname Detected.. Backing up local host bitlocker info..." -ForegroundColor DarkYellow
-        $NumericalPassword = (Get-WmiObject -Namespace "Root\cimv2\Security\MicrosoftVolumeEncryption" -Class "Win32_EncryptableVolume").GetKeyProtectors(3).volumekeyprotectorID
-        manage-bde -protectors -adbackup C: -id "$NumericalPassword" | Out-Null
-        Start-Sleep -Milliseconds 100
-        Write-Host "`nRecovery information was successfully backed up to Active Directory on local host : $env:COMPUTERNAME" -ForegroundColor Green
-   }
-})
+                    Set-Content -Path "C:\temp\Launcher\Logs\BITLOCKER_KEY.log" -Value ($null) # Clear log after use. Security.
+                    break;
+                }
+            }
+        }
+    })
 $GForm.Controls.Add($QueryKeyButton)
 
 #This Creates Button Uses TPM
 $TPMButton = New-Object System.Windows.Forms.Button
-$TPMButton.Location = New-Object System.Drawing.Size(460,90)
+$TPMButton.Location = New-Object System.Drawing.Size(460,100)
 $TPMButton.Size = New-Object System.Drawing.Size(185,23)
 $TPMButton.BackColor = "LightGray"
 $TPMButton.Text = "Disable Bitlocker PIN"
@@ -1043,7 +956,7 @@ $TPMButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -1067,7 +980,7 @@ $TPMButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : $sspath\" -ForegroundColor Yellow
                 break;
             }
           
@@ -1078,7 +991,7 @@ $GForm.Controls.Add($TPMButton)
 #endregion
 #This Creates Button Install PSEXEC
 $PSEXECButton = New-Object System.Windows.Forms.Button
-$PSEXECButton.Location = New-Object System.Drawing.Size(460,115)
+$PSEXECButton.Location = New-Object System.Drawing.Size(460,130)
 $PSEXECButton.Size = New-Object System.Drawing.Size(185,23)
 $PSEXECButton.BackColor = "LightGray"
 $PSEXECButton.Text = "Install PSEXEC (Local Host)"
@@ -1086,174 +999,34 @@ $PSEXECButton.Add_Click(
 {
 Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
 Sleep 2
-    $filenames = Get-Content "C:\temp\Launcher\Logs\PSEXEC_INSTALL.txt"; # Reading the names of the files to test the existance in one of the locations
-    if ((Test-Path "C:\Windows\System32\PSExec.exe" -PathType Leaf) -eq $False) #if psexec is not on the localhost
-    {   
-        Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-        C:\Windows\System32\xcopy.exe "$PSTOOLSDownloadLocation" "C:\Windows\System32" /H /Y | Out-Host
-        Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
-    } 
-    else 
+    $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
+    Foreach ($filename in $filenames) 
     {
-        Write-Host "`nPSTools is already installed on this computer" -ForegroundColor Green
-    }
-    Write-Host "`nGeneralTech Finished`nStanding By!" -ForegroundColor Green
+        if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
+        {   
+            Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
+            Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
+            break;
+        } 
+        elseif ((Test-Path $exactadminfile\$filename) -eq !(Test-Path $exactadminfile\$filename)) #if the file path is = non existant.
+        { 
+            Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
+            break;
+        }
+        else 
+        {
+            Write-Host "`nPSTools is already installed on this computer" -ForegroundColor Green
+            break;
+        }
+    } 
 }# End of for loop
 )
 $GForm.Controls.Add($PSEXECButton)
 
-#region BG
-Function Set-WallPaper {
- 
-<#
- 
-    .SYNOPSIS
-    Applies a specified wallpaper to the current user's desktop
-    
-    .PARAMETER Image
-    Provide the exact path to the image
- 
-    .PARAMETER Style
-    Provide wallpaper style (Example: Fill, Fit, Stretch, Tile, Center, or Span)
-  
-    .EXAMPLE
-    Set-WallPaper -Image "C:\Wallpaper\Default.jpg"
-    Set-WallPaper -Image "C:\Wallpaper\Background.jpg" -Style Fit
-  
-#>
- 
-param (
-    [parameter(Mandatory=$True)]
-    # Provide path to image
-    [string]$Image,
-    # Provide wallpaper style that you would like applied
-    [parameter(Mandatory=$False)]
-    [ValidateSet('Fill', 'Fit', 'Stretch', 'Tile', 'Center', 'Span')]
-    [string]$Style
-)
- 
-$WallpaperStyle = Switch ($Style) {
-  
-    "Fill" {"10"}
-    "Fit" {"6"}
-    "Stretch" {"2"}
-    "Tile" {"0"}
-    "Center" {"0"}
-    "Span" {"22"}
-  
-}
- 
-If($Style -eq "Tile") {
- 
-    New-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name WallpaperStyle -PropertyType String -Value $WallpaperStyle -Force
-    New-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name TileWallpaper -PropertyType String -Value 1 -Force
- 
-}
-Else {
- 
-    New-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name WallpaperStyle -PropertyType String -Value $WallpaperStyle -Force
-    New-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name TileWallpaper -PropertyType String -Value 0 -Force
- 
-}
- 
-Add-Type -TypeDefinition @" 
-using System; 
-using System.Runtime.InteropServices;
-  
-public class Params
-{ 
-    [DllImport("User32.dll",CharSet=CharSet.Unicode)] 
-    public static extern int SystemParametersInfo (Int32 uAction, 
-                                                   Int32 uParam, 
-                                                   String lpvParam, 
-                                                   Int32 fuWinIni);
-}
-"@ 
-  
-    $SPI_SETDESKWALLPAPER = 0x0014
-    $UpdateIniFile = 0x01
-    $SendChangeEvent = 0x02
-  
-    $fWinIni = $UpdateIniFile -bor $SendChangeEvent
-  
-    $ret = [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Image, $fWinIni)
-}
- # Source : https://www.joseespitia.com/2017/09/15/set-wallpaper-powershell-function/
-
-#endregion
-
-#This Creates Button Execute Post Image Commands Remotely
-$DesktopBackroundButton = New-Object System.Windows.Forms.Button
-$DesktopBackroundButton.Location = New-Object System.Drawing.Size(460,140)
-$DesktopBackroundButton.Size = New-Object System.Drawing.Size(185,23)
-$DesktopBackroundButton.BackColor = "LightGray"
-$DesktopBackroundButton.Text = "Setup Desktop (Local Host)"
-$DesktopBackroundButton.Add_Click({
-    # Write Hostname to File then read it in.. 
-    # Create Dir
-    sleep 1   
-    $localhost = $env:COMPUTERNAME
-    Write-Host "`nSetting Backround to $localhost" -ForegroundColor Cyan
-    Set-WallPaper -Image "C:\temp\Launcher\Dependencies\icon\DesktopBg\noplacelikehome.jpg" -Style Fit
-    Sleep 3
-    Write-Host "`nDesktop Backround Set!`nEnjoy!" -ForegroundColor Green
-})
-$GForm.Controls.Add($DesktopBackroundButton) 
-
-#This Creates Button Query installed apps
-$QAppsButton = New-Object System.Windows.Forms.Button
-$QAppsButton.Location = New-Object System.Drawing.Size(480,165)
-$QAppsButton.Size = New-Object System.Drawing.Size(150,23)
-$QAppsButton.BackColor = "LightGray"
-$QAppsButton.Text = "Query Installed Apps"
-$QAppsButton.Add_Click({
-# Write Hostname to File then read it in.. 
-    # Create Dir
-    Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
-    New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
-    Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
-    New-Item -Path "C:\temp\Launcher\Logs" -Name "QUERY_APPLICATIONS.log" -ItemType "file" -Force
-    Sleep 1
-    Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
-    Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
-
-    Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
-        $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
-        Foreach ($filename in $filenames) 
-        {
-            if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
-            {   
-                Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
-                Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
-                break;
-            } 
-            else 
-            {
-            If ($objTextBox1.Text -cne $null) 
-                {
-                    sleep 1   
-                    Write-Host "`nQuerying Installed Applications" -ForegroundColor Cyan
-                    $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
-                    C:\Windows\System32\Psinfo.exe -accepteula \\$theinfo -S > C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log
-                    Sleep 5
-                    Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log"
-                    Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
-                    break;
-                }
-            }
-        }
-    })
-$GForm.Controls.Add($QAppsButton)
-
-
 #This Creates Button Query SN
 $SNButton = New-Object System.Windows.Forms.Button
-$SNButton.Location = New-Object System.Drawing.Size(480,190) 
+$SNButton.Location = New-Object System.Drawing.Size(480,160)
 $SNButton.Size = New-Object System.Drawing.Size(150,23)
 $SNButton.BackColor = "LightGray"
 $SNButton.Text = "Query Serial Number"
@@ -1279,7 +1052,7 @@ $SNButton.Add_Click({
             if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
             {   
                 Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$PSTOOLSDownloadLocation C:\Windows\System32 /H /Y" 
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
                 Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
                 break;
             } 
@@ -1301,9 +1074,68 @@ $SNButton.Add_Click({
     })
 $GForm.Controls.Add($SNButton)
 
+#This Creates Button Query installed apps
+$QAppsButton = New-Object System.Windows.Forms.Button
+$QAppsButton.Location = New-Object System.Drawing.Size(480,190)
+$QAppsButton.Size = New-Object System.Drawing.Size(150,23)
+$QAppsButton.BackColor = "LightGray"
+$QAppsButton.Text = "Query Installed Apps"
+$QAppsButton.Add_Click({
+# Write Hostname to File then read it in.. 
+    # Create Dir
+    Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
+    Sleep 2
+    New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
+    Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
+    Sleep 2
+    New-Item -Path "C:\temp\Launcher\Logs" -Name "QUERY_APPLICATIONS.log" -ItemType "file" -Force
+    Sleep 1
+    Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
+    Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
+    Sleep 1
+
+    Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
+    Sleep 2
+        $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
+        Foreach ($filename in $filenames) 
+        {
+            if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
+            {   
+                Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
+                Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
+                Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
+                break;
+            } 
+            else 
+            {
+            If ($objTextBox1.Text -cne $null) 
+                {
+                    sleep 1   
+                    Write-Host "`nQuerying Installed Applications" -ForegroundColor Cyan
+                    $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
+                    C:\Windows\System32\Psinfo.exe -accepteula \\$theinfo -S > C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log
+                    Sleep 5
+                    Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log"
+                    Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
+                    break;
+                }
+            }
+        }
+    })
+$GForm.Controls.Add($QAppsButton)
+
+#This Creates Button Clear Output
+$ClearScreenButton = New-Object System.Windows.Forms.Button
+$ClearScreenButton.Location = New-Object System.Drawing.Size(480,220)
+$ClearScreenButton.Size = New-Object System.Drawing.Size(150,23)
+$ClearScreenButton.BackColor = "LightGray"
+$ClearScreenButton.Text = "Clear Console Output"
+$ClearScreenButton.Add_Click({cls})
+$GForm.Controls.Add($ClearScreenButton)
+
 #This Creates Button Enable PS Remoting Remotely or Locally
 $EnablePSRemotingButton = New-Object System.Windows.Forms.Button
-$EnablePSRemotingButton.Location = New-Object System.Drawing.Size(480,215)
+$EnablePSRemotingButton.Location = New-Object System.Drawing.Size(480,250)
 $EnablePSRemotingButton.Size = New-Object System.Drawing.Size(150,23)
 $EnablePSRemotingButton.BackColor = "LightGray"
 $EnablePSRemotingButton.Text = "Enable PS Remoting"
@@ -1326,359 +1158,42 @@ $EnablePSRemotingButton.Add_Click({
             If ($objTextBox1.Text -cne $null) 
             {
                 cls
-                
                 try { . ("C:\temp\Launcher\Dependencies\Enable-PSRemotingRemotely.ps1") }
                 catch { Write-Host -ForegroundColor Yellow "Unable to Locate PSRemoting Script" }
-                
                 sleep 1   
-                
                 Write-Host "`nAttempting to Enable PS Remoting Remotely" -ForegroundColor Cyan
-                
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
-                
                 Enable-PSRemotingRemotely -ComputerNames $theinfo > C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log
-                
-                Start-Sleep -Milliseconds 100
-
-                $Confirm = Read-Host -Prompt "Would you like to do an in-depth verification on all services? (yes/no)"
-
-                If (($Confirm -eq "yes") -or ($Confirm -eq "Yes") -or ($Confirm -eq "YES")) {
-                
-                    # Wired AutoConfig Service Status
-                    $WiredAutConfigService = Get-Service -Name "dot3svc" -ComputerName $theinfo -ErrorAction Ignore | Select-Object -ExpandProperty "Status"
-
-                    # Wired AutoConfig Dependents
-                    $RpcSc_Status =   Get-Service -Name "Wired AutoConfig" -RequiredServices -ComputerName $theinfo -ErrorAction Ignore | Select-Object -ExpandProperty 'Status' -Property "RpcSs" -First 1
-                    $Eaphost_Status = Get-Service -Name "Wired AutoConfig" -RequiredServices -ComputerName $theinfo -ErrorAction Ignore | Select-Object -ExpandProperty 'Status' -Property "Eaphost" -First 1
-                    $Ndisuio_Status = Get-service -Name "Wired AutoConfig" -RequiredServices -ComputerName $theinfo -ErrorAction Ignore | Select-Object -ExpandProperty 'Status' -Property "Ndisuio" -First 1
-
-                    Invoke-Command -ComputerName $theinfo -ScriptBlock {
-        
-                        If ($WiredAutConfigService -eq "Running") {
-        
-                            Write-Host "`nDetected dot3svc..." -ForegroundColor Cyan
-        
-                            Start-Sleep -Milliseconds 100
-        
-                            Write-Host "`nChecking for linked services..." -ForegroundColor Cyan
-        
-                            Start-Sleep -Milliseconds 100
-        
-                            # Check for RpcSs
-                            If ($RpcSc_Status -eq "Running") { Write-Host "`nDetected RpcSs..." -ForegroundColor Cyan }
-                            else { Start-Service -Name "RpcSs"; Write-Host "`nStarted RpcSs..." -ForegroundColor Yellow }
-
-                            # Check for Eaphost
-                            If ($Eaphost_Status -eq "Running") { Write-Host "`nDetected Eaphost..." -ForegroundColor Cyan }
-                            else { Start-Service -Name "Eaphost"; Write-Host "`nStarted Eaphost..." -ForegroundColor Yellow }
-
-                            # Check for Ndisuio
-                            If ($Ndisuio_Status -eq "Running") { Write-Host "`nDetected Ndisuio..." -ForegroundColor Cyan }
-                            else { Start-Service -Name "Ndisuio"; Write-Host "`nStarted Ndisuio..." -ForegroundColor Yellow }
-
-                        }
-                        else {
-      
-                            Write-Host "`nUnabled to Detect dot3svc..." -ForegroundColor Yellow
-
-                            Start-Sleep -Milliseconds 100
-
-                            Write-Host "`nEnabling dot3svc..." -ForegroundColor Cyan
-
-                            Restart-Service -Name "dot3svc" -Force
-
-                            Start-Sleep -Milliseconds 100
-
-                            Write-Host "`nChecking for linked services..." -ForegroundColor Cyan
-
-                            Start-Sleep -Milliseconds 100
-        
-                            # Check for RpcSs
-                            If ($RpcSc_Status -eq "Running") { Write-Host "`nDetected RpcSs..." -ForegroundColor Cyan }
-                            else { Start-Service -Name "RpcSs"; Write-Host "`nStarted RpcSs..." -ForegroundColor Yellow }
-
-                            # Check for Eaphost
-                            If ($Eaphost_Status -eq "Running") { Write-Host "`nDetected Eaphost..." -ForegroundColor Cyan }
-                            else { Start-Service -Name "Eaphost"; Write-Host "`nStarted Eaphost..." -ForegroundColor Yellow }
-
-                            # Check for Ndisuio
-                            If ($Ndisuio_Status -eq "Running") { Write-Host "`nDetected Ndisuio..." -ForegroundColor Cyan }
-                            else { Start-Service -Name "Ndisuio"; Write-Host "`nStarted Ndisuio..." -ForegroundColor Yellow }
-
-                        }
-                    } -ErrorAction Ignore
-
-                    Start-Sleep -Milliseconds 100
-
-                    Write-Host "`nFinished dot3svc Verification" -ForegroundColor Green
-
-                    Start-Sleep -Milliseconds 100
-                
-                }
-
                 Sleep 5
-                
-                cls
-                
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log"
-                
                 Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
-                
                 break;
             }
             else 
             {   # Local Host if Hostname is Null
                 cls
-                Write-Host "`nNo Hostname or IP Address entered.`nGeneral Tech Ready." -ForegroundColor Green
+                try { . ("C:\temp\Launcher\Dependencies\Enable-PSRemotingRemotely.ps1") }
+                catch { Write-Host -ForegroundColor Yellow "Unable to Locate PSRemoting Script" }
+                sleep 1   
+                Write-Host "`nAttempting to Enable PS Remoting Locally" -ForegroundColor Cyan
+                Enable-PSRemotingRemotely -ComputerNames $env:COMPUTERNAME > C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log
+                Sleep 5
+                Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log"
+                Write-Host "`nFinished Process on remote host : $env:COMPUTERNAME" -ForegroundColor Green
                 break;
             }
-            break;
         }
 
 })
 $GForm.Controls.Add($EnablePSRemotingButton)
-
-
-#This Creates Button SMS CLIENT Refresh Remotely
-$ReFreshSoftwareCenterCommandButton = New-Object System.Windows.Forms.Button
-$ReFreshSoftwareCenterCommandButton.Location = New-Object System.Drawing.Size(480,240) 
-$ReFreshSoftwareCenterCommandButton.Size = New-Object System.Drawing.Size(150,23)
-$ReFreshSoftwareCenterCommandButton.BackColor = "LightGray"
-$ReFreshSoftwareCenterCommandButton.Text = "Refresh Software Center"
-$ReFreshSoftwareCenterCommandButton.Add_Click({
-    # Write Hostname to File then read it in.. 
-    # Create Dir
-    Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
-    New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
-    Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
-    New-Item -Path "C:\temp\Launcher\Logs" -Name "ENABLE-PSREMOTING.log" -ItemType "file" -Force
-    Sleep 1
-    Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
-    Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 2
-    $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
-        Foreach ($filename in $filenames) 
-        {
-        $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
-            If ($theinfo -and !$null) 
-            {
-                cls
-                sleep 1   
-                Write-Host "`nAttempting to Refresh Software Center Remotely..." -ForegroundColor Cyan
-                Sleep 1
-                # Hardware Inventory Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000001}"
-                Write-Host "`nHardware Inventory Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Software Inventory Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000002}"
-                Write-Host "`nSoftware Inventory Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Discovery Data Collection Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000003}"
-                Write-Host "`nDiscovery Data Collection Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # File Collection Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000010}"
-                Write-Host "`nFile Collection Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Machine Policy Retrieval Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000021}"
-                Write-Host "`nMachine Policy Retrieval Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Machine Policy Evaluation Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000022}"
-                Write-Host "`nMachine Policy Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Refresh Default MP Task Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000023}"
-                Write-Host "`nRefresh Default MP Task Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # User Policy Retrieval Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000026}" -ErrorAction Ignore # Seems like some machines cant run this action..
-                Write-Host "`nUser Policy Retrieval Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # User Policy Evaluation Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000027}" -ErrorAction Ignore # Seems like some machines cant run this action..
-                Write-Host "`nUser Policy Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Windows Installers Source List Update Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000032}"
-                Write-Host "`nWindows Installers Source List Update Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Machine Policy Agent Cleanup
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000040}" 
-                Write-Host "`nMachine Policy Agent Cleanup Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # User Policy Agent Cleanup
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000041}"-ErrorAction Ignore # Seems like some machines cant run this action..
-                Write-Host "`nUser Policy Agent Cleanup Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # IDMIF Collection Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000105}" -ErrorAction Ignore # Seems like some machines cant run this action..
-                Write-Host "`nIDMIF Collection Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Software Updates Assignments Evaluation Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000108}"
-                Write-Host "`nSoftware Updates Assignments Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # State Message Refresh
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000111}"
-                Write-Host "`nState Message Refresh Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Software Update Scan Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000113}"
-                Write-Host "`nSoftware Update Scan Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Software Update Deployment Evaluation Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000114}"
-                Write-Host "`nSoftware Update Deployment Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Application Deployment Evaluation Cycle
-                Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000121}"
-                Write-Host "`nApplication Deployment Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                # Source Command List : https://docs.microsoft.com/en-us/mem/configmgr/develop/reference/core/clients/client-classes/triggerschedule-method-in-class-sms_client
-                # Refresh all computer policies / workstation certificates
-                Invoke-Command -ComputerName $theinfo -ScriptBlock { gpupdate /force /target:computer /wait:0 }
-                $msg = "This computer is scheduled for a restart in 20 minutes, please save all work."
-                Start-Sleep -Milliseconds 100
-                $CurrentTime = Get-date
-                $DateNTime = $CurrentTime.ToLocalTime()
-                $FormattedTime = "$DateNTime"
-                Write-Host "`nEstimated time to completion...`n15 minutes after: $FormattedTime" -ForegroundColor Cyan
-                Start-Sleep -Milliseconds 100
-                shutdown -m \\$theinfo -r -f -c $msg -t 1200 <#20 minute delay to give SCCM Client time#> 
-                Start-Sleep -Milliseconds 100
-                Write-Host "`nRemote Host Scheduled to restart...`n20 minutes after: $FormattedTime" -ForegroundColor Cyan
-                Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
-                break;
-            }
-            else 
-            {   
-                cls
-                $Confirm = Read-Host -Prompt "Would you like to Refresh SCCM Client on $LocalHostName (yes/no)"
-                If ($Confirm -eq "yes") {
-                    sleep 1   
-                    Write-Host "`nAttempting to Refresh Software Center Locally..." -ForegroundColor Cyan
-                    Sleep 1
-                    # Hardware Inventory Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000001}"
-                    Write-Host "`nHardware Inventory Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Software Inventory Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000002}"
-                    Write-Host "`nSoftware Inventory Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Discovery Data Collection Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000003}"
-                    Write-Host "`nDiscovery Data Collection Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # File Collection Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000010}"
-                    Write-Host "`nFile Collection Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Machine Policy Retrieval Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000021}"
-                    Write-Host "`nMachine Policy Retrieval Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Machine Policy Evaluation Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000022}"
-                    Write-Host "`nMachine Policy Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Refresh Default MP Task Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000023}"
-                    Write-Host "`nRefresh Default MP Task Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # User Policy Retrieval Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000026}" -ErrorAction Ignore # Seems like some machines cant run this action..
-                    Write-Host "`nUser Policy Retrieval Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # User Policy Evaluation Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000027}" -ErrorAction Ignore # Seems like some machines cant run this action..
-                    Write-Host "`nUser Policy Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Windows Installers Source List Update Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000032}"
-                    Write-Host "`nWindows Installers Source List Update Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Machine Policy Agent Cleanup
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000040}" 
-                    Write-Host "`nMachine Policy Agent Cleanup Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # User Policy Agent Cleanup
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000041}"-ErrorAction Ignore # Seems like some machines cant run this action..
-                    Write-Host "`nUser Policy Agent Cleanup Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # IDMIF Collection Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000105}" -ErrorAction Ignore # Seems like some machines cant run this action..
-                    Write-Host "`nIDMIF Collection Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Software Updates Assignments Evaluation Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000108}"
-                    Write-Host "`nSoftware Updates Assignments Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # State Message Refresh
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000111}"
-                    Write-Host "`nState Message Refresh Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Software Update Scan Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000113}"
-                    Write-Host "`nSoftware Update Scan Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Software Update Deployment Evaluation Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000114}"
-                    Write-Host "`nSoftware Update Deployment Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Application Deployment Evaluation Cycle
-                    Invoke-WmiMethod -ComputerName $theinfo -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000121}"
-                    Write-Host "`nApplication Deployment Evaluation Cycle Triggered...." -ForegroundColor Cyan
-                    Start-Sleep -Milliseconds 100
-                    # Source Command List : https://docs.microsoft.com/en-us/mem/configmgr/develop/reference/core/clients/client-classes/triggerschedule-method-in-class-sms_client
-                    # Refresh all computer policies / workstation certificates
-                    Invoke-Command -ComputerName $theinfo -ScriptBlock { gpupdate /force /target:computer /wait:0 }
-                    $msg = "This computer is scheduled for a restart in 20 minutes, please save all work."
-                    $CurrentTime = Get-date
-                    $DateNTime = $CurrentTime.ToLocalTime()
-                    $FormattedTime = "$DateNTime"
-                    Start-Sleep -Milliseconds 100
-                    Write-Host "`nEstimated time to completion...`n20 minutes after: $FormattedTime" -ForegroundColor Cyan
-                    shutdown -m \\$theinfo -r -f -c $msg -t 1200 <#20 minute delay to give SCCM Client time#> 
-                    Start-Sleep -Milliseconds 100
-                    Write-Host "`nLocal host scheduled to restart...`n20 minutes after: $FormattedTime" -ForegroundColor Cyan 
-                    Start-Sleep -Milliseconds 100
-                    Write-Host "`nFinished Process on local host : $LocalHostName" -ForegroundColor Green
-                    break;
-                }
-                Else {
-                    write-Host "`nLocal host denied by user and no other clients found..." -ForegroundColor DarkYellow
-                    Start-Sleep -Seconds 1
-                    Write-Host "`nFinished Process!" -ForegroundColor Green
-                    break;
-                }
-            }
-        }
-
-})
-$GForm.Controls.Add($ReFreshSoftwareCenterCommandButton)
-
-#This Creates Button Clear Output
-$ClearScreenButton = New-Object System.Windows.Forms.Button
-$ClearScreenButton.Location = New-Object System.Drawing.Size(480,265)
-$ClearScreenButton.Size = New-Object System.Drawing.Size(150,23)
-$ClearScreenButton.BackColor = "LightGray"
-$ClearScreenButton.Text = "Clear Console Output"
-$ClearScreenButton.Add_Click({cls})
-$GForm.Controls.Add($ClearScreenButton) 
 
 #This creates a label for the Credits
 $objLabel4 = New-Object System.Windows.Forms.Label
 $objLabel4.Location = New-Object System.Drawing.Size(360,300) 
 $objLabel4.Size = New-Object System.Drawing.Size(400,65)
 $objLabel4.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel4.Text = "Development Team`n                SPC Burgess`n                           SPC Santiago`n    2-3 FA S6 Fort Bliss TX"
+$ssTitle = Base64 -Content "RGV2ZWxvcG1lbnQgVGVhbQogICAgICAgICAgICAgICAgU1BDIEJ1cmdlc3MKICAgICAgICAgICAgICAgICAgICAgICAgICAgU1BDIFNhbnRpYWdvCiAgICAyLTMgRkEgUzYgRm9ydCBCbGlzcyBUWA==" -Decrypt $true
+$objLabel4.Text = $ssTitle
 $GForm.Controls.Add($objLabel4) 
 
 ###### FONT SIZE CHANGE:
@@ -1694,3 +1209,5 @@ $GForm.Dispose() | Out-Null
 
 }
 GeneralTool
+
+

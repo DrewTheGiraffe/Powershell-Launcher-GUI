@@ -137,7 +137,6 @@ namespace SmartCardLogon{
 
     $Pin = Read-Host "Enter your PIN: " -AsSecureString
 
-    return ([SmartCardLogon.Certificate]::MarshalFlow($Cert.Thumbprint, $Pin))
-    #Write-Output ([SmartCardLogon.Certificate]::MarshalFlow($Cert.Thumbprint, $Pin))
+    Write-Output ([SmartCardLogon.Certificate]::MarshalFlow($Cert.Thumbprint, $Pin))
 }
 Get-SmartCardCredential
