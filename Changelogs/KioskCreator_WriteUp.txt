@@ -1,0 +1,18 @@
+This script was designed to be used in conjunction with phycally locked computers in a supervised environment by the SA user.
+
+Function: 
+
+Creates local user account for users to login to instead of logging in with a visitors account. 
+This way users can save account paperwork to the desktop for SA users to easily manage and upload to respective network share locations.
+This was designed to stop a computer from bottle-necking under the weight of hundreds of visitor accounts.
+Keep in mind this script should never be used on a regular users computer and only on computers that can be monitored by SA users both
+physical monitoring and virtual.
+
+
+
+Login Credentials
+
+Username : .\Kiosk
+Password : Desired Password of SA User / Organization
+
+~ SPC Drew J Burgess 01/25/2022

@@ -1,0 +1,21 @@
+**************************
+ AD-DS Setup Instructions
+**************************
+
+
+ - Copy these instructions into a seperate notepad and close this for the script to continue.
+
+ - The Script will Launcher a seperate program on the remote computer.
+
+ - When it launches click the button that says Only if not present.
+
+ - Now Click the button on the bottom that says QUICK QUERY: Local Computer
+
+ - Now scroll down through the huge list of available features until you find
+Rsat.ActiveDirectory.DS.LDS.Tools
+
+ - Click on the option and click OK.
+
+ - Active Directory will now be installed on the computer running Windows 10 20H2 or newer.
+
+ - Tutorial By SPC Burgess 2-3 FA S6 Fort Bliss TX 2022

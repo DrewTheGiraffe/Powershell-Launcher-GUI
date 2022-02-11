@@ -1,0 +1,32 @@
+This will likely be the last update for this suite unless users report problems to me over signal / gmail.
+I will be ETS'ing from the army in march of 2022. So if you'd like updates just shoot me the problems and I will make changes.
+
+REMINDER : SCRIPT SUITE MUST BE INSTALLED to the C:\temp directory. If this directory does not exist create it (lower case only).
+
+
+Fixes: 
+
+- Fixed Bug in GeneralTechGUI.ps1 (PSEXEC Install Local Host)
+- Fixed PSEXEC install location in logs (C:\temp\Launcher\Logs\PSEXEC_INSTALL.txt)
+- Fixed a bug for users right clicking run Launcher.ps1 as administrator instead of executing through powershell admin window.
+
+UPDATES:
+
+- Added Active Client as an installable item to ApplicationsGUI.ps1
+- Removed Support for RSAT 1803 in ApplicationsGUI.ps1 (Active Directory 1909)
+- Added RSAT 19042 Activation & Installation support (Active Directory 20H2)
+- Added supported modules for Power-Shell v7.0.0+ 
+- Removed Psexec support for Local Admin in GeneralTechGUI.ps1
+- Added WinRM support for Local Admin in GeneralTechGUI.ps1 (PSRemoting)
+- Added secure string encrytion to sensitive info on GeneralTechGUI.ps1
+- Added KioskCreator.ps1 to Launcher Suite
+- Added TrackerScriptGUI.ps1 to Launcher Suite
+- Added PrintScriptGUI.ps1 to Launcher Suite
+
+Next update: 
+This will be the last major update to the suite. 
+If there is something missing that you would like added please let me know.
+915-741-4627
+drew.burgess11@gmail.com
+
+
