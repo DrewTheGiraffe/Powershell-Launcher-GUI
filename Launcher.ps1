@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+#<<<<<<< HEAD
 # Launcher Script v2.0
 # ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 Fort Bliss TX 07/26/2021
 # MOS: 25B & 25U
@@ -752,4 +752,4 @@ If ($Script:CANCELED -cne $True) {
  else { Write-Host "Script Exited Successfully" }        
 }
 MainLauncher
->>>>>>> 40d3e07bc9a0feb6219c3724f90ecbcf6fee2257
+#>>>>>>> 40d3e07bc9a0feb6219c3724f90ecbcf6fee2257

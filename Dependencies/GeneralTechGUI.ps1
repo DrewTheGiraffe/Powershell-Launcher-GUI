@@ -34,8 +34,6 @@ $sspath = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZ
 $sspath2 = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZVwq" -Decrypt $true
 $exactadminfile = $sspath
 $userfile = "C:\Windows\System32" 
-$FinalFileString = "$exactadminfile`n$userfile"
-$LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName; # returns : TheHostname.nasw.ds.army.mil
 
 #creates window
 $GForm = New-Object System.Windows.Forms.Form
@@ -62,7 +60,7 @@ $iconBase64           = $iconConverted2Base64
 $iconBytes            = [Convert]::FromBase64String($iconBase64)
 $stream               = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Length)
 $stream.Write($iconBytes, 0, $iconBytes.Length);
-$iconImage            = [System.Drawing.Image]::FromStream($stream, $true)
+#$iconImage            = [System.Drawing.Image]::FromStream($stream, $true)
 $GForm.Icon    = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $stream).GetHIcon())
 # ico converter : https://cloudconvert.com/png-to-ico
 
@@ -85,7 +83,7 @@ $objTextBox1.Location = New-Object System.Drawing.Size(80,40)
 $objTextBox1.Size = New-Object System.Drawing.Size(260,20)
 $objTextBox1.TabIndex = 0 
 $GForm.Controls.Add($objTextBox1)
-$TheComputer=$objTextBox1.Text # User Input
+#$TheComputer=$objTextBox1.Text # User Input
 
 #This Creates Button Ping
 $PingButton = New-Object System.Windows.Forms.Button
@@ -97,18 +95,18 @@ $PingButton.Add_Click({
 
 # Write Hostname to File then read it in.. 
 # Create Dir
-Sleep 2
+Start-Start-Sleep 2
 New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
 Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-Sleep 2
+Start-Start-Sleep 2
 New-Item -Path "C:\temp\Launcher\Logs" -Name "PING_OUTPUT.log" -ItemType "file" -Force
-Sleep 1
+Start-Start-Sleep 1
 Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
 Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-Sleep 1
+Start-Start-Sleep 1
 
 Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-Sleep 2
+Start-Start-Sleep 2
     $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
     Foreach ($filename in $filenames) 
     {
@@ -121,24 +119,24 @@ Sleep 2
         } 
         else 
         {
-           If ($objTextBox1.Text -cne $null) 
+           If (($objTextBox1.Text) -eq !($null)) 
            {
-             sleep 1   
+             Start-Start-Sleep 1   
              Write-Host "`nPinging Remote Host" -ForegroundColor Cyan
              $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
              C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s cmd /c "ping $theinfo" > C:\temp\Launcher\Logs\PING_OUTPUT.log
-             Sleep 5
+             Start-Start-Sleep 5
              Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\PING_OUTPUT.log"
              Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
              break;
            }
            else 
            {
-             sleep 1
+             Start-Start-Sleep 1
              Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
              break;
            }
-            sleep 1
+            Start-Start-Sleep 1
             Write-Host "`nPSEXEC could not be found at the current path : $sspath2" -ForegroundColor Yellow
             break;
         }
@@ -161,18 +159,18 @@ $IPCONFIGButton.Add_Click(
 
 # Write Hostname to File then read it in.. 
 # Create Dir
-Sleep 2
+Start-Start-Sleep 2
 New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
 Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-Sleep 2
+Start-Start-Sleep 2
 New-Item -Path "C:\temp\Launcher\Logs" -Name "IPCONFIG_OUTPUT.log" -ItemType "file" -Force
-Sleep 1
+Start-Start-Sleep 1
 Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
 Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-Sleep 1
+Start-Start-Sleep 1
 
 Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-Sleep 2
+Start-Start-Sleep 2
     $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
     Foreach ($filename in $filenames) 
     {
@@ -187,22 +185,22 @@ Sleep 2
         {
            If ($objTextBox1.Text -cne $null) 
            {
-             sleep 1   
+             Start-Start-Sleep 1   
              Write-Host "`nQuerying IP Configuration" -ForegroundColor Cyan
              $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
              C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s cmd /c "ipconfig" > C:\temp\Launcher\Logs\IPCONFIG_OUTPUT.log
-             Sleep 5
+             Start-Start-Sleep 5
              Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\IPCONFIG_OUTPUT.log"
              Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
              break;
            }
            else 
            {
-             sleep 1
+             Start-Start-Sleep 1
              Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
              break;
            }
-            sleep 1
+            Start-Start-Sleep 1
             Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
@@ -239,10 +237,10 @@ foreach($Selectedoption in $Choices)
 $QueryUsersButton.Add_Click({
 
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green 
-    Sleep 1
+    Start-Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
    # Exception error happens when logging query user
@@ -251,33 +249,33 @@ $QueryUsersButton.Add_Click({
    }
    else {
     If ($comboBox1.SelectedItem -eq $option1) {
-        Sleep 2
+        Start-Start-Sleep 2
         Write-Host "Querying Actively Logged In Users" -ForegroundColor Green
-        Sleep 1
+        Start-Start-Sleep 1
         New-Item -Path "C:\temp\Launcher\Logs" -Name "ACTIVE_USER_QUERY_OUTPUT.log" -ItemType "file" -Force
-        Sleep 1
+        Start-Start-Sleep 1
         $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
         C:\Windows\System32\PsExec.exe \\$theinfo -s cmd /c query user > C:\temp\Launcher\Logs\ACTIVE_USER_QUERY_OUTPUT.log
         Start-Process "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ACTIVE_USER_QUERY_OUTPUT.log"
         break;
     }
     If ($comboBox1.SelectedItem -eq $option2) {
-        Sleep 2
+        Start-Start-Sleep 2
         Write-Host "Querying Local Users" -ForegroundColor Green
-        sleep 1
+        Start-Start-Sleep 1
         New-Item -Path "C:\temp\Launcher\Logs" -Name "LOCAL_USER_QUERY_OUTPUT.log" -ItemType "file" -Force
-        Sleep 1
+        Start-Start-Sleep 1
         $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
         C:\Windows\System32\PsExec.exe \\$theinfo -s net user > C:\temp\Launcher\Logs\LOCAL_USER_QUERY_OUTPUT.log
         Start-Process "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\LOCAL_USER_QUERY_OUTPUT.log"
         break;
     }
     If ($comboBox1.SelectedItem -eq $option3) {
-        Sleep 2
+        Start-Start-Sleep 2
         Write-Host "Querying Network Profiles" -ForegroundColor Green
-        sleep 1
+        Start-Sleep 1
         New-Item -Path "C:\temp\Launcher\Logs" -Name "ACCOUNT_PROFILES_QUERY_OUTPUT.log" -ItemType "file" -Force
-        sleep 1
+        Start-Sleep 1
         $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
         C:\Windows\System32\PsExec.exe \\$theinfo -s cmd /c dir C:\Users > C:\temp\Launcher\Logs\ACCOUNT_PROFILES_QUERY_OUTPUT.log
         Start-Process "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ACCOUNT_PROFILES_QUERY_OUTPUT.log"
@@ -287,7 +285,7 @@ $QueryUsersButton.Add_Click({
 })
 
 cls
-sleep 3
+Start-Sleep 3
 Write-Host "Script ready for user interaction`n`n" -ForegroundColor Green
 #This Creates Delete all users button
 $DelAllButton = New-Object System.Windows.Forms.Button
@@ -299,18 +297,18 @@ $DelAllButton.Add_Click({
 
 # Write Hostname to File then read it in.. 
 # Create Dir
-Sleep 2
+Start-Sleep 2
 New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
 Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-Sleep 2
+Start-Sleep 2
 New-Item -Path "C:\temp\Launcher\Logs" -Name "DeleteALLUsers_OUTPUT.log" -ItemType "file" -Force
-Sleep 1
+Start-Sleep 1
 Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
 Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-Sleep 1
+Start-Sleep 1
 
 Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-Sleep 2
+Start-Sleep 2
     $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
     Foreach ($filename in $filenames) 
     {
@@ -325,22 +323,22 @@ Sleep 2
         {
            If ($objTextBox1.Text -cne $null) 
            {
-             sleep 1   
+             Start-Sleep 1   
              Write-Host "`nRemoving all user profiles from remote host: $theinfo" -ForegroundColor Cyan
              $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
              C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s cmd /c "del C:\Users\* /q /s /f" > C:\temp\Launcher\Logs\DeleteALLUsers_OUTPUT.log
-             Sleep 5
+             Start-Sleep 5
              Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\DeleteALLUsers_OUTPUT.log"
              Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
              break;
            }
            else 
            {
-             sleep 1
+             Start-Sleep 1
              Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
              break;
            }
-            sleep 1
+            Start-Sleep 1
             Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
             break;
         }
@@ -359,18 +357,18 @@ $DeleteUserButton.Text = "Delete A User"
 $DeleteUserButton.Add_Click({
  # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "Deleted_User.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -385,23 +383,23 @@ $DeleteUserButton.Add_Click({
             {
             If ($objTextBox2.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nUser is being delete" -ForegroundColor Cyan
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 $Custominputuser = $objTextBox2.Text 
                 C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s cmd /c "del C:\Users\$Custominputuser /q /s /f" > C:\temp\Launcher\Logs\Deleted_User.log
-                Sleep 5
+                Start-Sleep 5
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\Delete_User.log"
                 Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                 break;
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -427,16 +425,16 @@ $RestartButton.Text = "Restart"
 $RestartButton.Add_Click({
  # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -451,21 +449,21 @@ $RestartButton.Add_Click({
             {
             If ($objTextBox2.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force 
                 Write-Host "`nRestarting Remote Host : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s shutdown -r -t 0
-                Sleep 5
+                Start-Sleep 5
                 Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                 break;
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -484,16 +482,16 @@ $ShutdownButton.Text = "Shutdown"
 $ShutdownButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -508,7 +506,7 @@ $ShutdownButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nRemote Host is being shutdown" -ForegroundColor Cyan
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s shutdown -s -t 0
@@ -517,11 +515,11 @@ $ShutdownButton.Add_Click({
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -540,16 +538,16 @@ $CMDButton.Text = "CMD"
 $CMDButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -564,7 +562,7 @@ $CMDButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nSending CMD Window to remote host`nNOTE: Close CMD on remote client to continue with General Tech Application" -ForegroundColor Cyan
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s -i cmd
@@ -573,11 +571,11 @@ $CMDButton.Add_Click({
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -596,16 +594,16 @@ $PSButton.Text = "Powershell"
 $PSButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -620,7 +618,7 @@ $PSButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nSending Powershell Window to remote host`nNOTE: Close PS on remote client to continue with General Tech Application" -ForegroundColor Cyan
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s -i Powershell
@@ -629,11 +627,11 @@ $PSButton.Add_Click({
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -652,16 +650,16 @@ $ELocalButton.Text = "Enable Local Admin"
 $ELocalButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -676,25 +674,25 @@ $ELocalButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Write-Host "Creating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
                 $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
                 C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith $Password /add /Y
                 Write-Host "Created Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Green
-                Sleep 2 
+                Start-Sleep 2 
                 Write-Host "Applying Permissions to Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe \\$theinfo -s net localgroup Administrators Joe.Smith /add
-                Sleep 2
+                Start-Sleep 2
                 Write-Host "Activating Joe.Smith Local Administrator or remote computer : $theinfo" -ForegroundColor Cyan
                 $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $theinfo"
                 # Create File 
                 Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt"
-                Sleep 2
+                Start-Sleep 2
                 New-Item -Path "C:\temp\Launcher\Logs" -Name "JoeSmith.txt" -ItemType "file" -Force
                 # Write Content To File
                 Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
-                Sleep 4
+                Start-Sleep 4
                 Write-Host "`n`n`n`nLogin Credentials Logged to JoeSmith.txt at Path : C:\temp\Launcher\Logs" -ForegroundColor Cyan 
                 Write-Host "`nFinished Installing Joe Smith on remote host : $theinfo" -ForegroundColor Green
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt"
@@ -703,11 +701,11 @@ $ELocalButton.Add_Click({
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -726,16 +724,16 @@ $DELocalButton.Text = "Delete Local Admin"
 $DELocalButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -750,21 +748,21 @@ $DELocalButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Write-Host "Disabling Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe \\$theinfo -s net user Joe.Smith /Active:no
-                Sleep 2
+                Start-Sleep 2
                 Write-Host "`nFinished Removing Joe Smith on remote host : $theinfo" -ForegroundColor Green
                 break;
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath" -ForegroundColor Yellow
                 break;
             }
@@ -784,18 +782,18 @@ $MBButton.Add_Click({
     # Write Hostname to File then read it in.. 
     # Create Dir
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "MANAGE_BITLOCKER_STATUS.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -810,11 +808,11 @@ $MBButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
                 {
-                    sleep 1   
+                    Start-Sleep 1   
                     Write-Host "`nWriting Bitlocker status to file" -ForegroundColor Cyan
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s manage-bde -status > C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log
-                    Sleep 5
+                    Start-Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                     Set-Content -Path "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log" -Value ($null) # Clear log after use. Security.
@@ -835,18 +833,18 @@ $DisBButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "MANAGE_BITLOCKER_STATUS.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -861,11 +859,11 @@ $DisBButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
                 {
-                    sleep 1   
+                    Start-Sleep 1   
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                     Write-Host "`nDisabling Bitlocker Encryption on Remote Host : $theinfo" -ForegroundColor Cyan
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s manage-bde -off C:
-                    Sleep 5
+                    Start-Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                     Set-Content -Path "C:\temp\Launcher\Logs\MANAGE_BITLOCKER_STATUS.log" -Value ($null) # Clear log after use. Security.
@@ -886,18 +884,18 @@ $QueryKeyButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "BITLOCKER_KEY.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -912,11 +910,11 @@ $QueryKeyButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
                 {
-                    sleep 1   
+                    Start-Sleep 1   
                     Write-Host "`nWriting Bitlocker key to file" -ForegroundColor Cyan
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo manage-bde -protectors -get C: > C:\temp\Launcher\Logs\BITLOCKER_KEY.log
-                    Sleep 5
+                    Start-Sleep 5
                     Write-Host "Copy Numerical Password ID and close Notepad`nExample: {EA70CF76-XXXX-XXXX-XXXX-9EDF86339DF7}"
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\BITLOCKER_KEY.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
@@ -940,16 +938,16 @@ $TPMButton.Text = "Disable Bitlocker PIN"
 $TPMButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -964,22 +962,22 @@ $TPMButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
             {
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nDisabling Bitlocker Pin on remote host" -ForegroundColor Cyan
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Write-Host "Disabling Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe \\$theinfo -s cmd /c manage-bde -protectors -add C: -tpm
-                Sleep 2
+                Start-Sleep 2
                 Write-Host "`nFinished Removing Bitlocker Pin on remote host : $theinfo" -ForegroundColor Green
                 break;
             }
             else 
             {
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nNO HostName or IP Address Entered" -ForegroundColor Yellow
                 break;
             }
-                sleep 1
+                Start-Sleep 1
                 Write-Host "`nPSEXEC could not be found at the current path : $sspath\" -ForegroundColor Yellow
                 break;
             }
@@ -998,7 +996,7 @@ $PSEXECButton.Text = "Install PSEXEC (Local Host)"
 $PSEXECButton.Add_Click(
 {
 Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-Sleep 2
+Start-Sleep 2
     $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
     Foreach ($filename in $filenames) 
     {
@@ -1034,18 +1032,18 @@ $SNButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "QUERY_SERIAL_NUMBER.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -1060,11 +1058,11 @@ $SNButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
                 {
-                    sleep 1   
+                    Start-Sleep 1   
                     Write-Host "`nQuerying Serial Number" -ForegroundColor Cyan
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                     C:\Windows\System32\PsExec.exe -accepteula \\$theinfo -s wmic bios get SerialNumber > C:\temp\Launcher\Logs\QUERY_SERIAL_NUMBER.log
-                    Sleep 5
+                    Start-Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\QUERY_SERIAL_NUMBER.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                     break;
@@ -1084,18 +1082,18 @@ $QAppsButton.Add_Click({
 # Write Hostname to File then read it in.. 
     # Create Dir
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "QUERY_APPLICATIONS.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 1
+    Start-Sleep 1
 
     Write-Host "`nChecking if psexec exists, Do not Spam!" -ForegroundColor Cyan
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -1110,11 +1108,11 @@ $QAppsButton.Add_Click({
             {
             If ($objTextBox1.Text -cne $null) 
                 {
-                    sleep 1   
+                    Start-Sleep 1   
                     Write-Host "`nQuerying Installed Applications" -ForegroundColor Cyan
                     $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                     C:\Windows\System32\Psinfo.exe -accepteula \\$theinfo -S > C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log
-                    Sleep 5
+                    Start-Sleep 5
                     Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\QUERY_APPLICATIONS.log"
                     Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                     break;
@@ -1143,15 +1141,15 @@ $EnablePSRemotingButton.Add_Click({
     # Write Hostname to File then read it in.. 
     # Create Dir
     Remove-Item -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force # Delete File
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "GeneralTechLog.txt" -ItemType "file" -Force # Re-Create File
     Write-Host "`nGeneral Tech Log Created" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
     New-Item -Path "C:\temp\Launcher\Logs" -Name "ENABLE-PSREMOTING.log" -ItemType "file" -Force
-    Sleep 1
+    Start-Sleep 1
     Set-Content -Path "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Value ($objTextBox1.Text)
     Write-Host "`nContents Finished Writing to file `nat Path : C:\temp\Launcher\Logs\GeneralTechLog.txt" -ForegroundColor Green
-    Sleep 2
+    Start-Sleep 2
         $filenames=Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt"; # Reading the names of the files to test the existance in one of the locations
         Foreach ($filename in $filenames) 
         {
@@ -1160,11 +1158,11 @@ $EnablePSRemotingButton.Add_Click({
                 cls
                 try { . ("C:\temp\Launcher\Dependencies\Enable-PSRemotingRemotely.ps1") }
                 catch { Write-Host -ForegroundColor Yellow "Unable to Locate PSRemoting Script" }
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nAttempting to Enable PS Remoting Remotely" -ForegroundColor Cyan
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
                 Enable-PSRemotingRemotely -ComputerNames $theinfo > C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log
-                Sleep 5
+                Start-Sleep 5
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log"
                 Write-Host "`nFinished Process on remote host : $theinfo" -ForegroundColor Green
                 break;
@@ -1174,10 +1172,10 @@ $EnablePSRemotingButton.Add_Click({
                 cls
                 try { . ("C:\temp\Launcher\Dependencies\Enable-PSRemotingRemotely.ps1") }
                 catch { Write-Host -ForegroundColor Yellow "Unable to Locate PSRemoting Script" }
-                sleep 1   
+                Start-Sleep 1   
                 Write-Host "`nAttempting to Enable PS Remoting Locally" -ForegroundColor Cyan
                 Enable-PSRemotingRemotely -ComputerNames $env:COMPUTERNAME > C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log
-                Sleep 5
+                Start-Sleep 5
                 Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\ENABLE-PSREMOTING.log"
                 Write-Host "`nFinished Process on remote host : $env:COMPUTERNAME" -ForegroundColor Green
                 break;
