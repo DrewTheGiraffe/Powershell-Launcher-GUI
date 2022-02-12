@@ -1,4 +1,4 @@
-# ~Script By SPC Burgess 2-3 FA S6 03/17/2021
+﻿# ~Script By SPC Burgess 2-3 FA S6 03/17/2021
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -9,28 +9,27 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
 
+Do NOT DISTROBUTE CODE OUTSIDE OF DOD
+ORGANIZATIONS, ALL INFORMATION ON THIS
+PAGE IS SUBJECT TO SEARCH & REVIEW BY
+FORT BLISS NETWORK ENTERPRISE CENTER
+PERSONEL AT ANY AND ALL TIMES.
+
     Contact: drew.j.burgess.mil@mail.mil
 #####################################################
 #>
 
 
-
-
-
-Function Draw-Test {
+Function APPLICATIONSGUI {
 cls
 # Call Sys ASM Functions
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") 
 
 Add-Type -AssemblyName 'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'
-
+$SeasionID =  "1"
 # enable rich visual styles in PowerShell console mode:
 [System.Windows.Forms.Application]::EnableVisualStyles()
-
-# include external script 
-try { . ("C:\temp\Launcher\Dependencies\Get-InputBox.ps1") }
-catch { Write-Host -f Yellow "Unable to Located File" }
 
 <#
 #####################################################
@@ -40,7 +39,7 @@ catch { Write-Host -f Yellow "Unable to Located File" }
 
 #This creates the form and sets its size and position
 $objForm = New-Object System.Windows.Forms.Form 
-$objForm.Text = "[SA/WA] Applications"
+$objForm.Text = "[SA/WA] App Script"
 $objForm.Size = New-Object System.Drawing.Size(300,615)
 $objForm.AcceptButton = $OKButton
 $objForm.CancelButton = $CANCELButton
@@ -57,9 +56,9 @@ $stream               = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Len
 $stream.Write($iconBytes, 0, $iconBytes.Length);
 $iconImage            = [System.Drawing.Image]::FromStream($stream, $true)
 $objForm.Icon    = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $stream).GetHIcon())
-# ico converter : https://cloudconvert.com/png-to-ico
+#ico converter : https://cloudconvert.com/png-to-ico
 
-#This is defines what Enter & escape do when pressed
+# This is defines what Enter & escape do when pressed
 $objForm.KeyPreview = $True
 $objForm.Add_KeyDown({if ($_.KeyCode -eq "Enter"){$HNorIPV4=$objTextBox1.Text;$title=$objDepartmentListbox.SelectedItem;$office=$objOfficeListbox.SelectedItem;$objForm.Close()}})
 $objForm.Add_KeyDown({if ($_.KeyCode -eq "Escape"){$Script:CANCELED=$True;$objForm.Close()}})
@@ -123,6 +122,9 @@ $OKButton.Location = New-Object System.Drawing.Size(10,515)
 $OKButton.Size = New-Object System.Drawing.Size(75,23)
 $OKButton.Text = "RUN"
 $OKButton.Add_Click({
+$objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Red")
+$objScriptCheckInActive.Text = "Script Locked"
+
 If (($Script:CANCELED -eq $True)) { # If script is exited with "cancel" button or "escape" key. 
     Write-Host "Script Exited all processes Successfully" -ForegroundColor Yellow
 }
@@ -135,135 +137,24 @@ Sleep 2
 
     # Edit any of these directories in the event the Network Enterprise Center Changes there app locations.
     $GChromeDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\google_chrome.txt' -Force
-    $sschrome         = Base64 -Content $GChromeDirectory -Decrypt $true
     $FireFoxDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\firefox.txt'
-    $ssFireFox        = Base64 -Content $FireFoxDirectory -Decrypt $true
     $MSTeamsDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\teams.txt'
-    $ssMSTeams        = Base64 -Content $MSTeamsDirectory -Decrypt $true
     $CitrixxDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\Citrix.txt'
-    $ssCitrix         = Base64 -Content $CitrixxDirectory -Decrypt $true
     $MedicalDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\DCAM.txt'
-    $ssDCAM           = Base64 -Content $MedicalDirectory -Decrypt $true
     $GSSARMYDirectory =                          'C:\temp\GCSS_Army_Integrated_Installer_4_16_0.exe'
-    $GEarthDirectory  = $null
-    $ACROBATDCPRO     = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt'
-    $ssAdobeAcrobat   = Base64 -Content $ACROBATDCPRO -Decrypt $true    
+    $ACROBATDCPRO     = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\acrobatDCPro.txt'    
     $SHAREPOINTDESIGNER = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\sharepoint_editor.txt'
-    $ssSharepoint       = Base64 -Content $SHAREPOINTDESIGNER -Decrypt $true
-    
-If ($objDisableLogsCheckbox.Checked -eq $True) {
-    [String]$Nothing = $null
-    If ($HNorIPV4 -cne $Nothing) # If input is not equal to null data..
-    {
-        # DO NOT EDIT BELOW THIS LINE!!!!
-        # Chrome 
-        If ($objChromeCheckbox.Checked -eq $True)
-        {
-            Write-Host "Installing Google Chrome on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $sschrome
-            return "Chrome Installer finished on remote host : $Computers"; # Continue
-        }
-        # FireFox
-        If ($objFireFoxCheckbox.Checked -eq $True) 
-        {
-            Write-Host "Installing FireFox on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssFireFox
-            return "FireFox Installer finished on remote host : $Computers"; # Continue
-        }
-        # MS Teams
-        If ($objMSTEAMSCheckbox.Checked -eq $True) 
-        {
-            Write-Host "Copying MS Teams to 'C:\temp' directory on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssMSTeams
-            return "MS Teams finished copying on remote host : $Computers"; # Continue
-        }
-        # Citrix
-        If ($objCitrixCheckbox.Checked -eq $True) 
-        {
-            Write-Host "Installing Citrix on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssCitrix
-            return "Citrix Installer finished on remote host : $Computers"; # Continue
-        }
-        # DCAM
-        If ($objDCAMCheckbox.Checked -eq $True) 
-        {
-            Write-Host "Installing DCAM on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssDCAM
-            return "DCAM Installer finished on remote host : $Computers"; # Continue
-        }
-        # GSS Army (WinGUI)
-        If ($objWinGUICheckbox.Checked -eq $True) 
-        {
-            Write-Host "`nDownloading Data Please Wait..." -ForegroundColor Cyan
-            xcopy "C:\temp\Launcher\Dependencies\Packages\GCSSArmyIntegratedInstaller4160.zip" "\\$Computers\C$\temp" /H /Y
-            Write-Host "`nExtracting Data Please Wait..." -ForegroundColor Cyan
-            Sleep 1
-            PSEXEC \\$Computers -s Powershell -command Expand-Archive -Path "C:\temp\GCSSArmyIntegratedInstaller4160.zip" -DestinationPath "C:\temp"
-            Write-Host "`nSuccessfully Extracted Data" -ForegroundColor Green 
-            Sleep 1
-            Write-Host "`nDeleting Zip Archive From Remote Host : $Computers" -ForegroundColor Cyan
-            PSEXEC \\$Computers -s Powershell -command Remove-Item -Path "C:\temp\GCSSArmyIntegratedInstaller4160.zip" -Force
-            Write-Host "Installing WinGUI on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GSSARMYDirectory
-            Sleep 1 
-            Write-Host "`nScript Finished, Script Ready!" -ForegroundColor Green
-            return "WinGUI Installer requires interaction on remote host : $Computers"; # Continue
-        }
-        # Adobe Acrobat DC Pro
-        If ($objAdobeDCPROCheckbox.Checked -eq $True) 
-        {
-            Write-Host "Installing Adobe DC Pro on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssAdobeAcrobat /A /R
-            return "Adobe Installer finished on remote host : $Computers"; # Continue
-        }
-        # Share Pointer Designer
-        If ($objSharePointDesigner2013Checkbox.Checked -eq $True) 
-        {
-            Write-Host "Installing Sharepoint Designer 2013 on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssSharepoint
-            return "Sharepoint Designer 2013 Installer finished on remote host : $Computers"; # Continue
-        }
-        If ($objJoeSmithCheckbox.Checked -eq $True) 
-        {
-            Write-Host "`nCreating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-            $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
-            C:\Windows\System32\PsExec.exe \\$Computers -s net user Joe.Smith $Password /add /Y
-            Write-Host "`nCreated Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Green
-            Sleep 2 
-            Write-Host "`nApplying Permissions to Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s net localgroup Administrators Joe.Smith /add
-            Sleep 2
-            $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $Computers"
-            # Create File 
-            Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt"
-            Sleep 2
-            New-Item -Path "C:\temp\Launcher\Logs" -Name "JoeSmith.txt" -ItemType "file" -Force
-            # Write Content To File
-            Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
-            Sleep 4
-            Write-Host "`n`n`nLogin Credentials Logged to JoeSmith.txt at Path : $Paths" -ForegroundColor Cyan 
-            return "`nFinished Installing Joe Smith on remote host : $Computers"; # Continue  
-        }
-        # Google Earth 
-        If ($objGEarthCheckbox.Checked -eq $True) 
-        {
-            #Write-Host "Google Earth Installer Started on remote Computer : $Computers" -ForegroundColor Cyan
-            Write-Host "Google Earth Installer Currently unavailable`n" -ForegroundColor Yellow
-            #C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GEarthDirectory
-            return "Remote Process Canceled on remote host : $Computers"; # Continue
-        }
-      return "No applications selected program safely exiting";
-      }# End of If info != Null
-    }# End of IF Disable logging 
-else {
-
+    $JavaInstallDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\java.txt'
+    $ciscoanyconnectdir   = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\anyconnect.txt'
+    $NotepadPlusDirectory = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\NotepadPlus.txt'
+    $GCSSARMYNECDIRECTORY = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\SAPGUI.txt'
+    $ACTIVCLIENTDIRECTORY = Get-Content -LiteralPath 'C:\temp\Launcher\Dependencies\Directories\active_client.txt'
 
 # Global for recieved data from Input box..
 $Computers = $objTextBox1.Text
 
 # Check if PS_Tools Exists on Script Users computer.. 
-$sspspath = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZQ==" -Decrypt $true
-$exactadminfile = $sspspath
+$exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" #First folder to check the file
 $userfile = "C:\Windows\System32" #Second folder to check the file
 $FinalFileString = "$exactadminfile`n$userfile" # New line = `n
 
@@ -285,29 +176,29 @@ Foreach ($Path in $Paths) {
         }
       }
     else {
-        Sleep 3
+        Sleep 1
         If ((Test-Path -LiteralPath "C:\temp\Launcher\Logs") -and !(Test-Path -LiteralPath "C:\temp\Launcher\Logs")) {
             New-Item -Path "C:\temp\Launcher\" -Name "Logs" -ItemType "directory" -Force
         }
         elseIf ((Test-Path -LiteralPath "C:\temp\Launcher\Logs\FileCheckLog.txt") -and !(Test-Path -LiteralPath "C:\temp\Launcher\Logs\FileCheckLog.txt")) {
-        Sleep 3
+        Sleep 1
         # Create File @DIR
         Write-Host "`n`nFileChecklog Found!" -ForegroundColor Cyan
-        Sleep 3
+        Sleep 1
         # Write Content To File
         Set-Content -Path "C:\temp\Launcher\Logs\FileCheckLog.txt" -Value ($FinalFileString)
-        Sleep 3
+        Sleep 1
         Write-Host "`n`nFileCheckLog Updated!" -ForegroundColor Green
         }
         else {
         Write-Host "`n`nCreating PSEXEC Install Dependencies" -ForegroundColor Cyan
-        Sleep 3
+        Sleep 1
         # Create File @DIR
         New-Item -Path "C:\temp\Launcher\Logs" -Name "FileCheckLog.txt" -ItemType "file" -Force
-        Sleep 3
+        Sleep 1
         # Write Content To File
         Set-Content -Path "C:\temp\Launcher\Logs\FileCheckLog.txt" -Value ($FinalFileString)
-        Sleep 3
+        Sleep 1
         }
       } 
    IF ((Get-Content "C:\temp\Launcher\Logs\FileCheckLog.txt" -ErrorAction SilentlyContinue) -eq ($null))  {# if file's content's = null (Nothing) blank data
@@ -319,15 +210,15 @@ Foreach ($Path in $Paths) {
           Sleep 1
           Write-Host "`nCreating DebugLog.txt" -ForegroundColor Cyan
           New-Item -Path $Paths -Name "DebugLog.txt" -ItemType "file" -Force # Create Debug Log
-          Sleep 2 # Give script time to verify
+          Sleep 1 # Give script time to verify
           Write-Host "`nDebug Log Created at path : $Paths" -ForegroundColor Green
           Sleep 1 # Give Script Time to Write
           Write-Host "`nLogging Data to DebugLog.txt" -ForegroundColor Cyan
-          Sleep 4 # Give Script Time to Log Data
+          Sleep 2 # Give Script Time to Log Data
           Set-Content -Path "C:\temp\Launcher\Logs\DebugLog.txt" -Value ($DebugLogContent) -ErrorAction SilentlyContinue    # Log Description 
           Add-Content -Path "C:\temp\Launcher\Logs\DebugLog.txt" -Value ($Date) -ErrorAction SilentlyContinue               # Log Date 
           Write-Host "`nDirectory $Paths and $FileToRead exist with contents.`nChecking if PsExec exists at Path : $userfile." -ForegroundColor Green
-          Sleep 5
+          Sleep 1
     }
     else {
         Write-Host "`nPath : $Paths exists. Writing Data to File : $FileToRead" -ForegroundColor Cyan
@@ -335,9 +226,9 @@ Foreach ($Path in $Paths) {
         Set-Content -Path "C:\temp\Launcher\Logs\FileCheckLog.txt" -Value ($FinalFileString)
         Add-Content -Path "C:\temp\Launcher\Logs\DebugLog.txt" -Value ($Date) -ErrorAction SilentlyContinue               # Log Date
         Write-Host "`nDebug Log Updated : Script Detected Previous user. Welcome Back!" -ForegroundColor Green
-        Sleep 7 # Thanks for coming back!
+        Sleep 2 # Thanks for coming back!
         Write-Host "`nDirectory $Paths and $FileToRead exist with contents.`nChecking if PsExec exists at Path : $userfile." -ForegroundColor Green
-        Sleep 5
+        Sleep 1
     }# End of FilePath & DebugLog Check/Write.
 }# End of loop
  
@@ -348,8 +239,7 @@ $LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName # returns : The
 foreach ($filename in $filenames) {
   if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) { #if the file is in share drive but not in Win\Sys32 folder
     Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan
-    $sspath2 = Base64 -Content "XFxibGlzdzZzeWFhYTduZWNcSU1PX0luZm9cQXZhaWxhYmxlIFNvZnR3YXJlICYgRml4ZXNcUFNfVG9vbHNcUHNFeGVjLmV4ZVwq" -Decrypt $true
-    Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "$sspath2 C:\Windows\System32 /H /Y" 
+    Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
     for ($i = 1; $i -le 100; $i++)
     {
         Write-Progress -Activity "Downloading PsTools to $LocalHostName" -Status "$i% Complete:" -PercentComplete $i;
@@ -366,36 +256,52 @@ foreach ($filename in $filenames) {
         If ($objChromeCheckbox.Checked -eq $True)
         {
             Write-Host "Installing Google Chrome on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $sschrome
-            return "Chrome Installer finished on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -d -s -i $GChromeDirectory
+            write-host "Chrome Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # FireFox
         If ($objFireFoxCheckbox.Checked -eq $True) 
         {
+            Sleep 1
             Write-Host "Installing FireFox on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssFireFox
-            return "FireFox Installer finished on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -d -s -i "$FireFoxDirectory"
+            Write-Host "FireFox Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # MS Teams
         If ($objMSTEAMSCheckbox.Checked -eq $True) 
         {
             Write-Host "Copying MS Teams to 'C:\temp' directory on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssMSTeams
-            return "MS Teams finished copying on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -d -s -i $MSTeamsDirectory
+            write-host "MS Teams finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # Citrix
         If ($objCitrixCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing Citrix on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssCitrix
-            return "Citrix Installer finished on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -d -s -i $CitrixxDirectory
+            write-host "Citrix Installer finished on remote host : $Computers" -ForegroundColor Green 
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # DCAM
         If ($objDCAMCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing DCAM on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $ssDCAM
-            return "DCAM Installer finished on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -d -s -i $MedicalDirectory
+            write-host "DCAM Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # GSS Army (WinGUI)
         If ($objWinGUICheckbox.Checked -eq $True) 
@@ -410,66 +316,168 @@ foreach ($filename in $filenames) {
             Write-Host "`nDeleting Zip Archive From Remote Host : $Computers" -ForegroundColor Cyan
             PSEXEC \\$Computers -s Powershell -command Remove-Item -Path "C:\temp\GCSSArmyIntegratedInstaller4160.zip" -Force
             Write-Host "Installing WinGUI on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GSSARMYDirectory
+            invoke-command -ComputerName $Computers -ScriptBlock { Start-Process -FilePath "C:\temp\GCSS_Army_Integrated_Installer_4_16_0.exe" -WorkingDirectory "C:\temp" }
             Sleep 1 
-            return "WinGUI Installer requires interaction on remote host : $Computers"; # Continue
+            Write-Host "`nWinGUI Installer requires interaction on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # Adobe Acrobat DC Pro
         If ($objAdobeDCPROCheckbox.Checked -eq $True) 
         {
             Write-Host "Installing Adobe DC Pro on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssAdobeAcrobat /A /R
-            return "Adobe Installer finished on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -d -s -i $ACROBATDCPRO /A /R
+            write-host "`nAdobe Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
         # Share Pointer Designer
         If ($objSharePointDesigner2013Checkbox.Checked -eq $True) 
         {
             Write-Host "Installing Sharepoint Designer 2013 on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ssSharepoint
-            return "Sharepoint Designer 2013 Installer finished on remote host : $Computers"; # Continue
+            C:\Windows\System32\PsExec.exe \\$Computers -d -s -i $SHAREPOINTDESIGNER
+            write-host "`nSharepoint Designer 2013 Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
-        If ($objJoeSmithCheckbox.Checked -eq $True) 
+        If ($objADCheckbox.Checked -eq $True)
         {
-            $Password = Base64 -Content "MzdKZWshKlQ0ZzM3SmVr" -Decrypt $true
-            Write-Host "Creating Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s net user Joe.Smith $Password /add /Y
-            Write-Host "Created Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Green
-            Sleep 2 
-            Write-Host "Applying Permissions to Joe.Smith Local Administrator on remote Computer : $Computers" -ForegroundColor Cyan
-            C:\Windows\System32\PsExec.exe \\$Computers -s net localgroup Administrators Joe.Smith /add
-            Sleep 2
-            $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $Computers"
-            # Create File 
-            If (!(Test-Path $Paths) -and (Test-path $Paths)) {
-                Remove-Item -LiteralPath "C:\temp\Launcher\Logs\JoeSmith.txt" 
+            # Correct way..
+            Write-Host "`nChecking Windows Version on remote host : $Computers" -ForegroundColor Cyan
+            [String]$Windows1909VersionFound = "Windows 20H2 Not Found"
+            $Data = C:\Windows\System32\PsExec.exe \\$Computers -s powershell.exe /c systeminfo | Select-String "N/A Build"
+            $SysVersion = $Data 
+            $SysV1=$SysVersion.ToString()
+            $SysV2=$SysV1.Replace("OS Version:                ", "")
+            $SysV3=$SysV2.Trim("OS Version:                ")
+            Set-Content -Path "C:\temp\Launcher\Logs\OSVERSIONCHECK.log" -Value($SysV3) -Force
+            $RemoteWindowsVersionCheck = Get-Content -LiteralPath "C:\temp\Launcher\Logs\OSVERSIONCHECK.log" -Force
+            If ($RemoteWindowsVersionCheck.CompareTo("10.0.19042 N/A Build 19042")) { # if return is the ErrorVariable.. do this..
+                 Write-Host "`nLauncher Suite has ended support for 1909 RSAT Suite" -ForegroundColor Yellow
+                 Start-Sleep -Milliseconds 100
+                 Write-Host "`nScript Finished!" -ForegroundColor Green
+                 $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+                 $objScriptCheckInActive.Text = "Script Ready"
+                 return ""; # Continue
             }
-            Sleep 2
-            New-Item -Path "C:\temp\Launcher\Logs" -Name "JoeSmith.txt" -ItemType "file" -Force
-            # Write Content To File
-            Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
-            Sleep 4
-            Write-Host "`n`n`n`nLogin Credentials Logged to JoeSmith.txt at Path : $Paths" -ForegroundColor Cyan 
-            Start-Process -FilePath "C:\Windows\System32\notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt" # Launch log for user creds
-            return "`nFinished Installing Joe Smith on remote host : $Computers"; # Continue  
+            else {
+                 If ((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer") -eq 0x00000001) {
+        
+                    Start-sleep -Milliseconds 100
+        
+                    Write-Host "`nApplying windows update fix" -ForegroundColor Yellow
+        
+                    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0x00000000 -Force
+        
+                    Start-Sleep -Milliseconds 100
+        
+                    Write-Host "`nRestarting Windows Update Service" -ForegroundColor Cyan
+        
+                    Restart-Service -Name "Windows Update" -Force
+        
+                    Start-sleep -Milliseconds 100
+
+                    Write-Host "`nInstalling RSAT suite" -ForegroundColor Cyan
+        
+                    Start-sleep -Milliseconds 100
+
+                    Get-WindowsCapability -Online |? {$_.Name -like "RSAT" -and $_.State -eq "NotPresent"} | Add-WindowsCapability -Online
+        
+                    Write-Host "`nFinished Installing RSAT: Active Directory Users & Computers" -ForegroundColor Green 
+
+                    $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+                    
+                    $objScriptCheckInActive.Text = "Script Ready"
+
+                    return ""; # Continue
+                }
+                else {
+    
+                    Start-Sleep -Milliseconds 100
+        
+                    Write-Host "Found Correct Value for WinUpdateServer.. Script will continue" -ForegroundColor Cyan
+        
+                    Restart-Service -Name "Windows Update" -Force
+        
+                    Start-Sleep -Milliseconds 100
+        
+                    Write-Host "`nSending Request for RSAT Services" -ForegroundColor Cyan
+        
+                    Start-sleep -Milliseconds 100
+
+                    Get-WindowsCapability -Online |? {$_.Name -like "RSAT" -and $_.State -eq "NotPresent"} | Add-WindowsCapability -Online
+
+                    Write-Host "`nFinished Installing RSAT: Active Directory Users & Computers" -ForegroundColor Green
+                    
+                    $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+                    
+                    $objScriptCheckInActive.Text = "Script Ready"
+
+                    return ""; # Continue 
+        
+                }
+                return ""; # Continue
+            }
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
-        # Google Earth 
-        If ($objGEarthCheckbox.Checked -eq $True) 
+        If ($javaCheckbox.Checked -eq $True) 
         {
-            #Write-Host "Google Earth Installer Started on remote Computer : $Computers" -ForegroundColor Cyan
-            Write-Host "Google Earth Installer Currently unavailable" -ForegroundColor Yellow
-            #C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $GEarthDirectory
-            return "Remote Process Canceled on remote host : $Computers"; # Continue
+            Write-Host "Installing Java on remote Computer : $Computers" -ForegroundColor Cyan
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $JavaInstallDirectory
+            write-host "`nJava Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
         }
-        Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($null) #clear log after use. 
+        If ($AnyConnectCheckBox.Checked -eq $True) 
+        {
+            Write-Host "Installing Cisco AnyConnect on remote Computer : $Computers" -ForegroundColor Cyan
+            C:\Windows\System32\PsExec.exe \\$Computers -s -d -i $ciscoanyconnectdir
+            write-host "`nCisco AnyConnect Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
+        }
+        If ($NotepadplusCheckBox.Checked -eq $True) 
+        {
+            Write-Host "Installing Cisco AnyConnect on remote Computer : $Computers" -ForegroundColor Cyan
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $NotepadPlusDirectory
+            write-host "`nCisco AnyConnect Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
+        }
+        If ($SAPGUINECCheckBox.Checked -eq $True) 
+        {
+            Write-Host "Installing SAP GUI on remote Computer : $Computers" -ForegroundColor Cyan
+            C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $GCSSARMYNECDIRECTORY
+            write-host "`nSAP GUI Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
+        }
+        If ($ACTIVECLIENTCheckBox.Checked -eq $True) 
+        {
+            Write-Host "Installing Active Client on remote Computer : $Computers" -ForegroundColor Cyan
+            C:\Windows\System32\PSExec.exe \\$Computers -c -f -s -d -i $ACTIVCLIENTDIRECTORY
+            Write-Host "`nActive Client Installer finished on remote host : $Computers" -ForegroundColor Green
+            $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
+            $objScriptCheckInActive.Text = "Script Ready"
+            return ""; # Continue
+        }
+        
       }# End of If info != Null
       Sleep 3
       return "No applications selected program safely exiting";
       Sleep 2 # Give Script Time to unload ASM.
      }# End of Else do the check box
     }
-   }# End of foreach loop
-  }
-})
+}})
 $objForm.Controls.Add($OKButton)
 
 #This Creates Button Deny
@@ -485,7 +493,7 @@ $objChromeCheckbox = New-Object System.Windows.Forms.Checkbox
 $objChromeCheckbox.Location = New-Object System.Drawing.Size(10,110) 
 $objChromeCheckbox.Size = New-Object System.Drawing.Size(500,20)
 $objChromeCheckbox.Text = "Install Google Chrome"
-$objChromeCheckbox.TabIndex = 2
+$objChromeCheckbox.TabIndex = 1
 $objForm.Controls.Add($objChromeCheckbox)
 
 #This creates a checkbox 
@@ -493,7 +501,7 @@ $objFireFoxCheckbox = New-Object System.Windows.Forms.Checkbox
 $objFireFoxCheckbox.Location = New-Object System.Drawing.Size(10,130) 
 $objFireFoxCheckbox.Size = New-Object System.Drawing.Size(500,20)
 $objFireFoxCheckbox.Text = "Install FireFox"
-$objFireFoxCheckbox.TabIndex = 3
+$objFireFoxCheckbox.TabIndex = 2
 $objForm.Controls.Add($objFireFoxCheckbox)
 
 #This creates a checkbox 
@@ -501,7 +509,7 @@ $objMSTEAMSCheckbox = New-Object System.Windows.Forms.Checkbox
 $objMSTEAMSCheckbox.Location = New-Object System.Drawing.Size(10,150) 
 $objMSTEAMSCheckbox.Size = New-Object System.Drawing.Size(500,20)
 $objMSTEAMSCheckbox.Text = "Install MS Teams"
-$objMSTEAMSCheckbox.TabIndex = 4
+$objMSTEAMSCheckbox.TabIndex = 3
 $objForm.Controls.Add($objMSTEAMSCheckbox)
 
 #This creates a checkbox 
@@ -544,35 +552,60 @@ $objSharePointDesigner2013Checkbox.Text = "Install Share Point Designer 2013"
 $objSharePointDesigner2013Checkbox.TabIndex = 8
 $objForm.Controls.Add($objSharePointDesigner2013Checkbox)
 
-#Santiago's checkbox
-$objJoeSmithCheckbox = New-Object System.Windows.Forms.CheckBox
-$objJoeSmithCheckbox.Location = New-Object System.Drawing.Size(10,270)
-$objJoeSmithCheckbox.size = New-Object System.Drawing.Size(500,20)
-$objJoeSmithCheckbox.Text = "Install Joe.Smith Local Administrator"
-$objJoeSmithCheckbox.TabIndex = 9
-$objForm.Controls.Add($objJoeSmithCheckbox)
+# Active Directory [AD-DS] 
+$objADCheckbox = New-Object System.Windows.Forms.CheckBox
+$objADCheckbox.Location = New-Object System.Drawing.Size(10,270)
+$objADCheckbox.size = New-Object System.Drawing.Size(500,20)
+$objADCheckbox.Text = "Install Active Directory [AD-DS]"
+$objADCheckbox.TabIndex = 9
+$objForm.Controls.Add($objADCheckbox)
 
-# Google Earth 
-$objGEarthCheckbox = New-Object System.Windows.Forms.CheckBox
-$objGEarthCheckbox.Location = New-Object System.Drawing.Size(10,290)
-$objGEarthCheckbox.size = New-Object System.Drawing.Size(500,20)
-$objGEarthCheckbox.Text = "Install Google Earth"
-$objGEarthCheckbox.TabIndex = 10
-$objForm.Controls.Add($objGEarthCheckbox)
+# Java 
+$javaCheckbox = New-Object System.Windows.Forms.CheckBox
+$javaCheckbox.Location = New-Object System.Drawing.Size(10,290)
+$javaCheckbox.size = New-Object System.Drawing.Size(500,20)
+$javaCheckbox.Text = "Install Java"
+$javaCheckbox.TabIndex = 10
+$objForm.Controls.Add($javaCheckbox)
 
-$objDisableLogsCheckbox = New-Object System.Windows.Forms.CheckBox
-$objDisableLogsCheckbox.Location = New-Object System.Drawing.Size(10,475)
-$objDisableLogsCheckbox.size = New-Object System.Drawing.Size(500,20)
-$objDisableLogsCheckbox.Text = "Disable Auto Logging [NOT RECOMMENDED]"
-$objDisableLogsCheckbox.TabIndex = 11
-$objForm.Controls.Add($objDisableLogsCheckbox)
+# Cisco Any Connect (VPN) 
+$AnyConnectCheckBox = New-Object System.Windows.Forms.CheckBox
+$AnyConnectCheckBox.Location = New-Object System.Drawing.Size(10,310)
+$AnyConnectCheckBox.size = New-Object System.Drawing.Size(500,20)
+$AnyConnectCheckBox.Text = "Install Cisco AnyConnect (VPN)"
+$AnyConnectCheckBox.TabIndex = 11
+$objForm.Controls.Add($AnyConnectCheckBox)
+
+# Notepad++ 
+$NotepadplusCheckBox = New-Object System.Windows.Forms.CheckBox
+$NotepadplusCheckBox.Location = New-Object System.Drawing.Size(10,330)
+$NotepadplusCheckBox.size = New-Object System.Drawing.Size(500,20)
+$NotepadplusCheckBox.Text = "Install Notepad++"
+$NotepadplusCheckBox.TabIndex = 12
+$objForm.Controls.Add($NotepadplusCheckBox)
+
+# SAP GUI 
+$SAPGUINECCheckBox = New-Object System.Windows.Forms.CheckBox
+$SAPGUINECCheckBox.Location = New-Object System.Drawing.Size(10,350)
+$SAPGUINECCheckBox.size = New-Object System.Drawing.Size(500,20)
+$SAPGUINECCheckBox.Text = "Install SAP GUI (NEC)"
+$SAPGUINECCheckBox.TabIndex = 13
+$objForm.Controls.Add($SAPGUINECCheckBox)
+
+# ACTIVE CLIENT
+$ACTIVECLIENTCheckBox = New-Object System.Windows.Forms.CheckBox
+$ACTIVECLIENTCheckBox.Location = New-Object System.Drawing.Size(10,370)
+$ACTIVECLIENTCheckBox.size = New-Object System.Drawing.Size(500,20)
+$ACTIVECLIENTCheckBox.Text = "Install Active Client"
+$ACTIVECLIENTCheckBox.TabIndex = 14
+$objForm.Controls.Add($ACTIVECLIENTCheckBox)
 
 # Execute Front End
 $objForm.Add_Shown({$objForm.Activate()})
 $objForm.ShowDialog() | Out-Null
 $objForm.Dispose() | Out-Null
 }
-Draw-Test
+APPLICATIONSGUI
 
 
 <#
@@ -581,5 +614,4 @@ https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.manageme
 https://social.technet.microsoft.com/Forums/scriptcenter/en-US/e3d80f73-55f6-4a7e-95b5-4e9216ef1847/powershell-windows-forms-checkbox?forum=winserverpowershell
 https://stackoverflow.com/questions/31879814/check-if-a-file-exists-or-not-in-windows-powershell/31881297
 https://devblogs.microsoft.com/scripting/provide-progress-for-your-script-with-a-powershell-cmdlet/
-#>
 #>

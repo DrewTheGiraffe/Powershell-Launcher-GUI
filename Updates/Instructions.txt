@@ -1,0 +1,9 @@
+To apply the updated files:
+
+Copy the Launcher Folder or drag it out to the C:\temp folder.
+
+When prompted to overwrite current files click yes for all.
+
+Congrats you are up to date!
+
+~SPC BURGESS Drew J 2-3 FA S6
