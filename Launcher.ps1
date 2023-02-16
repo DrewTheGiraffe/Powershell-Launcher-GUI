@@ -1,5 +1,5 @@
-﻿# Launcher Script v2.0
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 Fort Bliss TX 07/26/2021
+﻿# Launcher Script v3.0
+# ~Script By SPC Burgess & SPC Santiago 02/16/2023
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -10,6 +10,7 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
             Contact DSN: 915-741-4627
+       ALL CUI DATA PURGED FROM THIS SOURCE.
 #####################################################
 #>
 
