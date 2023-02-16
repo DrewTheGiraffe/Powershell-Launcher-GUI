@@ -38,7 +38,7 @@
         
         [Parameter(ValueFromPipeline=$true,ValueFromPipelineByPropertyName=$true,Mandatory=$false,
         HelpMessage="Enter the path where you want the log file and CSV Results to be written.")]
-		[string]$LogPath = "C:\Logs\PSRemoting"
+		[string]$LogPath = "C:\temp\Launcher\Logs\psremoting\"
               
          <#,
         
@@ -66,6 +66,9 @@
 
                    Modified by: Michael Sloan
                    Modified: 9/18/2018
+		   
+		   Modified by: Drew Burgess
+                   Modified: 11/15/2020
  
                    Changelog: 
                     * Code simplification and clarification - thanks to @juneb_get_help 
