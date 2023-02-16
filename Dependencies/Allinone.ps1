@@ -1,5 +1,5 @@
 # Allinone Script
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/272021 @ 07:34
+# ~Script By SPC Burgess & SPC Santiago 02/16/2023
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -10,6 +10,7 @@
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
             Contact DSN: 915-741-4627
+       PURGED OF ALL CUI DATA FOR PUBLIC USE.
 #####################################################
 #>
 
@@ -906,17 +907,17 @@ $ButtonStart.Add_Click({
             
             Sleep 3
             
-            $User = Get-ADComputer -Identity "CN=$Computer,$ADPathContent" -Server "nasw.ds.army.mil"
-            $Group = Get-ADGroup -Identity $CustomSecGroup -Server "nasw.ds.army.mil"
+            $User = Get-ADComputer -Identity "CN=$Computer,$ADPathContent" -Server "domain.com"
+            $Group = Get-ADGroup -Identity $CustomSecGroup -Server "domain.com"
 
-            # adds BLIS FORSCOM WORKSTATION CERTIFICATE REQUEST to selected computer @Name                                                                                                                                      
-            Add-ADGroupMember -Identity $Group -Members $User -Server "nasw.ds.army.mil"  
+            # adds certificate to hostname                                                                                                                                     
+            Add-ADGroupMember -Identity $Group -Members $User -Server "domain.com"  
             
             $outputBox.Text = "Added Security Group to Hostname : $Computer"
             
             Sleep 3
             
-            # adds Computer Description to AD Obj @nasw.ds.army.mil location
+            # adds Computer Description to AD Obj @domain.com location
             Set-ADComputer -Identity $User -Description $PCDescription
             $outputBox.Text = "Added Custom Description to Hostname : $Computer"
             
@@ -1079,13 +1080,13 @@ $objTextBoxmi.Size = New-Object System.Drawing.Size(50,20)
 $objTextBoxmi.TabIndex = 2 
 $form1.Controls.Add($objTextBoxmi)
 #***************************************************************************
-#This creates a label for the TextBox DODID
+#This creates a label for the TextBox Username
 $objLabelDODID = New-Object System.Windows.Forms.Label
 $objLabelDODID.Location = New-Object System.Drawing.Size(210,170) 
 $objLabelDODID.Size = New-Object System.Drawing.Size(50,20)# (280,20)
 [String]$MandatoryWrite = "*" 
 $objLabelDODID.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabelDODID.Text = "DODID"
+$objLabelDODID.Text = "Username"
 $form1.Controls.Add($objLabelDODID) 
 
 #This creates the TextBox DODID
