@@ -1,15 +1,16 @@
-﻿<# Script By ~ SPC BURGESS 2-3 FA S6
-**************************************
-
-    Kiosk Script DOD Edition Only
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES. 
-
-**************************************
+# Kiosk Creator Script
+# ~Script By SPC Burgess & SPC Santiago 02/16/2023
+# MOS: 25B & 25U
+<#
+#####################################################
+    Big thanks to Reddit Friends / Sources
+ for making this script possible. The goal here
+ is to make things easier for IMO's. If you get
+ a moment feel free to check out this code. If 
+ I am still in the Army apon you reading this,
+ feel free to reach out with any feedback. 
+       PURGED OF ALL CUI DATA FOR PUBLIC USE.
+#####################################################
 #>
 
 # Once you learn to use PSEXEC + Powershell everything else falls into place.. -SPC BURGESS
@@ -30,7 +31,7 @@ Function KioskCreator {
 
     # Draw Form
     $ZipExtractorForm = New-Object System.Windows.Forms.Form
-    $ZipExtractorForm.Text = "[SA/WA] Kiosk Creator v4.0"
+    $ZipExtractorForm.Text = "[ADMIN] Kiosk Creator v4.0"
     $ZipExtractorForm.ClientSize = New-Object System.Drawing.Size(400, 185)
     $ZipExtractorForm.BackColor = "LightGray"
     $ZipExtractorForm.StartPosition = "CenterScreen"
@@ -214,7 +215,7 @@ Function KioskCreator {
             [String]$Computers = $HNorIPV4 # Get-InputBox "ZIP EXTRACTOR v1.0" "Enter Destination Computer Name"
             cls
             $Scriptpasswordbox 
-            Write-Host "************************************************************`n`n   Script Created By SPC Burgess 2-3 FA S6 Fort Bliss TX`n`n************************************************************" -ForegroundColor Cyan      
+            Write-Host "************************************************************`n`n              Script Created By SPC Burgess              `n`n************************************************************" -ForegroundColor Cyan      
             $ExpirationDate = $ExpirationBox.Text
             $DisplayName    = $DisplayNameBox.Text
             $TargetComputer = $HNorIPV4
