@@ -1,5 +1,5 @@
 ﻿# General Technician Script!
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 07/13/2021
+# ~Script By SPC Burgess & SPC Santiago 02/16/2023
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -9,14 +9,7 @@
  a moment feel free to check out this code. If 
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES.
-
-            Contact DSN: 915-741-4627
+       PURGED OF ALL CUI DATA FOR PUBLIC USE.
 #####################################################
 #>
 Function GeneralTool{
@@ -34,7 +27,7 @@ catch { Write-Host -f Yellow "Unable to Located File" }
 
 # Globals 
 $PSTOOLSDownloadLocation = Get-Content -LiteralPath "C:\temp\Launcher\Logs\PSEXEC_INSTALL.txt" -Force
-$exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" 
+$exactadminfile = "\\network\path\to\PS_Tools\PsExec.exe" 
 $userfile = "C:\Windows\System32" 
 $FinalFileString = "$exactadminfile`n$userfile"
 $LocalHostName = $env:COMPUTERNAME # returns HOSTNAME only.
@@ -118,7 +111,7 @@ Sleep 2
         if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) #if the file is in share drive but not in Win\Sys32 folder
         {   
             Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan # Change this directory to point to your NECs sharedrive w/ PSTools
-            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList '"\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\*" "C:\Windows\System32" /H /Y' 
+            Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList '"\\network\path\to\PS_Tools\*" "C:\Windows\System32" /H /Y' 
             Write-Host "`nFinished Downloading PS_Tools" -ForegroundColor Green
             break;
         } 
@@ -142,7 +135,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
             break;
         }
           
@@ -206,7 +199,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
             break;
         }
           
@@ -344,7 +337,7 @@ Sleep 2
              break;
            }
             sleep 1
-            Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+            Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
             break;
         }
           
@@ -405,7 +398,7 @@ $DeleteUserButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -469,7 +462,7 @@ $RestartButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -525,7 +518,7 @@ $ShutdownButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -581,7 +574,7 @@ $CMDButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -637,7 +630,7 @@ $PSButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -677,7 +670,7 @@ $ELocalButton.Add_Click({
 
                 # Process Start
 
-                Write-Host "`nCreating Joe.Smith Local Administrator on remote Computer" -ForegroundColor Cyan
+                Write-Host "`nCreating Administrator Local Administrator on remote Computer" -ForegroundColor Cyan
 
                 Invoke-Command -ComputerName $theinfo -ScriptBlock {
     
@@ -687,36 +680,36 @@ $ELocalButton.Add_Click({
 
                     New-LocalUser -Name "joe.smith" -Password $SecurePassword -ErrorAction Ignore
 
-                    Set-LocalUser -Name "joe.smith" -AccountNeverExpires -Description "Local Administrator Account 20H2+ PXE Image" -FullName "Joe Smith" -PasswordNeverExpires $True -UserMayChangePassword $False -ErrorAction Ignore
+                    Set-LocalUser -Name "Administrator" -AccountNeverExpires -Description "Local Administrator Account 20H2+ PXE Image" -FullName "Administrator" -PasswordNeverExpires $True -UserMayChangePassword $False -ErrorAction Ignore
 
-                    If (Get-LocalUser -Name "joe.smith" -ErrorAction Ignore) {
+                    If (Get-LocalUser -Name "Administrator" -ErrorAction Ignore) {
         
-                        Write-Host "`nCreated Joe Smith local administrator" -ForegroundColor Green
+                        Write-Host "`nCreated Administrator local administrator" -ForegroundColor Green
 
-                        Write-Host "`nApplying Permissions to Joe Smith local administrator" -ForegroundColor Cyan
+                        Write-Host "`nApplying Permissions to Administrator local administrator" -ForegroundColor Cyan
 
-                    If (Get-LocalGroupMember -Group "Administrators" -Member "joe.smith" -ErrorAction Ignore)
+                    If (Get-LocalGroupMember -Group "Administrators" -Member "Administrator" -ErrorAction Ignore)
                     {
             
-                        Write-Host "`nJoe Smith is already an administrator..Moving on!" -ForegroundColor Green
+                        Write-Host "`nAdministrator is already an administrator..Moving on!" -ForegroundColor Green
         
                     }
                     else {
             
                         Write-Host "`nApplying administrator privileges to Joe Smith" -ForegroundColor Cyan
-                        Add-LocalGroupMember -Group "Administrators" -Member "joe.smith" -ErrorAction Ignore
+                        Add-LocalGroupMember -Group "Administrators" -Member "Administrator" -ErrorAction Ignore
 
                     }
 
                     Write-Host "`nActivating Joe Smith local administrator" -ForegroundColor Cyan
 
-                    Enable-LocalUser -Name "joe.smith" -ErrorAction Ignore
+                    Enable-LocalUser -Name "Administrator" -ErrorAction Ignore
 
         
                 } 
                 else {
 
-                    Write-Host "`nFailed to locate Joe Smith on remote computer" -ForegroundColor Yellow -BackgroundColor Black
+                    Write-Host "`nFailed to locate Administrator on remote computer" -ForegroundColor Yellow -BackgroundColor Black
 
                     Write-Host "`nScript Stopped" -ForegroundColor Red -BackgroundColor Black
 
@@ -724,23 +717,23 @@ $ELocalButton.Add_Click({
     
                 }
               
-                Write-Host "`nFinished Joe Smith process on remote host" -ForegroundColor Green
+                Write-Host "`nFinished Administrator process on remote host" -ForegroundColor Green
    
             }
             
-            $oFile = New-Object System.IO.FileInfo "C:\temp\Launcher\Logs\JoeSmith.txt"
+            $oFile = New-Object System.IO.FileInfo "C:\temp\Launcher\Logs\Administrator.txt"
 
-            if ((Test-Path -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -ErrorAction Ignore) -eq $false) {
+            if ((Test-Path -Path "C:\temp\Launcher\Logs\Administrator.txt" -ErrorAction Ignore) -eq $false) {
         
                 Write-Host "`nCreating Joe Smith Login Credential log" -ForegroundColor Cyan
 
                 New-Item -Path "C:\temp\Launcher\Logs" -Name "JoeSmith.txt" -ItemType "file" -Force -ErrorAction Ignore
 
-                $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $theinfo"
+                $JoeSmithCreds = "USERNAME: .\Administrator`nPASSWORD: $Password`n`nHostname: $theinfo"
 
-                Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
+                Set-Content -Path "C:\temp\Launcher\Logs\Administrator.txt" -Value ($JoeSmithCreds)
 
-                Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt"
+                Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\Administrator.txt"
 
                 Start-Sleep -Seconds 4
 
@@ -758,15 +751,15 @@ $ELocalButton.Add_Click({
             }
             Else {
         
-                    Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($null)
+                    Set-Content -Path "C:\temp\Launcher\Logs\Administrator.txt" -Value ($null)
 
-                    $JoeSmithCreds = "USERNAME: .\Joe.Smith`nPASSWORD: $Password`n`nHostname: $theinfo"
+                    $JoeSmithCreds = "USERNAME: .\Administrator`nPASSWORD: $Password`n`nHostname: $theinfo"
                
-                    Set-Content -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Value ($JoeSmithCreds)
+                    Set-Content -Path "C:\temp\Launcher\Logs\Administrator.txt" -Value ($JoeSmithCreds)
 
                     Start-sleep -Seconds 2
 
-                    Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\JoeSmith.txt"
+                    Start-Process -Wait -PSPath "notepad.exe" -ArgumentList "C:\temp\Launcher\Logs\Administrator.txt"
 
             }
             
@@ -785,7 +778,7 @@ $ELocalButton.Add_Click({
         }# End of for loop
 
         # Remove log for security       
-        Remove-Item -Path "C:\temp\Launcher\Logs\JoeSmith.txt" -Force
+        Remove-Item -Path "C:\temp\Launcher\Logs\Administrator.txt" -Force
 
 })
 $GForm.Controls.Add($ELocalButton)
@@ -825,10 +818,10 @@ $DELocalButton.Add_Click({
             {
                 sleep 1   
                 $theinfo = Get-Content -LiteralPath "C:\temp\Launcher\Logs\GeneralTechLog.txt" -Force
-                Write-Host "Disabling Joe.Smith Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
+                Write-Host "Disabling Administrator Local Administrator on remote Computer : $theinfo" -ForegroundColor Cyan
                 C:\Windows\System32\PsExec.exe \\$theinfo -s net user joe.smith /Active:no /delete
                 Sleep 2
-                Write-Host "`nFinished Removing Joe Smith on remote host : $theinfo" -ForegroundColor Green
+                Write-Host "`nFinished Removing Administrator on remote host : $theinfo" -ForegroundColor Green
                 break;
             }
             else 
@@ -838,7 +831,7 @@ $DELocalButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -982,7 +975,7 @@ $QueryKeyButton.Add_Click({
     
             foreach ($blv in $Bitlocker) {
 
-                 Backup-BitLockerKeyProtector –MountPoint $blv.MountPoint –KeyProtectorId (($blv.KeyProtector)[2] | Select-Object –ExpandProperty KeyProtectorID)
+                 Backup-BitLockerKeyProtector –MountPoint $blv.MountPoint –KeyProtectorId (($blv.KeyProtector)<#[2]#> | Select-Object –ExpandProperty KeyProtectorID)
 
             }
             
@@ -1067,7 +1060,7 @@ $TPMButton.Add_Click({
                 break;
             }
                 sleep 1
-                Write-Host "`nPSEXEC could not be found at the current path : \\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\" -ForegroundColor Yellow
+                Write-Host "`nPSEXEC could not be found at the current path : \\network\path\to\PS_Tools\" -ForegroundColor Yellow
                 break;
             }
           
@@ -1678,7 +1671,7 @@ $objLabel4 = New-Object System.Windows.Forms.Label
 $objLabel4.Location = New-Object System.Drawing.Size(360,300) 
 $objLabel4.Size = New-Object System.Drawing.Size(400,65)
 $objLabel4.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel4.Text = "Development Team`n                SPC Burgess`n                           SPC Santiago`n    2-3 FA S6 Fort Bliss TX"
+$objLabel4.Text = "Development Team`n                SPC Burgess`n                           SPC Santiago"
 $GForm.Controls.Add($objLabel4) 
 
 ###### FONT SIZE CHANGE:
