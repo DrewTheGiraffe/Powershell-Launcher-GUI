@@ -58,10 +58,10 @@ $UpdateButton.BackColor = "LightGray"
 $UpdateButton.ForeColor = "Black"
 $UpdateButton.Text = "CHECK FOR UPDATES"
 $UpdateButton.add_Click({
-    $LAUNCHERSUITEDownloadLocation = "\\BLISW6SYAAA7FCM\1-1AD\2-3 FA\S6\SPC BURGESS\Tutorials\Scripts\*"
+    $LAUNCHERSUITEDownloadLocation = "C:\temp\Download\"
     $Get_Date = Get-Content -Path "C:\temp\Launcher\Logs\Suite_date.txt" -Force
     
-    If (Test-Path -LiteralPath "\\BLISW6SYAAA7FCM\1-1AD\2-3 FA\S6\SPC BURGESS\Tutorials\Scripts\Launcher-$Get_Date.zip" -PathType Leaf) {
+    If (Test-Path -LiteralPath "C:\temp\Download\Launcher-$Get_Date.zip" -PathType Leaf) {
         
         Write-Host "`nScript Launcher Suite is up to date!" -ForegroundColor Green
 
@@ -89,7 +89,7 @@ $UpdateButton.add_Click({
 
         Start-Sleep -Milliseconds 100
 
-        Write-Host "`nUpdated Script Files Can be found @C:\temp\Launcher\Updates`nClose the Launcher and overwrite the current Launcher folder with the new one. ~SPC Burgess Drew J" -ForegroundColor Yellow
+        Write-Host "`nUpdated Script Files Can be found @C:\temp\Launcher\Updates`nClose the Launcher and overwrite the current Launcher folder with the new one. ~Drew Burgess" -ForegroundColor Yellow
     }
 
 })
@@ -142,16 +142,16 @@ $objLogoText1Name.Text = "By"
 $LauncherForm.Controls.Add($objLogoText1Name)
 #endregion
 
-$option1 = 'Applications          [SA/WA]'
+$option1 = 'Applications          [ADMIN]'
 $option2 = 'Account Auditor    [Read Only]'
-$option3 = 'Hostname Creator [SA/WA]'
-$option4 = 'ADUser Creator    [AO]'
-$option5 = 'General Tech       [SA/WA]'
-$option6 = 'Zip Script             [SA/WA]'
-$option7 = 'Master Tool          [SA/WA/AO]'
-$option8 = 'Kiosk Creator        [SA/WA]'
-$option9 = 'Print Script            [SA/WA]'
-$option10= 'Tracker Script      [SA/WA]'
+$option3 = 'Hostname Creator [ADMIN]'
+$option4 = 'ADUser Creator    [ADMIN]'
+$option5 = 'General Tech       [ADMIN]'
+$option6 = 'Zip Script             ADMIN]'
+$option7 = 'Master Tool          [ADMIN]'
+$option8 = 'Kiosk Creator        [ADMIN]'
+$option9 = 'Print Script            [ADMIN]'
+$option10= 'Tracker Script      [ADMIN]'
 
 
 
