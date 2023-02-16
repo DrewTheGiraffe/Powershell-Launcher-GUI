@@ -1,6 +1,6 @@
 ﻿# ADUser Creation Script
-# ~Script By SPC Burgess & SPC Santiago 2-3 FA S6 03/02/2021
-# MOS: 25B
+# ~Script By SPC Burgess & SPC Santiago 03/16/2023
+# MOS: 25B & 25U
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
@@ -11,6 +11,7 @@
  feel free to reach out with any feedback. 
 
             Contact DSN: 915-741-0470
+       PURGED OF ALL CUI DATA FOR PUBLIC USE.
 #####################################################
 #>
 function Get-InputBox($formTitle, $textTitle){
@@ -294,13 +295,13 @@ $objTextBox3.Size = New-Object System.Drawing.Size(100,20)
 $objTextBox3.TabIndex = 2 
 $ADForm.Controls.Add($objTextBox3)
 #***************************************************************************
-#This creates a label for the TextBox DODID
+#This creates a label for the TextBox Username
 $objLabel4 = New-Object System.Windows.Forms.Label
 $objLabel4.Location = New-Object System.Drawing.Size(150,70) 
 $objLabel4.Size = New-Object System.Drawing.Size(100,20)# (280,20)
 [String]$MandatoryWrite = "*" 
 $objLabel4.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel4.Text = "DODID"
+$objLabel4.Text = "Username"
 $ADForm.Controls.Add($objLabel4) 
 
 #This creates the TextBox DODID
@@ -393,7 +394,7 @@ $objLabel10 = New-Object System.Windows.Forms.Label
 $objLabel10.Location = New-Object System.Drawing.Size(20,270) 
 $objLabel10.Size = New-Object System.Drawing.Size(600,40) 
 $objLabel10.ForeColor = [System.Drawing.Color]::FromName("Black")
-$objLabel10.Text = "Example: 'OU=HHB,OU=Laptops,OU=2-3 FA,OU=1-1 Armored Div,OU=1st Armor Div,OU=FORSCOM,OU=Bliss,OU=Installations,DC=nasw,DC=ds,DC=army,DC=mil'"
+$objLabel10.Text = "Example: 'OU=Users,DC=domain,DC=com'" # domain.com\Users\ users are now stored here.
 $ADForm.Controls.Add($objLabel10)
 
 #****************************************************************************
