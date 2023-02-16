@@ -1,4 +1,4 @@
-﻿# ~Script By SPC Burgess 2-3 FA S6 03/17/2021
+﻿# ~Script By SPC Burgess 03/16/2023
 # MOS: 25B & 25U
 <#
 #####################################################
@@ -8,14 +8,7 @@
  a moment feel free to check out this code. If 
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES.
-
-    Contact: drew.j.burgess.mil@mail.mil
+     PURGED OF ALL CUI DATA FOR PUBLIC USE.
 #####################################################
 #>
 
@@ -154,7 +147,7 @@ Sleep 2
 $Computers = $objTextBox1.Text
 
 # Check if PS_Tools Exists on Script Users computer.. 
-$exactadminfile = "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe" #First folder to check the file
+$exactadminfile = "C:\Windows\System32\PsExec.exe" #First folder to check the file
 $userfile = "C:\Windows\System32" #Second folder to check the file
 $FinalFileString = "$exactadminfile`n$userfile" # New line = `n
 
@@ -239,7 +232,7 @@ $LocalHostName = [System.Net.DNS]::GetHostByName($null).HostName # returns : The
 foreach ($filename in $filenames) {
   if ((Test-Path $exactadminfile\$filename) -and !(Test-Path $userfile\$filename)) { #if the file is in share drive but not in Win\Sys32 folder
     Write-Host "`nBeginning Download of PS_Tools`nPlease Be Patient" -ForegroundColor Cyan
-    Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\* C:\Windows\System32 /H /Y" 
+    Start-Process -Wait -PSPath "C:\Windows\System32\xcopy.exe" -ArgumentList "\\networkpath\to\PS_Tools\* C:\Windows\System32 /H /Y" 
     for ($i = 1; $i -le 100; $i++)
     {
         Write-Progress -Activity "Downloading PsTools to $LocalHostName" -Status "$i% Complete:" -PercentComplete $i;
@@ -303,22 +296,22 @@ foreach ($filename in $filenames) {
             $objScriptCheckInActive.Text = "Script Ready"
             return ""; # Continue
         }
-        # GSS Army (WinGUI)
+        # custom application
         If ($objWinGUICheckbox.Checked -eq $True) 
         {
             Write-Host "`nDownloading Data Please Wait..." -ForegroundColor Cyan
-            xcopy "C:\temp\Launcher\Dependencies\Packages\GCSSArmyIntegratedInstaller4160.zip" "\\$Computers\C$\temp" /H /Y
+            xcopy "C:\temp\Launcher\Dependencies\Packages\application.zip" "\\$Computers\C$\temp" /H /Y
             Write-Host "`nExtracting Data Please Wait..." -ForegroundColor Cyan
             Sleep 1
-            PSEXEC \\$Computers -s Powershell -command Expand-Archive -Path "C:\temp\GCSSArmyIntegratedInstaller4160.zip" -DestinationPath "C:\temp"
+            PSEXEC \\$Computers -s Powershell -command Expand-Archive -Path "C:\temp\application.zip" -DestinationPath "C:\temp"
             Write-Host "`nSuccessfully Extracted Data" -ForegroundColor Green 
             Sleep 1
             Write-Host "`nDeleting Zip Archive From Remote Host : $Computers" -ForegroundColor Cyan
-            PSEXEC \\$Computers -s Powershell -command Remove-Item -Path "C:\temp\GCSSArmyIntegratedInstaller4160.zip" -Force
-            Write-Host "Installing WinGUI on remote Computer : $Computers" -ForegroundColor Cyan
-            invoke-command -ComputerName $Computers -ScriptBlock { Start-Process -FilePath "C:\temp\GCSS_Army_Integrated_Installer_4_16_0.exe" -WorkingDirectory "C:\temp" }
+            PSEXEC \\$Computers -s Powershell -command Remove-Item -Path "C:\temp\application.zip" -Force
+            Write-Host "Installing Custom Appplication on remote Computer : $Computers" -ForegroundColor Cyan
+            invoke-command -ComputerName $Computers -ScriptBlock { Start-Process -FilePath "C:\temp\application.exe" -WorkingDirectory "C:\temp" }
             Sleep 1 
-            Write-Host "`nWinGUI Installer requires interaction on remote host : $Computers" -ForegroundColor Green
+            Write-Host "`nCustom Appplication Installer requires interaction on remote host : $Computers" -ForegroundColor Green
             $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
             $objScriptCheckInActive.Text = "Script Ready"
             return ""; # Continue
@@ -445,9 +438,9 @@ foreach ($filename in $filenames) {
         }
         If ($NotepadplusCheckBox.Checked -eq $True) 
         {
-            Write-Host "Installing Cisco AnyConnect on remote Computer : $Computers" -ForegroundColor Cyan
+            Write-Host "Installing Notepad++ on remote Computer : $Computers" -ForegroundColor Cyan
             C:\Windows\System32\PsExec.exe \\$Computers -c -f -s -d -i $NotepadPlusDirectory
-            write-host "`nCisco AnyConnect Installer finished on remote host : $Computers" -ForegroundColor Green
+            write-host "`nNotepad++ Installer finished on remote host : $Computers" -ForegroundColor Green
             $objScriptCheckInActive.ForeColor = [System.Drawing.Color]::FromName("Blue")
             $objScriptCheckInActive.Text = "Script Ready"
             return ""; # Continue
@@ -532,7 +525,7 @@ $objForm.Controls.Add($objDCAMCheckbox)
 $objWinGUICheckbox = New-Object System.Windows.Forms.Checkbox 
 $objWinGUICheckbox.Location = New-Object System.Drawing.Size(10,210) 
 $objWinGUICheckbox.Size = New-Object System.Drawing.Size(500,20)
-$objWinGUICheckbox.Text = "Install GSS Army (WinGUI)"
+$objWinGUICheckbox.Text = "Custom Application"
 $objWinGUICheckbox.TabIndex = 6
 $objForm.Controls.Add($objWinGUICheckbox)
 
@@ -588,7 +581,7 @@ $objForm.Controls.Add($NotepadplusCheckBox)
 $SAPGUINECCheckBox = New-Object System.Windows.Forms.CheckBox
 $SAPGUINECCheckBox.Location = New-Object System.Drawing.Size(10,350)
 $SAPGUINECCheckBox.size = New-Object System.Drawing.Size(500,20)
-$SAPGUINECCheckBox.Text = "Install SAP GUI (NEC)"
+$SAPGUINECCheckBox.Text = "Install SAP GUI"
 $SAPGUINECCheckBox.TabIndex = 13
 $objForm.Controls.Add($SAPGUINECCheckBox)
 
