@@ -8,14 +8,7 @@
  a moment feel free to check out this code. If 
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES.
-
-            Contact DSN: 915-741-4627
+      PURGED OF ALL CUI DATA FOR PUBLIC USE.
 #####################################################
 #>
 Function ADD_COMPUTER_TO_ACTIVE_DIRECTORY {
@@ -33,7 +26,7 @@ Sleep 1
 [void][System.Windows.Forms.Application]::EnableVisualStyles()
 
 $HostnameForm = New-Object System.Windows.Forms.Form
-$HostnameForm.Text = "[SA/WA] HOSTNAME CREATOR By SPC Burgess 2-3 FA S6 v4.0"
+$HostnameForm.Text = "[ADMIN] HOSTNAME CREATOR By SPC Burgess v4.0"
 $HostnameForm.ClientSize = New-Object System.Drawing.Size(850, 185)
 $HostnameForm.BackColor = "LightGray"
 $HostnameForm.StartPosition = "CenterScreen"
@@ -97,11 +90,11 @@ If ($Script:CANCELED -eq $True) {
             New-ADComputer -Name $Computer -SamAccountName $SamAccountName -Path $Path -Enabled $true
             Write-Host "`n`nHostname Created" -ForegroundColor Green
             Sleep 3
-            $User = Get-ADComputer -Identity "CN=$Computer,$Path" -Server "nasw.ds.army.mil"
-            $Group = Get-ADGroup -Identity $CustomSecGroup -Server "nasw.ds.army.mil"
+            $User = Get-ADComputer -Identity "CN=$Computer,$Path" -Server "domain.com"
+            $Group = Get-ADGroup -Identity $CustomSecGroup -Server "domain.com"
 
             # adds BLIS FORSCOM WORKSTATION CERTIFICATE REQUEST to selected computer @Name                                                                                                                                      
-            Add-ADGroupMember -Identity $Group -Members $User -Server "nasw.ds.army.mil"  
+            Add-ADGroupMember -Identity $Group -Members $User -Server "domain.com"  
             Write-Host "`n`nAdded Security Group to Hostname : $Computer" -ForegroundColor Green
             Sleep 3
             # adds Computer Description to AD Obj @nasw.ds.army.mil location
@@ -143,7 +136,7 @@ $objLabelpcdescripName.Text = "Enter New Description $MandatoryWrite"
 $HostnameForm.Controls.Add($objLabelpcdescripName)
 
 
-#"Example: OU=HHB,OU=Laptops,OU=2-3 FA,OU=1-1 Armored Div,OU=1st Armor Div,OU=FORSCOM,OU=Bliss,OU=Installations,DC=nasw,DC=ds,DC=army,DC=mil"
+#"Example: OU=PATH,OU=TO,OU=COMPUTERS,DC=DOMAIN,DC=COM"
 
 
 
@@ -197,7 +190,7 @@ $objLabelsecurityGr = New-Object System.Windows.Forms.Label
 $objLabelsecurityGr.Location = New-Object System.Drawing.Size(350,53) 
 $objLabelsecurityGr.Size = New-Object System.Drawing.Size(400,40)
 $objLabelsecurityGr.ForeColor = [System.Drawing.Color]::FromName("Blue")
-$objLabelsecurityGr.Text = "Example: BLIS FORSCOM WORKSTATION CERTIFICATE REQUEST"
+$objLabelsecurityGr.Text = "Example: COMPUTER CERTIFICATE"
 $HostnameForm.Controls.Add($objLabelsecurityGr)
 
 #This creates a label for Path Example
@@ -205,7 +198,7 @@ $objLabelSANnameEg = New-Object System.Windows.Forms.Label
 $objLabelSANnameEg.Location = New-Object System.Drawing.Size(180,53) 
 $objLabelSANnameEg.Size = New-Object System.Drawing.Size(200,40)
 $objLabelSANnameEg.ForeColor = [System.Drawing.Color]::FromName("Blue")
-$objLabelSANnameEg.Text = "Example: BLISWAEQT0NBXXX$"
+$objLabelSANnameEg.Text = "Example: COMPUTERNAME123$"
 $HostnameForm.Controls.Add($objLabelSANnameEg)
 
 #This creates a label for Path Example
@@ -213,7 +206,7 @@ $objLabelHostnameExample = New-Object System.Windows.Forms.Label
 $objLabelHostnameExample.Location = New-Object System.Drawing.Size(10,53) 
 $objLabelHostnameExample.Size = New-Object System.Drawing.Size(200,40)
 $objLabelHostnameExample.ForeColor = [System.Drawing.Color]::FromName("Blue")
-$objLabelHostnameExample.Text = "Example: BLISWAEQT0NBXXX"
+$objLabelHostnameExample.Text = "Example: COMPUTERNAME123"
 $HostnameForm.Controls.Add($objLabelHostnameExample)
 
 #This creates the TextBox for hostname / ip addr
