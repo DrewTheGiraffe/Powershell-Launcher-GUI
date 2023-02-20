@@ -1,15 +1,14 @@
-﻿<# Script By ~ SPC BURGESS 2-3 FA S6
-**************************************
-
-    Printer Script DOD Edition Only
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES. 
-
-**************************************
+# Printer Script By Drew Burgess 02/20/2023
+<#
+#####################################################
+    Big thanks to Reddit Friends / Sources
+ for making this script possible. The goal here
+ is to make things easier for IMO's. If you get
+ a moment feel free to check out this code. If 
+ I am still in the Army apon you reading this,
+ feel free to reach out with any feedback. 
+       PURGED OF ALL CUI DATA FOR PUBLIC USE.
+#####################################################
 #>
 
 # Once you learn to use PSEXEC + Powershell everything else falls into place.. -SPC BURGESS
@@ -78,87 +77,6 @@ Function PrinterScript {
     $titleLabel.Font = New-Object System.Drawing.Font("Lucida Console",14,[System.Drawing.FontStyle]::Regular)
     $titleLabel.Text = "Print Script V4"
     $ZipExtractorForm.Controls.Add($titleLabel)
-
-    # CMD 
-    $CMDTeamPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $CMDTeamPrinterCheckbox.Location = New-Object System.Drawing.Point(10,55)
-    $CMDTeamPrinterCheckbox.Size = New-Object System.Drawing.Size(298,20)
-    $CMDTeamPrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $CMDTeamPrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $CMDTeamPrinterCheckbox.Text = "2-3 FA CMD Printer"
-    $ZipExtractorForm.Controls.Add($CMDTeamPrinterCheckbox)
-    
-    # S1
-    $S1PrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $S1PrinterCheckbox.Location = New-Object System.Drawing.Point(10,75)
-    $S1PrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $S1PrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $S1PrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $S1PrinterCheckbox.Text = "2-3 FA S1 Printer"
-    $ZipExtractorForm.Controls.Add($S1PrinterCheckbox) 
-   
-    # S3
-    $S3PrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $S3PrinterCheckbox.Location = New-Object System.Drawing.Point(10,95)
-    $S3PrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $S3PrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $S3PrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $S3PrinterCheckbox.Text = "2-3 FA S3 Printer"
-    $ZipExtractorForm.Controls.Add($S3PrinterCheckbox)
-
-    # S6
-    $S6PrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $S6PrinterCheckbox.Location = New-Object System.Drawing.Point(10,115)
-    $S6PrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $S6PrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $S6PrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $S6PrinterCheckbox.Text = "2-3 FA S6 Printer"
-    $ZipExtractorForm.Controls.Add($S6PrinterCheckbox)
-
-    # HHB
-    $HHBPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $HHBPrinterCheckbox.Location = New-Object System.Drawing.Point(10,135)
-    $HHBPrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $HHBPrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $HHBPrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $HHBPrinterCheckbox.Text = "2-3 FA HHB Printer"
-    $ZipExtractorForm.Controls.Add($HHBPrinterCheckbox)
-
-    # ABAT
-    $ABATPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $ABATPrinterCheckbox.Location = New-Object System.Drawing.Point(10,155)
-    $ABATPrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $ABATPrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $ABATPrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $ABATPrinterCheckbox.Text = "2-3 FA ALPHA Printer"
-    $ZipExtractorForm.Controls.Add($ABATPrinterCheckbox)
-
-    # BBAT
-    $BBATPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $BBATPrinterCheckbox.Location = New-Object System.Drawing.Point(10,175)
-    $BBATPrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $BBATPrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $BBATPrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $BBATPrinterCheckbox.Text = "2-3 FA BRAVO Printer"
-    $ZipExtractorForm.Controls.Add($BBATPrinterCheckbox)
-
-    # CBAT
-    $CBATPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $CBATPrinterCheckbox.Location = New-Object System.Drawing.Point(10,195)
-    $CBATPrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $CBATPrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $CBATPrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $CBATPrinterCheckbox.Text = "2-3 FA CHARLIE Printer"
-    $ZipExtractorForm.Controls.Add($CBATPrinterCheckbox)
-
-    # FBAT
-    $FBATPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
-    $FBATPrinterCheckbox.Location = New-Object System.Drawing.Point(10,215)
-    $FBATPrinterCheckbox.size = New-Object System.Drawing.Size(298,20)
-    $FBATPrinterCheckbox.BackColor = [System.Drawing.Color]::FromKnownColor("Transparent")
-    $FBATPrinterCheckbox.Font = New-Object System.Drawing.Font("Lucida Console",10,[System.Drawing.FontStyle]::Regular)
-    $FBATPrinterCheckbox.Text = "2-3 FA FOX Printer"
-    $ZipExtractorForm.Controls.Add($FBATPrinterCheckbox)
 
     # CUSTOM
     $CUSTOMPrinterCheckbox = New-Object System.Windows.Forms.CheckBox
@@ -282,197 +200,17 @@ Function PrinterScript {
             [String]$Computers = $HNorIPV4 # Get-InputBox "ZIP EXTRACTOR v1.0" "Enter Destination Computer Name"
             cls
             $Scriptpasswordbox 
-            Write-Host "************************************************************`n`n   Script Created By SPC Burgess 2-3 FA S6 Fort Bliss TX`n`n************************************************************" -ForegroundColor Cyan      
+            Write-Host "************************************************************`n`n   Script Created By Drew Burgess   `n`n************************************************************" -ForegroundColor Cyan      
             
-                # ID NAMES
-                $S3_Port_ID        = "S3 Printer"              
-                $S1_Port_ID        = "S1 Printer"                                  
-                $S6_Port_ID        = "S6 Printer"              
-                $CMD_Port_ID       = "CMD Printer"
-                $HHB_Port_ID       = "HHB Printer" 
-                $Alpha_Port_ID     = "Alpha Printer" 
-                $Bravo_Port_ID     = "Bravo Printer"
-                $Charlie_Port_ID   = "Charlie Btry Printer"
-                $Fox_Port_ID       = "Fox Printer"
+                # ID NAMES (Print Server Aliase)
                 $CustomPortID      = $CustomPrinterPortIdNameTextbox.Text
                  
-                # Port Addresses
-                $S3_Port    = "143.78.2.200"               
-                $S1_Port    = "143.78.2.53"                
-                $S6_Port    = "143.78.2.222" 
-                $HHB_Port   = "143.78.3.106"              
-                $CMD_Port   = "143.78.3.126" 
-                $ABTRY_Port = "143.78.2.50" 
-                $BBTRY_Port = "143.78.2.157"
-                $CBTRY_Port = "143.78.2.80" 
-                $FBTRY_Port = "143.78.3.86"
+                # Port Addresses (IPV4 Addresses)
                 $CustomPort = $CustomPrinterIPTextbox.Text
                 
-                # Printer Names
-                $S1                = "2-3 FA S1 Printer"
-                $S3                = "2-3 FA S3 Printer"
-                $S6               = "2-3 FA S6 Printer"
-                $CMD               = "2-3 FA CMD Team Printer"
-                $HHB               = "2-3 FA HHB Battery Printer"
-                $Alpha             = "2-3 FA ALPHA Battery Printer"
-                $Bravo             = "2-3 FA BRAVO Battery Printer"
-                $Charlie           = "2-3 FA CHARLIE Battery Printer"
-                $Fox               = "2-3 FA FOX Battery Printer" 
+                # Printer Names (Front End Aliases)
                 $CustomPrintername = $CustomPrinterNameTextbox.Text
-
-            If ($CMDTeamPrinterCheckbox.Checked -eq $True) {
-
-                If (!(Get-PrinterPort -Name $CMD_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $CMD_Port_ID -PrinterHostAddress $CMD_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $CMD -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $CMD -PortName $CMD_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $CMD to remote host : $Computers" -ForegroundColor Green  
-                }  
-            }
-
-            If ($S1PrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $S1_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $CMD_Port_ID -PrinterHostAddress $S1_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $S1 -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $S1 -PortName $S1_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $S1 to remote host : $Computers" -ForegroundColor Green  
-                } 
-            }
-            
-            If ($S3PrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $S3_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $S3_Port_ID -PrinterHostAddress $S3_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $S3 -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $S3 -PortName $S3_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $S3 to remote host : $Computers" -ForegroundColor Green  
-                } 
-            }
-            
-            If ($S6PrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $S6_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $S6_Port_ID -PrinterHostAddress $S6_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $S6 -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $S6 -PortName $S6_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $S6 to remote host : $Computers" -ForegroundColor Green  
-                } 
-            }
-
-            If ($HHBPrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $HHB_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $HHB_Port_ID -PrinterHostAddress $HHB_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $HHB -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $HHB -PortName $HHB_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $HHB to remote host : $Computers" -ForegroundColor Green  
-                } 
-            }
-
-            If ($ABATPrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $Alpha_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $Alpha_Port_ID -PrinterHostAddress $ABTRY_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $Alpha  -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $Alpha -PortName $Alpha_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $Alpha to remote host : $Computers" -ForegroundColor Green  
-                }
-            }
-
-            If ($BBATPrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $Bravo_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $Bravo_Port_ID -PrinterHostAddress $BBTRY_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $Bravo -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $Bravo -PortName $Bravo_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $Bravo to remote host : $Computers" -ForegroundColor Green  
-                }
-            }
-
-            If ($CBATPrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $Charlie_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $Charlie_Port_ID -PrinterHostAddress $CBTRY_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $Charlie -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $Charlie -PortName $Charlie_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $Charlie to remote host : $Computers" -ForegroundColor Green  
-                }
-            }
-
-            If ($FBATPrinterCheckbox.Checked -eq $True) {
-                If (!(Get-PrinterPort -Name $Fox_Port_ID -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorPortString = "Adding IP Address to corresponding port ID" 
-                    Add-PrinterPort -Name $Fox_Port_ID -PrinterHostAddress $FBTRY_Port -ComputerName $Computers
-                    Start-Sleep 1
-                }
-                If (!(Get-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers -ErrorAction Ignore)) {
-                    $ErrorDriverString = "`nAdding Driver to DriverStore"
-                    Add-PrinterDriver -Name "Microsoft PCL6 Class Driver" -ComputerName $Computers 
-                    Start-Sleep 2
-                }
-                If (!(Get-Printer -ComputerName $Computers -Name $Fox -ErrorAction Ignore)) {
-                    Add-Printer -computername $Computers -name $Fox -PortName $Fox_Port_ID -DriverName "Microsoft PCL6 Class Driver"
-                    Write-Host "Finished Adding $Fox to remote host : $Computers" -ForegroundColor Green  
-                }
-            }
+                
             If ($CUSTOMPrinterCheckbox.Checked -eq $True) {
                 If (!(Get-PrinterPort -Name $CustomPortID -ComputerName $Computers -ErrorAction Ignore)) {
                     Add-PrinterPort -Name $CustomPortID -PrinterHostAddress $CustomPort -ComputerName $Computers
@@ -621,113 +359,15 @@ Function PrinterScript {
             $Scriptpasswordbox 
             Write-Host "************************************************************`n`n   Script Created By SPC Burgess 2-3 FA S6 Fort Bliss TX`n`n************************************************************" -ForegroundColor Cyan      
             
-                # ID NAMES
-                $S3_Port_ID        = "S3 Printer"              
-                $S1_Port_ID        = "S1 Printer"                                  
-                $S6_Port_ID        = "S6 Printer"              
-                $CMD_Port_ID       = "CMD Printer"
-                $HHB_Port_ID       = "HHB Printer" 
-                $Alpha_Port_ID     = "Alpha Printer" 
-                $Bravo_Port_ID     = "Bravo Printer"
-                $Charlie_Port_ID   = "Charlie Btry Printer"
-                $Fox_Port_ID       = "Fox Printer"
+                # ID NAMES (Print Server Aliase)
                 $CustomPortID      = $CustomPrinterPortIdNameTextbox.Text
                  
-                # Port Addresses
-                $S3_Port    = "143.78.2.200"               
-                $S1_Port    = "143.78.2.53"                
-                $S6_Port    = "143.78.2.222" 
-                $HHB_Port   = "143.78.3.106"              
-                $CMD_Port   = "143.78.3.126" 
-                $ABTRY_Port = "143.78.2.50" 
-                $BBTRY_Port = "143.78.2.157"
-                $CBTRY_Port = "143.78.2.80" 
-                $FBTRY_Port = "143.78.3.86"
+                # Port Addresses (IPV4 Addresses)
                 $CustomPort = $CustomPrinterIPTextbox.Text
                 
-                # Printer Names
-                $S1                = "2-3 FA S1 Printer"
-                $S3                = "2-3 FA S3 Printer"
-                $S6                = "2-3 FA S6 Printer"
-                $CMD               = "2-3 FA CMD Team Printer"
-                $HHB               = "2-3 FA HHB Battery Printer"
-                $Alpha             = "2-3 FA ALPHA Battery Printer"
-                $Bravo             = "2-3 FA BRAVO Battery Printer"
-                $Charlie           = "2-3 FA CHARLIE Battery Printer"
-                $Fox               = "2-3 FA FOX Battery Printer" 
+                # Printer Names (Front End Aliases)
                 $CustomPrintername = $CustomPrinterNameTextbox.Text
 
-            If ($CMDTeamPrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $CMD -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $CMD_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $CMD 
-                    Write-Host "Finished Removing $CMD from remote host : $Computers" -ForegroundColor Green  
-                }  
-            }
-
-            If ($S1PrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $S1 -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $S1_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $S1 
-                    Write-Host "Finished Removing $S1 from remote host : $Computers" -ForegroundColor Green  
-                } 
-            }
-            
-            If ($S3PrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $S3 -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $S3_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $S3 
-                    Write-Host "Finished Removing $S3 from remote host : $Computers" -ForegroundColor Green  
-                } 
-            }
-            
-            If ($S6PrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $S6 -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $S6_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $S6 
-                    Write-Host "Finished Removing $S6 from remote host : $Computers" -ForegroundColor Green 
-                } 
-            }
-
-            If ($HHBPrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $HHB -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $HHB_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $HHB 
-                    Write-Host "Finished Removing $HHB from remote host : $Computers" -ForegroundColor Green 
-                } 
-            }
-
-            If ($ABATPrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $Alpha  -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $Alpha_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $Alpha 
-                    Write-Host "Finished Removing $Alpha from remote host : $Computers" -ForegroundColor Green  
-                }
-            }
-
-            If ($BBATPrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $Bravo -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $Bravo_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $Bravo
-                    Write-Host "Finished Removing $Bravo from remote host : $Computers" -ForegroundColor Green  
-                }
-            }
-
-            If ($CBATPrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $Charlie -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $Charlie_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $Charlie
-                    Write-Host "Finished Removing $Charlie from remote host : $Computers" -ForegroundColor Green  
-                }
-            }
-
-            If ($FBATPrinterCheckbox.Checked -eq $True) {
-                If ((Get-Printer -ComputerName $Computers -Name $Fox -ErrorAction Ignore)) {
-                    Remove-PrinterPort -ComputerName $Computers -Name $Fox_Port_ID -ErrorAction Ignore
-                    Remove-Printer -ComputerName $Computers -Name $Fox
-                    Write-Host "Finished Removing $Fox from remote host : $Computers" -ForegroundColor Green  
-                }
-            }
             If ($CUSTOMPrinterCheckbox.Checked -eq $True) {
                If ((Get-Printer -ComputerName $Computers -Name $CustomPrintername -ErrorAction Ignore)) {
                     Remove-PrinterPort -ComputerName $Computers -Name $CustomPort -ErrorAction Ignore
