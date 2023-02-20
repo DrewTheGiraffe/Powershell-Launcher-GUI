@@ -266,7 +266,7 @@ Function KioskCreator {
                     Write-Host "`nCustom Display Name Set" -ForegroundColor Cyan -BackgroundColor Black
                 }
                 else {
-                    Set-LocalUser -Name "Kiosk" -FullName "U.S. ARMY FORSCOM KIOSK"
+                    Set-LocalUser -Name "Kiosk" -FullName "KIOSK"
                     Write-Host "`nDefault Display Name Set" -ForegroundColor Green -BackgroundColor Black
                 }
 
