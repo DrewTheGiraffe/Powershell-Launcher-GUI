@@ -1,15 +1,14 @@
-﻿<# Script By ~ SPC BURGESS 2-3 FA S6
-**************************************
-
-    Tracker Script DOD Edition Only
-
-Do NOT DISTROBUTE CODE OUTSIDE OF DOD
-ORGANIZATIONS, ALL INFORMATION ON THIS
-PAGE IS SUBJECT TO SEARCH & REVIEW BY
-FORT BLISS NETWORK ENTERPRISE CENTER
-PERSONEL AT ANY AND ALL TIMES. 
-
-**************************************
+# Computer Tracker Script By Drew Burgess 02/20/2023
+<#
+#####################################################
+    Big thanks to Reddit Friends / Sources
+ for making this script possible. The goal here
+ is to make things easier for IMO's. If you get
+ a moment feel free to check out this code. If 
+ I am still in the Army apon you reading this,
+ feel free to reach out with any feedback. 
+       PURGED OF ALL CUI DATA FOR PUBLIC USE.
+#####################################################
 #>
 
 # Once you learn to use PSEXEC + Powershell everything else falls into place.. -SPC BURGESS
@@ -253,7 +252,7 @@ Function TrackerScript {
         Else {
             Add-OutboxlineUser -NewData "************************************************************
                
-    Script Created By SPC Burgess 2-3 FA S6 Fort Bliss TX       
+    Script Created By Drew Burgess       
                ************************************************************"
             Add-OutboxlineUser -NewData "*************** Script Finished ***************"
         }
