@@ -1,5 +1,5 @@
 ApplicationsGUI.ps1 Write Up 05/05/2021 
-By SPC Burgess, Drew J
+By Drew Burgess
 
 
 Features: 
@@ -25,4 +25,4 @@ C:\temp\Launcher\Dependencies\Packages
 
 The script is hard coded to read both the zip file and executable located inside. 
 
-If you have any questions please feel free to reach out to me directly: drew.j.burgess.mil@mail.mil
+If you have any questions please feel free to reach out to me.
