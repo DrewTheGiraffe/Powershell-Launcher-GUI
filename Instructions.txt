@@ -1,5 +1,4 @@
 IMO PowerShell Script Collection 05/05/2021 
-By 2-3 FA S6 Automations Team, 
 SPC Burgess, Drew J
 SPC Santiago, Jonathan A
 PFC Leonard, Reilly W 
