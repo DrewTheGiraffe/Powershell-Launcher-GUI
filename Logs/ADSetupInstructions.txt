@@ -18,4 +18,4 @@ Rsat.ActiveDirectory.DS.LDS.Tools
 
  - Active Directory will now be installed on the computer running Windows 10 20H2 or newer.
 
- - Tutorial By SPC Burgess 2-3 FA S6 Fort Bliss TX 2022
+ - Tutorial By Drew Burgess
