@@ -1,1 +1,1 @@
-\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\SharePoint Designer 2013\SharePointDesigner2013\setup.exe
+\\networklocation\SharePointDesigner2013\setup.exe
