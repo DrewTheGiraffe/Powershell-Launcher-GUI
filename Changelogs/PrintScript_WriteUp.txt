@@ -1,7 +1,6 @@
 Remotely install printers to computers (While Users are signed in) (No Signout required)
 
-This script works fast and doesnt require any changes in code if you are in 2-3 FA Fort Bliss TX. 
-Otherwise just use the custom printer option and log your organizations printer info yourself. 
+Use the custom printer option and log your organizations printer info yourself. 
 I left all the code in plain text for easy editing. Feel free to make it work for your organization.
 
-DO NOT! Remove credit from any of these scripts. A-lot of research goes into 
+-Drew Burgess
