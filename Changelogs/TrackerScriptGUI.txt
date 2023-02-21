@@ -2,4 +2,4 @@ This script is designed to pull basic User / Computer information from active di
 You'll need to have dsa.msc / AD-DS (Active Directory Users & Computers) installed to do anything
 with this script.
 
-Enjoy. ~SPC Burgess 12/21/2021
+Enjoy. ~Drew Burgess 12/21/2021
