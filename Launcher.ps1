@@ -1,6 +1,5 @@
 ﻿# Launcher Script v3.0
 # ~Script By SPC Burgess & SPC Santiago 02/16/2023
-# MOS: 25B & 25U
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
@@ -9,7 +8,6 @@
  a moment feel free to check out this code. If 
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
-            Contact DSN: 915-741-4627
        ALL CUI DATA PURGED FROM THIS SOURCE.
 #####################################################
 #>
