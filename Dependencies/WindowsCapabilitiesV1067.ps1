@@ -21,10 +21,10 @@
        The variable $FODSource1909 specifies an orgnaizational path to the Windows Capabilities 1909 .CAB files, which get installed when the user opts to install features on demand.
        The variable $FODSource20H2 specifies an orgnaizational path to the Windows Capabilities 20H2 .CAB files, which get installed when the user opts to install features on demand.
        The variable $LocalFODSource specifies the local path ($env:ProgramData\armylocal\FOD) to the Windows Capabilities .CAB files, which get installed when the user opts to install features on demand.
-       Look for the following in the script and modify as necessary to match your environment: $FODSource1809 = "\\blisw6syaaa7nec\IMO_Info\FOD\1809"
-       Look for the following in the script and modify as necessary to match your environment: $FODSource1903 = "\\blisw6syaaa7nec\IMO_Info\FOD\1903"
-       Look for the following in the script and modify as necessary to match your environment: $FODSource1909 = "\\blisw6syaaa7nec\IMO_Info\FOD\1909"
-       Look for the following in the script and modify as necessary to match your environment: $FODSource20H2 = "\\blisw6syaaa7nec\IMO_Info\FOD\20H2"
+       Look for the following in the script and modify as necessary to match your environment: $FODSource1809 = "\\netlocation\FOD\1809"
+       Look for the following in the script and modify as necessary to match your environment: $FODSource1903 = "\\netlocation\FOD\1903"
+       Look for the following in the script and modify as necessary to match your environment: $FODSource1909 = "\\netlocation\FOD\1909"
+       Look for the following in the script and modify as necessary to match your environment: $FODSource20H2 = "\\netlocation\FOD\20H2"
        Look for the following in the script and modify as necessary to match your environment: $LocalFODSource = "$env:ProgramData\armylocal\FOD"
        You can obtain the .CAB files only from Microsoft's TechNet, which requires a subscription; search specificially for Windows 10 Features on Demand Part 1 Version 1809, 1903, or 1909, etc.
        The most recent ones we downloaded were "en_windows_10_features_on_demand_part_1_version_1809_updated_sept_2018_x64_dvd_a68fa301.iso" and "en_windows_10_features_on_demand_part_1_version_1903_x64_dvd_1076e85a"     
@@ -53,10 +53,6 @@
 
     .AUTHOR 
         Michael D. Sloan
-        Fort Bliss SANEC
-        michael.d.sloan.civ@mail.mil
-        DSN: 312-711-0744
-        COMM: +1 915-741-0744
 
     #>
 
