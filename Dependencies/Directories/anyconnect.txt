@@ -1,1 +1,1 @@
-\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\AnyConnect\4.9.00086\Anyconnectinstall.cmd
+\\networklocation\Anyconnectinstall.cmd
