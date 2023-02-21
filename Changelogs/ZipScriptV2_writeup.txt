@@ -1,5 +1,5 @@
 Zip Script V2 Write Up 05/05/2021 
-By SPC Burgess, Drew J & By PFC Leonard, Reilly W
+By Drew Burgess & By Reilly Leonard
 
 Brief Note: 
 Zip Script V1 was never released outside of my unit but it made such an impact that we decided
@@ -13,7 +13,7 @@ Mandatory Directory Path + Filename
 Mandatory File Name re-entry. 
 
 Enter all of the required information.. Here is an example.
-BLISWAEQT0NBXXX
+COMPUTERNAMEXXX
 \\ShareDrive\Directory\Directory\Filename.zip
 Filename.zip
 
@@ -33,7 +33,7 @@ If everything is entered correct you should see in the output window the followi
 Downloading Data Please Wait...
 Extracting Data Please Wait...
 Successfully Extracted Data
-Deleting Zip Archive From Remote Host : hostname 
+Deleting Zip Archive From Remote Host : COMPUTERNAMEXXX
 Script Finished, Script Ready!
 
 If no hostname was entered,   through using   If ($HNorIPV4 -and $null)   , the output window will read...
