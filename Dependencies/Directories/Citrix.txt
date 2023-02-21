@@ -1,1 +1,1 @@
-\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\Citrix\CitrixWorkSpace.cmd
+\\networklocation\Citrix\CitrixWorkSpace.cmd
