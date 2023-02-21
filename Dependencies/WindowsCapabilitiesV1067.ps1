@@ -3601,11 +3601,11 @@ IF(($GetWindowsCapabilitiesResults[1].COUNT -ge 1) -and ($GetWindowsCapabilities
     $UseWUServerValue = "UseWUServer"
     $Disable = 0
     $Enable = 1
-    $FODSource1809 = "\\blisw6syaaa7nec\IMO_Info\FOD\1809"
-    $FODSource1903 = "\\blisw6syaaa7nec\IMO_Info\FOD\1903"
-    $FODSource1909 = "\\blisw6syaaa7nec\IMO_Info\FOD\1909"
-    $FODSource20H2 = "\\blisw6syaaa7nec\IMO_Info\FOD\20H2\"
-    $LocalFODSource = "$env:ProgramData\armylocal\FOD"
+    $FODSource1809 = $null
+    $FODSource1903 = $null
+    $FODSource1909 = $null
+    $FODSource20H2 = $null
+    $LocalFODSource = $null
     
 
     ############# BEGIN: Script Blocks for Reading and Setting Registry Values ################
