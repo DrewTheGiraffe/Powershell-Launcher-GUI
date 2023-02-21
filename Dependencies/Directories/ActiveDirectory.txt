@@ -1,1 +1,1 @@
-\\blisw6syaaa7fcm\1-1AD\2-3 FA\S6\SPC BURGESS\IMO\Active Directory\WindowsTH-RSAT_WS_1803-x64.zip
+\\networklocation\Active Directory\WindowsTH-RSAT_WS_1803-x64.zip
