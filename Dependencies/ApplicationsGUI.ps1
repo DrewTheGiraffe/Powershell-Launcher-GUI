@@ -1,5 +1,4 @@
-﻿# ~Script By SPC Burgess 03/16/2023
-# MOS: 25B & 25U
+﻿# ~Script By SPC Burgess & Jonathan Santiago 02/20/2023
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
