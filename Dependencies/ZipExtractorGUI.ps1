@@ -1,4 +1,4 @@
-# ZipExtractorGui By Drew Burgess 02/20/2023
+﻿# ~Script By SPC Burgess & Jonathan Santiago 02/20/2023
 <#
 #####################################################
     Big thanks to Reddit Friends / Sources
@@ -7,7 +7,7 @@
  a moment feel free to check out this code. If 
  I am still in the Army apon you reading this,
  feel free to reach out with any feedback. 
-      PURGED OF ALL CUI DATA FOR PUBLIC USE.
+     PURGED OF ALL CUI DATA FOR PUBLIC USE.
 #####################################################
 #>
 
