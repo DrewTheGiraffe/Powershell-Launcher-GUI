@@ -1,7 +1,7 @@
 IMO PowerShell Script Collection 05/05/2021 
-SPC Burgess, Drew J
-SPC Santiago, Jonathan A
-PFC Leonard, Reilly W 
+Drew Burgess
+Jonathan Santiago 
+Reilly Leonard 
 
 Intro: 
 I am going to keep this as brief as possible. 
