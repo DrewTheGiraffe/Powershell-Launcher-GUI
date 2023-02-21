@@ -1,4 +1,16 @@
-﻿function Get-InputBox($formTitle, $textTitle){
+# ~Script By SPC Burgess & Jonathan Santiago 02/20/2023
+<#
+#####################################################
+    Big thanks to Reddit Friends / Sources
+ for making this script possible. The goal here
+ is to make things easier for IMO's. If you get
+ a moment feel free to check out this code. If 
+ I am still in the Army apon you reading this,
+ feel free to reach out with any feedback. 
+     PURGED OF ALL CUI DATA FOR PUBLIC USE.
+#####################################################
+#>
+ function Get-InputBox($formTitle, $textTitle){
     [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
     [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") 
     $Script:userInput=$null
