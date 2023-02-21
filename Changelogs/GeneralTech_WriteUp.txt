@@ -49,5 +49,4 @@ Added encryption for secure passwords (Local Admin).
 Added Obfuscation for secure strings stored at rest on script.
 
 Note: 
-I will soon ETS from the army so I will soley rely on you IMO's / SA Users to report bugs. 
-Take care and happy holidays from my entire S6 team & I. ~SPC Burgess, Drew J 2-3 FA S6
+Developer Team, Drew Burgess, Jonathan Santiago, Reilly Leonard
