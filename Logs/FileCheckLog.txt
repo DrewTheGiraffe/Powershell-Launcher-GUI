@@ -1,2 +1,2 @@
-\\blisw6syaaa7nec\IMO_Info\Available Software & Fixes\PS_Tools\PsExec.exe
+\\networklocation\PS_Tools\PsExec.exe
 C:\Windows\System32
