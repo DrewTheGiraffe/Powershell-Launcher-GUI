@@ -35,7 +35,7 @@
         .UPDATE: 1.66 (26 JULY 2021) - ADDED LOGIC TO PULL FOD FILES FROM LOCAL SOURCE
          
     .EXAMPLE
-       Run this script in the CONUS Forest on a computer that has the Admin Tool (RSAT) installed.  This ensures that PowerShell with the necessary ActiveDirectory modules can be loaded.
+       Run this script in a Forest on a computer that has the Admin Tool (RSAT) installed.  This ensures that PowerShell with the necessary ActiveDirectory modules can be loaded.
 
     .INPUTS
        User must select "WHERE" the computer objects are being passed in from (i.e. -ComputerNames, -ComputerListCSV, -SearchAD), and "WHICH" OU from he/she desires the search to begin (i.e. -targetOU, -LocateTargetOU).
