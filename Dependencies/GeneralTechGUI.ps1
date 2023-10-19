@@ -29,7 +29,7 @@ $exactadminfile = "\\network\path\to\PS_Tools\PsExec.exe"
 $userfile = "C:\Windows\System32" 
 $FinalFileString = "$exactadminfile`n$userfile"
 $LocalHostName = $env:COMPUTERNAME # returns HOSTNAME only.
-#[System.Net.DNS]::GetHostByName($null).HostName; # returns : TheHostname.nasw.ds.army.mil
+#[System.Net.DNS]::GetHostByName($null).HostName; # returns : TheHostname.domain.com
 
 #creates window
 $GForm = New-Object System.Windows.Forms.Form
